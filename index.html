@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Melini — Shoes & Bags | Boutique de chaussures et sacs à Uccle</title>
-<meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles. Marques européennes premium, conseil personnalisé. Chaque cliente & chaque pied sont uniques.">
+<title>Melini — Chaussures & Sacs Femme | Boutique à Uccle, Bruxelles</title>
+<meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles. Marques européennes premium de 100 à 200€, conseil personnalisé. Chaque cliente & chaque pied sont uniques.">
+<meta name="keywords" content="chaussures femme Uccle, sacs femme Bruxelles, boutique chaussures Uccle, Melini, chaussures premium Bruxelles, maroquinerie femme Belgique">
 <link rel="canonical" href="https://melini.be/">
 
 <!-- Open Graph / Facebook -->
@@ -64,64 +65,95 @@
 }
 </script>
 
+<!-- Structured Data: Breadcrumb -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://melini.be/" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- ─── NAV ─── -->
-<nav class="nav" id="nav">
-  <a href="#" class="nav-logo">MELINI<span>SHOES &amp; BAGS</span></a>
+<nav class="nav" id="nav" role="navigation" aria-label="Navigation principale">
+  <a href="#" class="nav-logo" aria-label="Melini — Accueil">MELINI<span>SHOES &amp; BAGS</span></a>
   <div class="nav-links">
     <a href="#about">Notre histoire</a>
     <a href="#collection">Collection</a>
     <a href="#marques">Marques</a>
+    <a href="#temoignages">Avis</a>
     <a href="#contact" class="nav-cta">Nous trouver</a>
   </div>
-  <button class="nav-hamburger" aria-label="Ouvrir le menu" aria-expanded="false" onclick="document.querySelector('.mobile-menu').classList.add('open'); this.setAttribute('aria-expanded','true')">
+  <button class="nav-hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- Mobile Menu -->
-<div class="mobile-menu">
-  <button class="mobile-menu-close" aria-label="Fermer le menu" onclick="this.parentElement.classList.remove('open'); document.querySelector('.nav-hamburger').setAttribute('aria-expanded','false')">&times;</button>
-  <a href="#about" onclick="this.parentElement.classList.remove('open')">Notre histoire</a>
-  <a href="#collection" onclick="this.parentElement.classList.remove('open')">Collection</a>
-  <a href="#marques" onclick="this.parentElement.classList.remove('open')">Marques</a>
-  <a href="#contact" onclick="this.parentElement.classList.remove('open')">Nous trouver</a>
+<div class="mobile-menu" role="dialog" aria-label="Menu mobile">
+  <button class="mobile-menu-close" aria-label="Fermer le menu">&times;</button>
+  <a href="#about">Notre histoire</a>
+  <a href="#collection">Collection</a>
+  <a href="#marques">Marques</a>
+  <a href="#temoignages">Avis</a>
+  <a href="#contact">Nous trouver</a>
 </div>
 
 <!-- ─── HERO ─── -->
-<section class="hero">
-  <div class="hero-bg-text">MELINI</div>
+<section class="hero" aria-label="Accueil">
+  <div class="hero-gradient"></div>
+  <div class="hero-bg-text" aria-hidden="true">MELINI</div>
   <div class="hero-content">
-    <h1>Chaque cliente &amp; chaque pied<br>sont <em>uniques</em></h1>
-    <p class="hero-subtitle">Chaussures &amp; sacs femme &bull; Uccle, Bruxelles</p>
-    <a href="#collection" class="btn-primary">Découvrir la collection</a>
+    <p class="hero-overline animate-in">Boutique de chaussures &amp; sacs &bull; Uccle</p>
+    <h1 class="animate-in animate-in-delay-1">Chaque cliente<br>&amp; chaque pied<br>sont <em>uniques</em></h1>
+    <p class="hero-subtitle animate-in animate-in-delay-2">Des marques européennes sélectionnées avec soin,<br>un conseil personnalisé depuis des années.</p>
+    <div class="hero-ctas animate-in animate-in-delay-3">
+      <a href="#collection" class="btn-primary">Découvrir la collection</a>
+      <a href="#contact" class="btn-secondary">Nous rendre visite</a>
+    </div>
   </div>
-  <div class="hero-scroll-hint">
-    <div class="line"></div>
-    <span>Explorer</span>
+  <div class="hero-scroll-hint animate-in animate-in-delay-4">
+    <div class="scroll-line"></div>
+    <span>Défiler</span>
   </div>
 </section>
 
 <!-- ─── BANDEAU ACTU ─── -->
-<div class="bandeau">
-  Nouvelle collection printemps-été 2026 &mdash; Disponible en boutique
+<div class="bandeau" role="marquee">
+  <div class="bandeau-track">
+    <span>Nouvelle collection printemps-été 2026 — Disponible en boutique</span>
+    <span aria-hidden="true">&diams;</span>
+    <span>Conseil personnalisé sur rendez-vous ou en boutique</span>
+    <span aria-hidden="true">&diams;</span>
+    <span>Nouvelle collection printemps-été 2026 — Disponible en boutique</span>
+    <span aria-hidden="true">&diams;</span>
+    <span>Conseil personnalisé sur rendez-vous ou en boutique</span>
+    <span aria-hidden="true">&diams;</span>
+  </div>
 </div>
 
 <!-- ─── À PROPOS ─── -->
 <section class="section" id="about">
   <div class="about">
     <div class="about-image reveal">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <div class="about-image-inner">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="about-image-label">Photo à venir</span>
+      </div>
     </div>
-    <div>
+    <div class="about-text">
       <p class="section-label reveal">Notre histoire</p>
       <h2 class="section-title reveal reveal-delay-1">Un savoir-faire,<br>une passion</h2>
+      <div class="section-divider reveal reveal-delay-1"></div>
       <p class="section-text reveal reveal-delay-2">
         Depuis des années, Melini accueille les femmes d'Uccle et d'ailleurs dans un espace chaleureux où chaque visite est une expérience personnelle. Nous sélectionnons avec soin des marques européennes qui allient style, confort et qualité — parce que nous croyons qu'une belle paire de chaussures peut transformer une journée.
       </p>
@@ -130,14 +162,23 @@
       </p>
       <div class="about-values reveal reveal-delay-3">
         <div class="about-value">
+          <div class="about-value-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          </div>
           <h4>Conseil</h4>
           <p>Un accompagnement personnalisé à chaque visite</p>
         </div>
         <div class="about-value">
+          <div class="about-value-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          </div>
           <h4>Qualité</h4>
           <p>Des marques européennes sélectionnées avec exigence</p>
         </div>
         <div class="about-value">
+          <div class="about-value-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+          </div>
           <h4>Confort</h4>
           <p>Le style ne devrait jamais se faire au détriment du bien-être</p>
         </div>
@@ -146,70 +187,104 @@
   </div>
 </section>
 
-<!-- ─── COLLECTION ─── -->
+<!-- ─── COLLECTION — Carrousel luxe ─── -->
 <section class="section collection" id="collection">
   <p class="section-label reveal">Sélection</p>
   <h2 class="section-title reveal reveal-delay-1">Notre collection</h2>
+  <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 32px;"></div>
   <div class="disclaimer reveal reveal-delay-2">
     Cette sélection ne représente qu'une partie de nos articles en boutique. Venez nous rendre visite pour découvrir l'ensemble de la collection.
   </div>
-  <div class="collection-grid">
-    <div class="collection-card reveal">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Escarpins</h3>
-        <p>Cuir italien</p>
-      </div>
+
+  <!-- Horizontal scroll gallery -->
+  <div class="gallery-wrapper">
+    <div class="gallery-track">
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">01</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Escarpins</h3>
+          <p>Cuir italien, élégance intemporelle</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">02</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Bottines</h3>
+          <p>Collection automne-hiver</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">03</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Sneakers</h3>
+          <p>Confort au quotidien</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">04</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Sandales</h3>
+          <p>Légèreté estivale</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">05</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Mocassins</h3>
+          <p>Élégance décontractée</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">06</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Ballerines</h3>
+          <p>Légèreté &amp; raffinement</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">07</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Sacs à main</h3>
+          <p>Cuir &amp; matières nobles</p>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <div class="gallery-card-visual">
+          <div class="gallery-card-number" aria-hidden="true">08</div>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        </div>
+        <div class="gallery-card-info">
+          <h3>Accessoires</h3>
+          <p>Pour chaque occasion</p>
+        </div>
+      </article>
     </div>
-    <div class="collection-card reveal reveal-delay-1">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Bottines</h3>
-        <p>Collection automne-hiver</p>
-      </div>
-    </div>
-    <div class="collection-card reveal reveal-delay-2">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Sneakers</h3>
-        <p>Confort au quotidien</p>
-      </div>
-    </div>
-    <div class="collection-card reveal reveal-delay-3">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Sacs &amp; accessoires</h3>
-        <p>Cuir &amp; matières nobles</p>
-      </div>
-    </div>
-    <div class="collection-card reveal">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Sandales</h3>
-        <p>Collection été</p>
-      </div>
-    </div>
-    <div class="collection-card reveal reveal-delay-1">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Mocassins</h3>
-        <p>Élégance décontractée</p>
-      </div>
-    </div>
-    <div class="collection-card reveal reveal-delay-2">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Ballerines</h3>
-        <p>Légèreté &amp; raffinement</p>
-      </div>
-    </div>
-    <div class="collection-card reveal reveal-delay-3">
-      <div class="collection-card-img"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-      <div class="collection-card-info">
-        <h3>Sacs à main</h3>
-        <p>Pour chaque occasion</p>
-      </div>
-    </div>
+  </div>
+
+  <div class="gallery-hint reveal" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    <span>Glissez pour explorer</span>
   </div>
 </section>
 
@@ -217,44 +292,58 @@
 <section class="section marques" id="marques">
   <p class="section-label reveal">Nos partenaires</p>
   <h2 class="section-title reveal reveal-delay-1">Des marques d'exception</h2>
+  <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 24px;"></div>
   <p class="section-text reveal reveal-delay-2" style="margin: 0 auto;">
     Nous collaborons avec les plus belles maisons européennes pour vous proposer des pièces alliant style, confort et fabrication d'excellence.
   </p>
-  <div class="marques-track" aria-label="Nos marques partenaires">
-    <span class="marque-item">HISPANITAS</span>
-    <span class="marque-item">GABOR</span>
-    <span class="marque-item">PERLATO</span>
-    <span class="marque-item">NERO GIARDINI</span>
-    <span class="marque-item">UNISA</span>
-    <span class="marque-item">ETRIER</span>
-    <span class="marque-item">LIU JO</span>
-    <span class="marque-item">REGARDE LE CIEL</span>
-    <!-- Duplicate for seamless loop -->
-    <span class="marque-item">HISPANITAS</span>
-    <span class="marque-item">GABOR</span>
-    <span class="marque-item">PERLATO</span>
-    <span class="marque-item">NERO GIARDINI</span>
-    <span class="marque-item">UNISA</span>
-    <span class="marque-item">ETRIER</span>
-    <span class="marque-item">LIU JO</span>
-    <span class="marque-item">REGARDE LE CIEL</span>
+  <div class="marques-container" aria-label="Nos marques partenaires">
+    <div class="marques-track">
+      <span class="marque-item">HISPANITAS</span>
+      <span class="marque-item">GABOR</span>
+      <span class="marque-item">PERLATO</span>
+      <span class="marque-item">NERO GIARDINI</span>
+      <span class="marque-item">UNISA</span>
+      <span class="marque-item">ETRIER</span>
+      <span class="marque-item">LIU JO</span>
+      <span class="marque-item">REGARDE LE CIEL</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="marque-item" aria-hidden="true">HISPANITAS</span>
+      <span class="marque-item" aria-hidden="true">GABOR</span>
+      <span class="marque-item" aria-hidden="true">PERLATO</span>
+      <span class="marque-item" aria-hidden="true">NERO GIARDINI</span>
+      <span class="marque-item" aria-hidden="true">UNISA</span>
+      <span class="marque-item" aria-hidden="true">ETRIER</span>
+      <span class="marque-item" aria-hidden="true">LIU JO</span>
+      <span class="marque-item" aria-hidden="true">REGARDE LE CIEL</span>
+    </div>
   </div>
 </section>
 
+<!-- ─── CITATION SÉPARATEUR ─── -->
+<section class="section quote-section">
+  <blockquote class="pull-quote reveal">
+    <p>Le vrai luxe, c'est le confort<br>que l'on ne remarque pas.</p>
+  </blockquote>
+</section>
+
 <!-- ─── TÉMOIGNAGES ─── -->
-<section class="section testimonials">
+<section class="section testimonials" id="temoignages">
   <p class="section-label reveal">Ce qu'elles en disent</p>
   <h2 class="section-title reveal reveal-delay-1">La parole à nos clientes</h2>
+  <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 48px;"></div>
   <div class="testimonial-grid">
     <div class="testimonial reveal">
+      <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
       <blockquote>Je viens chez Melini depuis des années. On me connaît, on connaît mes pieds, et je repars toujours avec le sourire. C'est devenu bien plus qu'une boutique.</blockquote>
       <cite>Catherine D.</cite>
     </div>
     <div class="testimonial reveal reveal-delay-1">
+      <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
       <blockquote>Le conseil est vraiment personnalisé. On ne vous vend pas une paire, on vous trouve LA paire. Ça change tout.</blockquote>
       <cite>Marie-Claire V.</cite>
     </div>
     <div class="testimonial reveal reveal-delay-2">
+      <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
       <blockquote>Des marques qu'on ne trouve pas partout, une qualité irréprochable, et un accueil tellement agréable. Ma boutique préférée à Uccle.</blockquote>
       <cite>Sophie L.</cite>
     </div>
@@ -268,8 +357,8 @@
   <p class="section-text reveal reveal-delay-2" style="margin: 0 auto;">
     Retrouvez nos nouveautés, nos coups de cœur et les coulisses de la boutique sur Facebook.
   </p>
-  <a href="https://www.facebook.com/melinishoes/" class="social-link reveal reveal-delay-3" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+  <a href="https://www.facebook.com/melinishoes/" class="social-link reveal reveal-delay-3" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     Melini sur Facebook
   </a>
 </section>
@@ -280,6 +369,7 @@
     <div>
       <p class="section-label reveal">Nous trouver</p>
       <h2 class="section-title reveal reveal-delay-1">Rendez-nous visite</h2>
+      <div class="section-divider reveal reveal-delay-1" style="background: rgba(232,196,184,0.4);"></div>
       <div class="contact-info reveal reveal-delay-2">
         <div class="contact-block">
           <h4>Adresse</h4>
@@ -295,9 +385,13 @@
         </div>
         <div class="contact-block">
           <h4>Téléphone</h4>
-          <a href="tel:023777880">02 377 78 80</a>
+          <a href="tel:+3223777880">02 377 78 80</a>
         </div>
       </div>
+      <a href="https://www.google.com/maps/dir//Chauss%C3%A9e+d'Alsemberg+817,+1180+Uccle" class="btn-primary contact-directions reveal reveal-delay-3" target="_blank" rel="noopener noreferrer">
+        Itinéraire Google Maps
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+      </a>
     </div>
     <div class="contact-map reveal reveal-delay-3">
       <iframe
@@ -310,39 +404,136 @@
 </section>
 
 <!-- ─── FOOTER ─── -->
-<footer class="footer">
-  <span>&copy; 2026 Melini — Tous droits réservés</span>
-  <span>
-    <a href="#">Mentions légales</a> &middot;
-    <a href="#">Politique de confidentialité</a>
-  </span>
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">MELINI</span>
+      <p>Chaussures &amp; sacs femme depuis des années à Uccle.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#about">Notre histoire</a>
+      <a href="#collection">Collection</a>
+      <a href="#marques">Marques</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 Melini — Tous droits réservés</span>
+      <span>
+        <a href="#">Mentions légales</a> &middot;
+        <a href="#">Confidentialité</a>
+      </span>
+    </div>
+  </div>
 </footer>
 
 <script>
-// Nav scroll effect
+// ─── Nav scroll effect ───
 const nav = document.getElementById('nav');
+let lastScrollY = 0;
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
-});
+  // Hide nav on scroll down, show on scroll up
+  if (window.scrollY > 300) {
+    nav.classList.toggle('nav-hidden', window.scrollY > lastScrollY);
+  } else {
+    nav.classList.remove('nav-hidden');
+  }
+  lastScrollY = window.scrollY;
+}, { passive: true });
 
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
+// ─── Mobile menu ───
+const hamburger = document.querySelector('.nav-hamburger');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileClose = document.querySelector('.mobile-menu-close');
+const mobileLinks = mobileMenu.querySelectorAll('a');
+
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+});
+mobileClose.addEventListener('click', closeMobile);
+mobileLinks.forEach(link => link.addEventListener('click', closeMobile));
+function closeMobile() {
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+// ─── Scroll reveal with stagger ───
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Parallax on hero bg text
+// ─── Hero entrance animation ───
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.animate-in').forEach((el, i) => {
+    el.style.animationDelay = `${0.2 + i * 0.15}s`;
+  });
+});
+
+// ─── Parallax on hero bg text ───
 const heroBg = document.querySelector('.hero-bg-text');
+let ticking = false;
 window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  if (scrolled < window.innerHeight) {
-    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+        heroBg.style.opacity = Math.max(0, 0.5 - scrolled * 0.001);
+      }
+      ticking = false;
+    });
+    ticking = true;
   }
+}, { passive: true });
+
+// ─── Gallery horizontal drag scroll ───
+const gallery = document.querySelector('.gallery-track');
+if (gallery) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  gallery.addEventListener('mousedown', (e) => {
+    isDown = true;
+    gallery.classList.add('grabbing');
+    startX = e.pageX - gallery.offsetLeft;
+    scrollLeft = gallery.parentElement.scrollLeft;
+  });
+  gallery.addEventListener('mouseleave', () => {
+    isDown = false;
+    gallery.classList.remove('grabbing');
+  });
+  gallery.addEventListener('mouseup', () => {
+    isDown = false;
+    gallery.classList.remove('grabbing');
+  });
+  gallery.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - gallery.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    gallery.parentElement.scrollLeft = scrollLeft - walk;
+  });
+}
+
+// ─── Smooth anchor scrolling with offset ───
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
 });
 </script>
 
