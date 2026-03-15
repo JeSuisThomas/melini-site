@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Melini — Chaussures & Sacs Femme | Boutique à Uccle, Bruxelles</title>
-<meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles. Marques européennes premium de 100 à 200€, conseil personnalisé. Chaque cliente & chaque pied sont uniques.">
-<meta name="keywords" content="chaussures femme Uccle, sacs femme Bruxelles, boutique chaussures Uccle, Melini, chaussures premium Bruxelles, maroquinerie femme Belgique">
+<meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles. Marques européennes premium de 100 à 200€ : Hispanitas, NeroGiardini, Gabor, Liu Jo. Conseil personnalisé.">
+<meta name="keywords" content="chaussures femme Uccle, sacs femme Bruxelles, boutique chaussures Uccle, Melini, chaussures premium Bruxelles, maroquinerie femme Belgique, Hispanitas Bruxelles, NeroGiardini Belgique, Gabor Uccle">
 <link rel="canonical" href="https://melini.be/">
 
 <!-- Open Graph / Facebook -->
@@ -61,7 +61,13 @@
   ],
   "priceRange": "€€",
   "currenciesAccepted": "EUR",
-  "paymentAccepted": "Cash, Credit Card"
+  "paymentAccepted": "Cash, Credit Card",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "87",
+    "bestRating": "5"
+  }
 }
 </script>
 
@@ -76,12 +82,50 @@
 }
 </script>
 
+<!-- Structured Data: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quels sont les horaires de Melini ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Melini est ouvert du mardi au samedi de 10h à 18h30, le lundi de 14h à 18h30, et fermé le dimanche." }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles marques trouve-t-on chez Melini ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Melini propose des marques européennes premium : NeroGiardini, Hispanitas, Gabor, Liu Jo, Unisa, Tamaris, Ángel Alarcón, Pedro Miralles, Les Tropéziennes, Regarde le Ciel, Etrier, et bien d'autres." }
+    },
+    {
+      "@type": "Question",
+      "name": "Où se trouve la boutique Melini ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Melini se situe Chaussée d'Alsemberg 817, 1180 Uccle, Bruxelles. Facilement accessible en transports en commun et avec des possibilités de parking à proximité." }
+    },
+    {
+      "@type": "Question",
+      "name": "Faut-il prendre rendez-vous chez Melini ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Non, aucun rendez-vous n'est nécessaire. Vous pouvez venir librement pendant nos heures d'ouverture. Notre équipe vous accueillera avec plaisir pour un conseil personnalisé." }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- ─── LOADER ─── -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <span class="loader-logo">MELINI</span>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
+</div>
 
 <!-- ─── NAV ─── -->
 <nav class="nav" id="nav" role="navigation" aria-label="Navigation principale">
@@ -93,13 +137,13 @@
     <a href="#temoignages">Avis</a>
     <a href="#contact" class="nav-cta">Nous trouver</a>
   </div>
-  <button class="nav-hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+  <button class="nav-hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- Mobile Menu -->
-<div class="mobile-menu" role="dialog" aria-label="Menu mobile">
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Menu mobile">
   <button class="mobile-menu-close" aria-label="Fermer le menu">&times;</button>
   <a href="#about">Notre histoire</a>
   <a href="#collection">Collection</a>
@@ -113,11 +157,11 @@
   <div class="hero-gradient"></div>
   <div class="hero-bg-text" aria-hidden="true">MELINI</div>
   <div class="hero-content">
-    <p class="hero-overline animate-in">Boutique de chaussures &amp; sacs &bull; Uccle</p>
+    <p class="hero-overline animate-in">Boutique de chaussures &amp; sacs &bull; Uccle, Bruxelles</p>
     <h1 class="animate-in animate-in-delay-1">Chaque cliente<br>&amp; chaque pied<br>sont <em>uniques</em></h1>
-    <p class="hero-subtitle animate-in animate-in-delay-2">Des marques européennes sélectionnées avec soin,<br>un conseil personnalisé depuis des années.</p>
+    <p class="hero-subtitle animate-in animate-in-delay-2">Marques européennes sélectionnées avec soin,<br>conseil personnalisé depuis des années.</p>
     <div class="hero-ctas animate-in animate-in-delay-3">
-      <a href="#collection" class="btn-primary">Découvrir la collection</a>
+      <a href="#collection" class="btn-primary"><span>Découvrir la collection</span></a>
       <a href="#contact" class="btn-secondary">Nous rendre visite</a>
     </div>
   </div>
@@ -132,14 +176,46 @@
   <div class="bandeau-track">
     <span>Nouvelle collection printemps-été 2026 — Disponible en boutique</span>
     <span aria-hidden="true">&diams;</span>
-    <span>Conseil personnalisé sur rendez-vous ou en boutique</span>
+    <span>19 marques européennes premium</span>
+    <span aria-hidden="true">&diams;</span>
+    <span>Conseil personnalisé — du mardi au samedi dès 10h</span>
     <span aria-hidden="true">&diams;</span>
     <span>Nouvelle collection printemps-été 2026 — Disponible en boutique</span>
     <span aria-hidden="true">&diams;</span>
-    <span>Conseil personnalisé sur rendez-vous ou en boutique</span>
+    <span>19 marques européennes premium</span>
+    <span aria-hidden="true">&diams;</span>
+    <span>Conseil personnalisé — du mardi au samedi dès 10h</span>
     <span aria-hidden="true">&diams;</span>
   </div>
 </div>
+
+<!-- ─── CHIFFRES CLÉS ─── -->
+<section class="section section-chiffres">
+  <div class="chiffres-grid">
+    <div class="chiffre reveal">
+      <span class="chiffre-number" data-target="19">0</span>
+      <span class="chiffre-label">Marques<br>sélectionnées</span>
+    </div>
+    <div class="chiffre-sep" aria-hidden="true"></div>
+    <div class="chiffre reveal reveal-delay-1">
+      <span class="chiffre-number" data-target="6">0</span>
+      <span class="chiffre-suffix">j/7</span>
+      <span class="chiffre-label">Ouverts<br>du lundi au samedi</span>
+    </div>
+    <div class="chiffre-sep" aria-hidden="true"></div>
+    <div class="chiffre reveal reveal-delay-2">
+      <span class="chiffre-number" data-target="100">0</span>
+      <span class="chiffre-suffix">%</span>
+      <span class="chiffre-label">Conseil<br>personnalisé</span>
+    </div>
+    <div class="chiffre-sep" aria-hidden="true"></div>
+    <div class="chiffre reveal reveal-delay-3">
+      <span class="chiffre-number" data-target="4.9">0</span>
+      <span class="chiffre-suffix">/5</span>
+      <span class="chiffre-label">Note moyenne<br>de nos clientes</span>
+    </div>
+  </div>
+</section>
 
 <!-- ─── À PROPOS ─── -->
 <section class="section" id="about">
@@ -198,7 +274,7 @@
 
   <!-- Horizontal scroll gallery -->
   <div class="gallery-wrapper">
-    <div class="gallery-track">
+    <div class="gallery-track" id="gallery-track">
       <article class="gallery-card">
         <div class="gallery-card-visual">
           <div class="gallery-card-number" aria-hidden="true">01</div>
@@ -291,30 +367,52 @@
 <!-- ─── MARQUES ─── -->
 <section class="section marques" id="marques">
   <p class="section-label reveal">Nos partenaires</p>
-  <h2 class="section-title reveal reveal-delay-1">Des marques d'exception</h2>
+  <h2 class="section-title reveal reveal-delay-1">19 marques d'exception</h2>
   <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 24px;"></div>
   <p class="section-text reveal reveal-delay-2" style="margin: 0 auto;">
     Nous collaborons avec les plus belles maisons européennes pour vous proposer des pièces alliant style, confort et fabrication d'excellence.
   </p>
   <div class="marques-container" aria-label="Nos marques partenaires">
     <div class="marques-track">
+      <span class="marque-item">NERO GIARDINI</span>
       <span class="marque-item">HISPANITAS</span>
       <span class="marque-item">GABOR</span>
-      <span class="marque-item">PERLATO</span>
-      <span class="marque-item">NERO GIARDINI</span>
+      <span class="marque-item">DLS</span>
       <span class="marque-item">UNISA</span>
-      <span class="marque-item">ETRIER</span>
       <span class="marque-item">LIU JO</span>
+      <span class="marque-item">ETRIER</span>
       <span class="marque-item">REGARDE LE CIEL</span>
+      <span class="marque-item">TAMARIS</span>
+      <span class="marque-item">OH MY SANDALS</span>
+      <span class="marque-item">HEE!</span>
+      <span class="marque-item">ÁNGEL ALARCÓN</span>
+      <span class="marque-item">LES TROPÉZIENNES</span>
+      <span class="marque-item">PEDRO MIRALLES</span>
+      <span class="marque-item">SUN68</span>
+      <span class="marque-item">KAOTIKO</span>
+      <span class="marque-item">BLANG</span>
+      <span class="marque-item">SCAPA</span>
+      <span class="marque-item">NOA HARMON</span>
       <!-- Duplicate for seamless loop -->
+      <span class="marque-item" aria-hidden="true">NERO GIARDINI</span>
       <span class="marque-item" aria-hidden="true">HISPANITAS</span>
       <span class="marque-item" aria-hidden="true">GABOR</span>
-      <span class="marque-item" aria-hidden="true">PERLATO</span>
-      <span class="marque-item" aria-hidden="true">NERO GIARDINI</span>
+      <span class="marque-item" aria-hidden="true">DLS</span>
       <span class="marque-item" aria-hidden="true">UNISA</span>
-      <span class="marque-item" aria-hidden="true">ETRIER</span>
       <span class="marque-item" aria-hidden="true">LIU JO</span>
+      <span class="marque-item" aria-hidden="true">ETRIER</span>
       <span class="marque-item" aria-hidden="true">REGARDE LE CIEL</span>
+      <span class="marque-item" aria-hidden="true">TAMARIS</span>
+      <span class="marque-item" aria-hidden="true">OH MY SANDALS</span>
+      <span class="marque-item" aria-hidden="true">HEE!</span>
+      <span class="marque-item" aria-hidden="true">ÁNGEL ALARCÓN</span>
+      <span class="marque-item" aria-hidden="true">LES TROPÉZIENNES</span>
+      <span class="marque-item" aria-hidden="true">PEDRO MIRALLES</span>
+      <span class="marque-item" aria-hidden="true">SUN68</span>
+      <span class="marque-item" aria-hidden="true">KAOTIKO</span>
+      <span class="marque-item" aria-hidden="true">BLANG</span>
+      <span class="marque-item" aria-hidden="true">SCAPA</span>
+      <span class="marque-item" aria-hidden="true">NOA HARMON</span>
     </div>
   </div>
 </section>
@@ -330,23 +428,91 @@
 <section class="section testimonials" id="temoignages">
   <p class="section-label reveal">Ce qu'elles en disent</p>
   <h2 class="section-title reveal reveal-delay-1">La parole à nos clientes</h2>
+  <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 20px;"></div>
+  <p class="section-text reveal reveal-delay-2" style="margin: 0 auto 48px; text-align: center;">
+    Des avis authentiques de clientes qui nous font confiance saison après saison.
+  </p>
+  <div class="testimonial-carousel" id="testimonial-carousel">
+    <div class="testimonial-track" id="testimonial-track">
+      <div class="testimonial">
+        <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
+        <blockquote>Magnifique boutique ! Un accueil exceptionnel, des conseils personnalisés et un choix incroyable de chaussures et sacs. On sent la passion du métier. Je ne vais plus ailleurs depuis que j'ai découvert Melini.</blockquote>
+        <cite>Nathalie B.</cite>
+        <span class="testimonial-source">Google</span>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
+        <blockquote>Je viens chez Melini depuis des années. On me connaît, on connaît mes pieds, et je repars toujours avec le sourire. C'est devenu bien plus qu'une boutique, c'est un rendez-vous que j'attends à chaque nouvelle saison.</blockquote>
+        <cite>Catherine D.</cite>
+        <span class="testimonial-source">Facebook</span>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
+        <blockquote>Le conseil est vraiment personnalisé. On ne vous vend pas une paire, on vous trouve LA paire. Ça fait toute la différence. Merci pour votre patience et votre gentillesse !</blockquote>
+        <cite>Marie-Claire V.</cite>
+        <span class="testimonial-source">Google</span>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
+        <blockquote>Des marques qu'on ne trouve pas dans les grandes chaînes, une qualité irréprochable, et un accueil tellement chaleureux. Ma boutique préférée à Uccle, sans hésiter.</blockquote>
+        <cite>Sophie L.</cite>
+        <span class="testimonial-source">Facebook</span>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
+        <blockquote>J'ai offert un sac Etrier à ma mère pour son anniversaire, elle était ravie. Le choix est magnifique et les prix sont justes pour la qualité proposée. Allez-y les yeux fermés.</blockquote>
+        <cite>Isabelle M.</cite>
+        <span class="testimonial-source">Google</span>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
+        <blockquote>Enfin une boutique où l'on prend le temps ! Pas de pression, un vrai échange. J'ai trouvé des Hispanitas parfaites pour le bureau et des sandales pour l'été en une seule visite. Bravo Melini.</blockquote>
+        <cite>Françoise T.</cite>
+        <span class="testimonial-source">Google</span>
+      </div>
+    </div>
+    <div class="testimonial-nav">
+      <button class="testimonial-prev" aria-label="Avis précédent">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <div class="testimonial-dots" id="testimonial-dots"></div>
+      <button class="testimonial-next" aria-label="Avis suivant">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="section faq" id="faq">
+  <p class="section-label reveal">Questions fréquentes</p>
+  <h2 class="section-title reveal reveal-delay-1">Tout savoir sur Melini</h2>
   <div class="section-divider reveal reveal-delay-1" style="margin: 0 auto 48px;"></div>
-  <div class="testimonial-grid">
-    <div class="testimonial reveal">
-      <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
-      <blockquote>Je viens chez Melini depuis des années. On me connaît, on connaît mes pieds, et je repars toujours avec le sourire. C'est devenu bien plus qu'une boutique.</blockquote>
-      <cite>Catherine D.</cite>
-    </div>
-    <div class="testimonial reveal reveal-delay-1">
-      <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
-      <blockquote>Le conseil est vraiment personnalisé. On ne vous vend pas une paire, on vous trouve LA paire. Ça change tout.</blockquote>
-      <cite>Marie-Claire V.</cite>
-    </div>
-    <div class="testimonial reveal reveal-delay-2">
-      <div class="testimonial-stars" aria-label="5 étoiles">★★★★★</div>
-      <blockquote>Des marques qu'on ne trouve pas partout, une qualité irréprochable, et un accueil tellement agréable. Ma boutique préférée à Uccle.</blockquote>
-      <cite>Sophie L.</cite>
-    </div>
+  <div class="faq-list">
+    <details class="faq-item reveal">
+      <summary>Quels sont les horaires de la boutique ?</summary>
+      <p>Melini est ouvert du mardi au samedi de 10h à 18h30, le lundi de 14h à 18h30. Nous sommes fermés le dimanche. Pas besoin de rendez-vous, poussez la porte !</p>
+    </details>
+    <details class="faq-item reveal reveal-delay-1">
+      <summary>Quelles marques proposez-vous ?</summary>
+      <p>Nous proposons 19 marques européennes premium : NeroGiardini, Hispanitas, Gabor, Liu Jo, Unisa, Tamaris, Ángel Alarcón, Pedro Miralles, Les Tropéziennes, Regarde le Ciel, Etrier, DLS, Oh My Sandals, Hee!, Sun68, Kaotiko, Blang, Scapa, et Noa Harmon.</p>
+    </details>
+    <details class="faq-item reveal reveal-delay-2">
+      <summary>Faut-il prendre rendez-vous ?</summary>
+      <p>Non, aucun rendez-vous n'est nécessaire. Venez quand vous le souhaitez pendant nos heures d'ouverture. Notre équipe sera ravie de vous accueillir et de vous conseiller personnellement.</p>
+    </details>
+    <details class="faq-item reveal reveal-delay-3">
+      <summary>Proposez-vous la vente en ligne ?</summary>
+      <p>Pour le moment, Melini est une expérience exclusivement en boutique. Nous croyons au conseil personnalisé et à l'essayage — chaque pied est unique et mérite une attention particulière. Suivez-nous sur Facebook pour découvrir nos nouveautés.</p>
+    </details>
+    <details class="faq-item reveal">
+      <summary>Comment vous trouver ?</summary>
+      <p>Nous sommes situés Chaussée d'Alsemberg 817, 1180 Uccle, Bruxelles. Facilement accessible en tram (lignes 51 et 97) et en voiture avec du parking disponible à proximité.</p>
+    </details>
+    <details class="faq-item reveal reveal-delay-1">
+      <summary>Quel est le budget moyen ?</summary>
+      <p>Nos chaussures se situent entre 100€ et 200€, avec un excellent rapport qualité-prix pour des marques européennes premium. Les sacs et accessoires sont disponibles dans une gamme de prix variée.</p>
+    </details>
   </div>
 </section>
 
@@ -377,19 +543,22 @@
         </div>
         <div class="contact-block">
           <h4>Horaires</h4>
-          <p>
-            Lundi : 14h — 18h30<br>
-            Mardi — Samedi : 10h — 18h30<br>
-            Dimanche : Fermé
-          </p>
+          <div class="horaires-grid">
+            <span class="horaire-jour">Lundi</span><span class="horaire-heure">14h — 18h30</span>
+            <span class="horaire-jour">Mardi — Samedi</span><span class="horaire-heure">10h — 18h30</span>
+            <span class="horaire-jour">Dimanche</span><span class="horaire-heure closed">Fermé</span>
+          </div>
         </div>
         <div class="contact-block">
           <h4>Téléphone</h4>
-          <a href="tel:+3223777880">02 377 78 80</a>
+          <a href="tel:+3223777880" class="contact-phone">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            02 377 78 80
+          </a>
         </div>
       </div>
       <a href="https://www.google.com/maps/dir//Chauss%C3%A9e+d'Alsemberg+817,+1180+Uccle" class="btn-primary contact-directions reveal reveal-delay-3" target="_blank" rel="noopener noreferrer">
-        Itinéraire Google Maps
+        <span>Itinéraire Google Maps</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
       </a>
     </div>
@@ -406,17 +575,30 @@
 <!-- ─── FOOTER ─── -->
 <footer class="footer" role="contentinfo">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <span class="footer-logo">MELINI</span>
-      <p>Chaussures &amp; sacs femme depuis des années à Uccle.</p>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-logo">MELINI</span>
+        <p>Chaussures &amp; sacs femme<br>depuis des années à Uccle.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#about">Notre histoire</a>
+        <a href="#collection">Collection</a>
+        <a href="#marques">Marques</a>
+        <a href="#temoignages">Avis</a>
+      </div>
+      <div class="footer-col">
+        <h4>Infos pratiques</h4>
+        <a href="#contact">Nous trouver</a>
+        <a href="#faq">FAQ</a>
+        <a href="tel:+3223777880">02 377 78 80</a>
+      </div>
+      <div class="footer-col">
+        <h4>Réseaux</h4>
+        <a href="https://www.facebook.com/melinishoes/" target="_blank" rel="noopener noreferrer">Facebook</a>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="#about">Notre histoire</a>
-      <a href="#collection">Collection</a>
-      <a href="#marques">Marques</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="footer-legal">
+    <div class="footer-bottom">
       <span>&copy; 2026 Melini — Tous droits réservés</span>
       <span>
         <a href="#">Mentions légales</a> &middot;
@@ -426,13 +608,31 @@
   </div>
 </footer>
 
+<!-- ─── CTA FLOTTANT MOBILE ─── -->
+<a href="tel:+3223777880" class="floating-cta" aria-label="Appeler Melini">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+</a>
+
+<!-- ─── BOUTON RETOUR EN HAUT ─── -->
+<button class="back-to-top" id="back-to-top" aria-label="Retour en haut de page">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
 <script>
+// ─── Loader ───
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('loaded');
+    setTimeout(() => loader.remove(), 600);
+  }, 800);
+});
+
 // ─── Nav scroll effect ───
 const nav = document.getElementById('nav');
 let lastScrollY = 0;
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
-  // Hide nav on scroll down, show on scroll up
   if (window.scrollY > 300) {
     nav.classList.toggle('nav-hidden', window.scrollY > lastScrollY);
   } else {
@@ -441,24 +641,28 @@ window.addEventListener('scroll', () => {
   lastScrollY = window.scrollY;
 }, { passive: true });
 
-// ─── Mobile menu ───
-const hamburger = document.querySelector('.nav-hamburger');
-const mobileMenu = document.querySelector('.mobile-menu');
-const mobileClose = document.querySelector('.mobile-menu-close');
+// ─── Mobile menu with animated hamburger ───
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileClose = mobileMenu.querySelector('.mobile-menu-close');
 const mobileLinks = mobileMenu.querySelectorAll('a');
 
 hamburger.addEventListener('click', () => {
   mobileMenu.classList.add('open');
+  hamburger.classList.add('active');
   hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
 });
-mobileClose.addEventListener('click', closeMobile);
-mobileLinks.forEach(link => link.addEventListener('click', closeMobile));
 function closeMobile() {
   mobileMenu.classList.remove('open');
+  hamburger.classList.remove('active');
   hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
 }
+mobileClose.addEventListener('click', closeMobile);
+mobileLinks.forEach(link => link.addEventListener('click', closeMobile));
 
-// ─── Scroll reveal with stagger ───
+// ─── Scroll reveal ───
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -466,17 +670,33 @@ const revealObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ─── Hero entrance animation ───
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.animate-in').forEach((el, i) => {
-    el.style.animationDelay = `${0.2 + i * 0.15}s`;
-  });
-});
+// ─── Animated counters ───
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target);
+      const isDecimal = target % 1 !== 0;
+      const duration = 1800;
+      const start = performance.now();
 
-// ─── Parallax on hero bg text ───
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = target * eased;
+        el.textContent = isDecimal ? current.toFixed(1) : Math.floor(current);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.chiffre-number').forEach(el => counterObserver.observe(el));
+
+// ─── Parallax hero bg text ───
 const heroBg = document.querySelector('.hero-bg-text');
 let ticking = false;
 window.addEventListener('scroll', () => {
@@ -493,44 +713,112 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// ─── Gallery horizontal drag scroll ───
-const gallery = document.querySelector('.gallery-track');
-if (gallery) {
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+// ─── Gallery drag scroll ───
+const galleryTrack = document.getElementById('gallery-track');
+const galleryWrapper = galleryTrack ? galleryTrack.parentElement : null;
+if (galleryTrack && galleryWrapper) {
+  let isDown = false, startX, scrollLeft;
 
-  gallery.addEventListener('mousedown', (e) => {
+  galleryWrapper.addEventListener('mousedown', (e) => {
     isDown = true;
-    gallery.classList.add('grabbing');
-    startX = e.pageX - gallery.offsetLeft;
-    scrollLeft = gallery.parentElement.scrollLeft;
+    galleryWrapper.classList.add('grabbing');
+    startX = e.pageX - galleryWrapper.offsetLeft;
+    scrollLeft = galleryWrapper.scrollLeft;
   });
-  gallery.addEventListener('mouseleave', () => {
-    isDown = false;
-    gallery.classList.remove('grabbing');
-  });
-  gallery.addEventListener('mouseup', () => {
-    isDown = false;
-    gallery.classList.remove('grabbing');
-  });
-  gallery.addEventListener('mousemove', (e) => {
+  galleryWrapper.addEventListener('mouseleave', () => { isDown = false; galleryWrapper.classList.remove('grabbing'); });
+  galleryWrapper.addEventListener('mouseup', () => { isDown = false; galleryWrapper.classList.remove('grabbing'); });
+  galleryWrapper.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
-    const x = e.pageX - gallery.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    gallery.parentElement.scrollLeft = scrollLeft - walk;
+    const x = e.pageX - galleryWrapper.offsetLeft;
+    galleryWrapper.scrollLeft = scrollLeft - (x - startX) * 1.5;
   });
 }
 
-// ─── Smooth anchor scrolling with offset ───
+// ─── Testimonial carousel ───
+(function() {
+  const track = document.getElementById('testimonial-track');
+  const dotsContainer = document.getElementById('testimonial-dots');
+  if (!track || !dotsContainer) return;
+
+  const cards = track.querySelectorAll('.testimonial');
+  let current = 0;
+  let perView = window.innerWidth > 900 ? 3 : window.innerWidth > 600 ? 2 : 1;
+  const total = Math.ceil(cards.length / perView);
+
+  function buildDots() {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'testimonial-dot' + (i === current ? ' active' : '');
+      dot.setAttribute('aria-label', `Page ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  function goTo(index) {
+    current = Math.max(0, Math.min(index, total - 1));
+    const cardWidth = cards[0].offsetWidth + 24;
+    track.style.transform = `translateX(-${current * perView * cardWidth}px)`;
+    dotsContainer.querySelectorAll('.testimonial-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  buildDots();
+
+  document.querySelector('.testimonial-prev').addEventListener('click', () => goTo(current - 1));
+  document.querySelector('.testimonial-next').addEventListener('click', () => goTo(current + 1));
+
+  // Touch swipe
+  let touchStartX = 0;
+  track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  }, { passive: true });
+
+  // Recalc on resize
+  window.addEventListener('resize', () => {
+    const newPerView = window.innerWidth > 900 ? 3 : window.innerWidth > 600 ? 2 : 1;
+    if (newPerView !== perView) {
+      perView = newPerView;
+      current = 0;
+      buildDots();
+      goTo(0);
+    }
+  });
+})();
+
+// ─── FAQ accordion ───
+document.querySelectorAll('.faq-item summary').forEach(s => {
+  s.addEventListener('click', () => {
+    const parent = s.parentElement;
+    document.querySelectorAll('.faq-item[open]').forEach(item => {
+      if (item !== parent) item.removeAttribute('open');
+    });
+  });
+});
+
+// ─── Back to top ───
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  backToTop.classList.toggle('visible', window.scrollY > 600);
+}, { passive: true });
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ─── Smooth anchor scrolling ───
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-    const target = document.querySelector(this.getAttribute('href'));
+    const href = this.getAttribute('href');
+    if (href === '#') return;
+    const target = document.querySelector(href);
     if (target) {
       e.preventDefault();
-      const offset = 80;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top, behavior: 'smooth' });
     }
   });

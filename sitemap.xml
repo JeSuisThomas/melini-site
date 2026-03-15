@@ -3,6 +3,7 @@
   <url>
     <loc>https://melini.be/</loc>
     <lastmod>2026-03-15</lastmod>
+    <!-- One-page site: sections are anchor-linked, no additional URLs needed -->
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
