@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melini — Shoes & Bags | Boutique de chaussures et sacs à Uccle</title>
+<meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles. Marques européennes premium, conseil personnalisé. Chaque cliente & chaque pied sont uniques.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #1A1A1A;
+  --blanc: #FFFFFF;
+  --rose: #D4A99A;
+  --rose-light: #E8C4B8;
+  --creme: #F5EDE8;
+  --creme-deep: #EDE0D8;
+  --text-muted: #7A6B63;
+  --text-body: #4A3F3A;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  color: var(--noir);
+  background: var(--blanc);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.12s; }
+.reveal-delay-2 { transition-delay: 0.24s; }
+.reveal-delay-3 { transition-delay: 0.36s; }
+.reveal-delay-4 { transition-delay: 0.48s; }
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: padding 0.4s ease, box-shadow 0.4s ease;
+}
+.nav.scrolled {
+  padding: 14px 48px;
+  box-shadow: 0 1px 0 rgba(212,169,154,0.2);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--noir);
+  text-decoration: none;
+  line-height: 1;
+}
+.nav-logo span {
+  display: block;
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  color: var(--rose);
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--noir); }
+.nav-cta {
+  font-size: 11px !important;
+  letter-spacing: 2px !important;
+  padding: 10px 22px;
+  background: var(--rose);
+  color: var(--blanc) !important;
+  border-radius: 0;
+  transition: background 0.3s, color 0.3s !important;
+}
+.nav-cta:hover { background: var(--noir); color: var(--blanc) !important; }
+
+/* Mobile menu */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--noir);
+  transition: all 0.3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--blanc);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--noir);
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+.mobile-menu-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--noir);
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--creme);
+  overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute;
+  font-family: var(--serif);
+  font-size: clamp(120px, 18vw, 260px);
+  font-weight: 300;
+  color: var(--creme-deep);
+  letter-spacing: 20px;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  padding: 0 24px;
+}
+.hero-content h1 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--noir);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.hero-content h1 em {
+  font-style: italic;
+  color: var(--rose);
+}
+.hero-subtitle {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+.btn-primary {
+  display: inline-block;
+  padding: 14px 40px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blanc);
+  background: var(--noir);
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover {
+  background: var(--rose);
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero-scroll-hint .line {
+  width: 1px;
+  height: 40px;
+  background: var(--rose);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ─── BANDEAU ─── */
+.bandeau {
+  background: var(--rose);
+  color: var(--blanc);
+  text-align: center;
+  padding: 14px 24px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+/* ─── SECTIONS COMMON ─── */
+.section {
+  padding: 100px 48px;
+}
+.section-label {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--noir);
+  margin-bottom: 20px;
+}
+.section-text {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-body);
+  font-weight: 300;
+  max-width: 560px;
+}
+
+/* ─── À PROPOS ─── */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-image {
+  aspect-ratio: 4/5;
+  background: var(--creme);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--rose);
+}
+.about-values {
+  display: flex;
+  gap: 40px;
+  margin-top: 32px;
+}
+.about-value {
+  flex: 1;
+}
+.about-value h4 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--noir);
+  margin-bottom: 6px;
+}
+.about-value p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ─── COLLECTION ─── */
+.collection {
+  background: var(--blanc);
+  text-align: center;
+}
+.collection .section-text {
+  margin: 0 auto 20px;
+  text-align: center;
+}
+.disclaimer {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+  padding: 20px 28px;
+  border-left: 2px solid var(--rose);
+  text-align: left;
+  font-weight: 300;
+}
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.collection-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.collection-card-img {
+  aspect-ratio: 3/4;
+  background: var(--creme);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--rose);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.collection-card:hover .collection-card-img {
+  transform: scale(1.04);
+}
+.collection-card-info {
+  padding: 14px 0;
+  text-align: left;
+}
+.collection-card-info h3 {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--noir);
+  letter-spacing: 0.5px;
+}
+.collection-card-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 300;
+}
+
+/* ─── MARQUES ─── */
+.marques {
+  background: var(--creme);
+  text-align: center;
+  overflow: hidden;
+}
+.marques-track {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+  margin-top: 48px;
+}
+.marques-track:hover { animation-play-state: paused; }
+.marque-item {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 300;
+  color: var(--text-muted);
+  white-space: nowrap;
+  letter-spacing: 3px;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.marque-item:hover { opacity: 1; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── TÉMOIGNAGES ─── */
+.testimonials {
+  background: var(--blanc);
+  text-align: center;
+}
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1000px;
+  margin: 48px auto 0;
+}
+.testimonial {
+  text-align: left;
+  padding: 32px;
+  position: relative;
+}
+.testimonial::before {
+  content: '\201C';
+  font-family: var(--serif);
+  font-size: 64px;
+  color: var(--rose);
+  line-height: 1;
+  display: block;
+  margin-bottom: -8px;
+  opacity: 0.6;
+}
+.testimonial blockquote {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 16px;
+}
+.testimonial cite {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--rose);
+  font-weight: 400;
+}
+
+/* ─── RÉSEAUX ─── */
+.social {
+  background: var(--creme);
+  text-align: center;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 14px 36px;
+  border: 1px solid var(--rose);
+  text-decoration: none;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--noir);
+  font-weight: 400;
+  transition: all 0.3s;
+}
+.social-link:hover {
+  background: var(--rose);
+  color: var(--blanc);
+  border-color: var(--rose);
+}
+.social-link svg { width: 18px; height: 18px; }
+
+/* ─── CONTACT ─── */
+.contact {
+  background: var(--noir);
+  color: var(--blanc);
+}
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: start;
+}
+.contact .section-label { color: var(--rose-light); }
+.contact .section-title { color: var(--blanc); }
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.contact-block h4 {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--rose-light);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.contact-block p, .contact-block a {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+  text-decoration: none;
+  font-weight: 300;
+}
+.contact-block a:hover { color: var(--blanc); }
+.contact-map {
+  aspect-ratio: 4/3;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--noir);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255,255,255,0.35);
+  font-size: 12px;
+  font-weight: 300;
+}
+.footer a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+}
+.footer a:hover { color: var(--blanc); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .section { padding: 72px 24px; }
+  .about { grid-template-columns: 1fr; gap: 40px; }
+  .collection-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .testimonial-grid { grid-template-columns: 1fr; gap: 24px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .about-values { flex-direction: column; gap: 24px; }
+  .footer { flex-direction: column; gap: 12px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .nav { padding: 16px 20px; }
+  .nav.scrolled { padding: 12px 20px; }
+  .collection-grid { grid-template-columns: 1fr; }
+  .hero-content h1 { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">MELINI<span>SHOES &amp; BAGS</span></a>
+  <div class="nav-links">
+    <a href="#about">Notre histoire</a>
+    <a href="#collection">Collection</a>
+    <a href="#marques">Marques</a>
+    <a href="#contact" class="nav-cta">Nous trouver</a>
+  </div>
+  <div class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <button class="mobile-menu-close" onclick="this.parentElement.classList.remove('open')">&times;</button>
+  <a href="#about" onclick="this.parentElement.classList.remove('open')">Notre histoire</a>
+  <a href="#collection" onclick="this.parentElement.classList.remove('open')">Collection</a>
+  <a href="#marques" onclick="this.parentElement.classList.remove('open')">Marques</a>
+  <a href="#contact" onclick="this.parentElement.classList.remove('open')">Nous trouver</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg-text">MELINI</div>
+  <div class="hero-content">
+    <h1>Chaque cliente &amp; chaque pied<br>sont <em>uniques</em></h1>
+    <p class="hero-subtitle">Chaussures &amp; sacs femme &bull; Uccle, Bruxelles</p>
+    <a href="#collection" class="btn-primary">Découvrir la collection</a>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="line"></div>
+    <span>Explorer</span>
+  </div>
+</section>
+
+<!-- ─── BANDEAU ACTU ─── -->
+<div class="bandeau">
+  Nouvelle collection printemps-été 2026 &mdash; Disponible en boutique
+</div>
+
+<!-- ─── À PROPOS ─── -->
+<section class="section" id="about">
+  <div class="about">
+    <div class="about-image reveal">PHOTO BOUTIQUE</div>
+    <div>
+      <p class="section-label reveal">Notre histoire</p>
+      <h2 class="section-title reveal reveal-delay-1">Un savoir-faire,<br>une passion</h2>
+      <p class="section-text reveal reveal-delay-2">
+        Depuis des années, Melini accueille les femmes d'Uccle et d'ailleurs dans un espace chaleureux où chaque visite est une expérience personnelle. Nous sélectionnons avec soin des marques européennes qui allient style, confort et qualité — parce que nous croyons qu'une belle paire de chaussures peut transformer une journée.
+      </p>
+      <p class="section-text reveal reveal-delay-2" style="margin-top: 16px;">
+        Ici, pas de libre-service : nous prenons le temps de vous écouter, de vous conseiller, de trouver la coupe parfaite pour votre pied. C'est notre façon de faire, et c'est ce qui fait revenir nos clientes saison après saison.
+      </p>
+      <div class="about-values reveal reveal-delay-3">
+        <div class="about-value">
+          <h4>Conseil</h4>
+          <p>Un accompagnement personnalisé à chaque visite</p>
+        </div>
+        <div class="about-value">
+          <h4>Qualité</h4>
+          <p>Des marques européennes sélectionnées avec exigence</p>
+        </div>
+        <div class="about-value">
+          <h4>Confort</h4>
+          <p>Le style ne devrait jamais se faire au détriment du bien-être</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COLLECTION ─── -->
+<section class="section collection" id="collection">
+  <p class="section-label reveal">Sélection</p>
+  <h2 class="section-title reveal reveal-delay-1">Notre collection</h2>
+  <div class="disclaimer reveal reveal-delay-2">
+    Cette sélection ne représente qu'une partie de nos articles en boutique. Venez nous rendre visite pour découvrir l'ensemble de la collection.
+  </div>
+  <div class="collection-grid">
+    <div class="collection-card reveal">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Escarpins</h3>
+        <p>Cuir italien</p>
+      </div>
+    </div>
+    <div class="collection-card reveal reveal-delay-1">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Bottines</h3>
+        <p>Collection automne-hiver</p>
+      </div>
+    </div>
+    <div class="collection-card reveal reveal-delay-2">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Sneakers</h3>
+        <p>Confort au quotidien</p>
+      </div>
+    </div>
+    <div class="collection-card reveal reveal-delay-3">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Sacs &amp; accessoires</h3>
+        <p>Cuir &amp; matières nobles</p>
+      </div>
+    </div>
+    <div class="collection-card reveal">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Sandales</h3>
+        <p>Collection été</p>
+      </div>
+    </div>
+    <div class="collection-card reveal reveal-delay-1">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Mocassins</h3>
+        <p>Élégance décontractée</p>
+      </div>
+    </div>
+    <div class="collection-card reveal reveal-delay-2">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Ballerines</h3>
+        <p>Légèreté &amp; raffinement</p>
+      </div>
+    </div>
+    <div class="collection-card reveal reveal-delay-3">
+      <div class="collection-card-img">PHOTO</div>
+      <div class="collection-card-info">
+        <h3>Sacs à main</h3>
+        <p>Pour chaque occasion</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUES ─── -->
+<section class="section marques" id="marques">
+  <p class="section-label reveal">Nos partenaires</p>
+  <h2 class="section-title reveal reveal-delay-1">Des marques d'exception</h2>
+  <p class="section-text reveal reveal-delay-2" style="margin: 0 auto;">
+    Nous collaborons avec les plus belles maisons européennes pour vous proposer des pièces alliant style, confort et fabrication d'excellence.
+  </p>
+  <div class="marques-track">
+    <span class="marque-item">HISPANITAS</span>
+    <span class="marque-item">GABOR</span>
+    <span class="marque-item">PERLATO</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marque-item">HISPANITAS</span>
+    <span class="marque-item">GABOR</span>
+    <span class="marque-item">PERLATO</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+    <span class="marque-item">MARQUE</span>
+  </div>
+</section>
+
+<!-- ─── TÉMOIGNAGES ─── -->
+<section class="section testimonials">
+  <p class="section-label reveal">Ce qu'elles en disent</p>
+  <h2 class="section-title reveal reveal-delay-1">La parole à nos clientes</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial reveal">
+      <blockquote>Je viens chez Melini depuis des années. On me connaît, on connaît mes pieds, et je repars toujours avec le sourire. C'est devenu bien plus qu'une boutique.</blockquote>
+      <cite>Catherine D.</cite>
+    </div>
+    <div class="testimonial reveal reveal-delay-1">
+      <blockquote>Le conseil est vraiment personnalisé. On ne vous vend pas une paire, on vous trouve LA paire. Ça change tout.</blockquote>
+      <cite>Marie-Claire V.</cite>
+    </div>
+    <div class="testimonial reveal reveal-delay-2">
+      <blockquote>Des marques qu'on ne trouve pas partout, une qualité irréprochable, et un accueil tellement agréable. Ma boutique préférée à Uccle.</blockquote>
+      <cite>Sophie L.</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RÉSEAUX ─── -->
+<section class="section social">
+  <p class="section-label reveal">Suivez-nous</p>
+  <h2 class="section-title reveal reveal-delay-1">Restez connectées</h2>
+  <p class="section-text reveal reveal-delay-2" style="margin: 0 auto;">
+    Retrouvez nos nouveautés, nos coups de cœur et les coulisses de la boutique sur Facebook.
+  </p>
+  <a href="#" class="social-link reveal reveal-delay-3" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Melini sur Facebook
+  </a>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="section contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-label reveal">Nous trouver</p>
+      <h2 class="section-title reveal reveal-delay-1">Rendez-nous visite</h2>
+      <div class="contact-info reveal reveal-delay-2">
+        <div class="contact-block">
+          <h4>Adresse</h4>
+          <p>Chaussée d'Alsemberg 817<br>1180 Uccle, Bruxelles</p>
+        </div>
+        <div class="contact-block">
+          <h4>Horaires</h4>
+          <p>
+            Lundi : 14h — 18h30<br>
+            Mardi — Samedi : 10h — 18h30<br>
+            Dimanche : Fermé
+          </p>
+        </div>
+        <div class="contact-block">
+          <h4>Téléphone</h4>
+          <a href="tel:023777880">02 377 78 80</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-map reveal reveal-delay-3">GOOGLE MAPS</div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <span>&copy; 2026 Melini — Tous droits réservés</span>
+  <span>
+    <a href="#">Mentions légales</a> &middot;
+    <a href="#">Politique de confidentialité</a>
+  </span>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Parallax on hero bg text
+const heroBg = document.querySelector('.hero-bg-text');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  if (scrolled < window.innerHeight) {
+    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+  }
+});
+</script>
+
+</body>
+</html>
