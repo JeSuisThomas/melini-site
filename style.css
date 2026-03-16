@@ -1,12 +1,12 @@
 :root {
   --noir: #1A1A1A;
   --blanc: #FFFFFF;
-  --rose: #D4A99A;
-  --rose-light: #E8C4B8;
-  --creme: #F5EDE8;
-  --creme-deep: #EDE0D8;
-  --text-muted: #7A6B63;
-  --text-body: #4A3F3A;
+  --rose: #8C8279;
+  --rose-light: #A89E95;
+  --creme: #F5F4F2;
+  --creme-deep: #E8E7E4;
+  --text-muted: #8A8A86;
+  --text-body: #4A4A47;
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Outfit', -apple-system, sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -26,8 +26,8 @@ body {
 }
 
 ::selection {
-  background: var(--rose-light);
-  color: var(--noir);
+  background: var(--noir);
+  color: var(--blanc);
 }
 
 /* ─── LOADER ─── */
@@ -129,7 +129,7 @@ body {
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 1px 0 rgba(212,169,154,0.15);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
 }
 .nav.nav-hidden { transform: translateY(-100%); }
 .nav-logo {
@@ -269,21 +269,9 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(212,169,154,0.15) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(232,196,184,0.12) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(140,130,121,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(168,158,149,0.05) 0%, transparent 70%);
   pointer-events: none;
-}
-.hero-bg-text {
-  position: absolute;
-  font-family: var(--serif);
-  font-size: clamp(100px, 20vw, 300px);
-  font-weight: 300;
-  color: var(--creme-deep);
-  letter-spacing: 30px;
-  white-space: nowrap;
-  user-select: none;
-  pointer-events: none;
-  opacity: 0.5;
 }
 .hero-content {
   position: relative;
@@ -302,16 +290,12 @@ body {
 }
 .hero-content h1 {
   font-family: var(--serif);
-  font-size: clamp(34px, 5.5vw, 56px);
+  font-size: clamp(48px, 8vw, 80px);
   font-weight: 300;
-  line-height: 1.15;
+  line-height: 1.1;
   color: var(--noir);
   margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-.hero-content h1 em {
-  font-style: italic;
-  color: var(--rose);
+  letter-spacing: 6px;
 }
 .hero-subtitle {
   font-family: var(--sans);
@@ -541,7 +525,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, transparent 40%, rgba(212,169,154,0.08) 100%);
+  background: linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.03) 100%);
 }
 .about-image-label {
   font-family: var(--sans);
@@ -718,7 +702,7 @@ body {
   display: flex;
   gap: 60px;
   align-items: center;
-  animation: marquee 45s linear infinite;
+  animation: marquee 80s linear infinite;
   width: max-content;
 }
 .marques-track:hover { animation-play-state: paused; }
@@ -878,7 +862,7 @@ body {
   text-align: left;
 }
 .faq-item {
-  border-bottom: 1px solid rgba(212,169,154,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .faq-item summary {
   padding: 24px 0;
@@ -1097,18 +1081,18 @@ body {
   z-index: 90;
   width: 56px;
   height: 56px;
-  background: var(--rose);
+  background: var(--noir);
   color: var(--blanc);
   border-radius: 50%;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  box-shadow: 0 4px 24px rgba(212,169,154,0.4);
+  box-shadow: 0 4px 24px rgba(26,26,26,0.3);
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
 }
 .floating-cta:hover {
   transform: scale(1.08);
-  box-shadow: 0 6px 32px rgba(212,169,154,0.5);
+  box-shadow: 0 6px 32px rgba(26,26,26,0.4);
 }
 
 /* ─── BACK TO TOP ─── */
@@ -1169,7 +1153,7 @@ body {
 @media (max-width: 480px) {
   .nav { padding: 16px 20px; }
   .nav.scrolled { padding: 12px 20px; }
-  .hero-content h1 { font-size: 30px; }
+  .hero-content h1 { font-size: 42px; }
   .hero-subtitle { font-size: 13px; }
   .hero-ctas { flex-direction: column; gap: 12px; }
   .btn-primary, .btn-secondary { width: 100%; text-align: center; justify-content: center; }
