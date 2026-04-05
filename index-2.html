@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melini — Chaussures & Sacs Femme à Uccle, Bruxelles</title>
+<meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle. Plus de 40 ans d'expérience, marques européennes premium, conseil personnalisé. Chaussée d'Alsemberg 817.">
+<meta name="keywords" content="chaussures femme Uccle, boutique chaussures Bruxelles, sacs femme Uccle, Melini, chaussée Alsemberg">
+<meta property="og:title" content="Melini — Chaussures & Sacs Femme à Uccle">
+<meta property="og:description" content="Boutique indépendante de chaussures et sacs femme. Plus de 40 ans d'expérience, marques européennes premium, conseil personnalisé.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_BE">
+<link rel="canonical" href="https://melini-site.vercel.app">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ShoeStore",
+  "name": "Melini — Shoes & Bags",
+  "description": "Boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles. Marques européennes premium, conseil personnalisé.",
+  "url": "https://melini-site.vercel.app",
+  "telephone": "+3223777880",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Chaussée d'Alsemberg 817",
+    "addressLocality": "Uccle",
+    "postalCode": "1180",
+    "addressRegion": "Bruxelles",
+    "addressCountry": "BE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 50.7985,
+    "longitude": 4.3401
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "14:00", "closes": "18:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "10:00", "closes": "18:30" }
+  ],
+  "priceRange": "€€",
+  "image": "",
+  "sameAs": []
+}
+</script>
+
+<style>
+:root {
+  --noir: #1A1A1A;
+  --blanc: #FFFFFF;
+  --rose: #D4A99A;
+  --rose-light: #E8C4B8;
+  --creme: #F5EDE8;
+  --creme-deep: #EDE0D8;
+  --text-muted: #7A6B63;
+  --text-body: #4A3F3A;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', -apple-system, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); color: var(--noir); background: var(--blanc); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* ─── REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ─── NAV ─── */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: padding 0.4s, box-shadow 0.4s; }
+.nav.scrolled { padding: 14px 48px; box-shadow: 0 1px 0 rgba(212,169,154,0.18); }
+.nav-logo { font-family: var(--serif); font-size: 24px; font-weight: 400; letter-spacing: 6px; color: var(--noir); text-decoration: none; line-height: 1; }
+.nav-logo small { display: block; font-family: var(--serif); font-size: 10px; letter-spacing: 3px; font-weight: 300; font-style: italic; color: var(--text-muted); margin-top: 2px; }
+.nav-logo .line { display: block; width: 32px; height: 1px; background: var(--rose); margin-top: 4px; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 11px; letter-spacing: 2px; font-weight: 300; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover { color: var(--noir); }
+.nav-cta { padding: 10px 22px !important; background: var(--rose) !important; color: var(--blanc) !important; transition: background 0.3s !important; }
+.nav-cta:hover { background: var(--noir) !important; }
+.nav-mobile-call { display: none; padding: 8px 16px; background: var(--rose); color: var(--blanc); text-decoration: none; font-size: 11px; letter-spacing: 1px; font-weight: 400; }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.nav-hamburger span { display: block; width: 24px; height: 1.5px; background: var(--noir); transition: all 0.3s; }
+.mobile-menu { display: none; position: fixed; inset: 0; background: var(--blanc); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--noir); text-decoration: none; letter-spacing: 2px; }
+.mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; background: none; border: none; cursor: pointer; color: var(--noir); }
+
+/* ─── HERO ─── */
+.hero { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; background: var(--creme); overflow: hidden; }
+.hero-bg-text { position: absolute; font-family: var(--serif); font-size: clamp(100px,16vw,240px); font-weight: 300; color: var(--creme-deep); letter-spacing: 16px; white-space: nowrap; user-select: none; pointer-events: none; opacity: 0.5; }
+.hero-content { position: relative; z-index: 1; max-width: 680px; padding: 0 24px; }
+.hero-content h1 { font-family: var(--serif); font-size: clamp(30px,5vw,50px); font-weight: 300; line-height: 1.2; color: var(--noir); margin-bottom: 16px; letter-spacing: 1px; }
+.hero-content h1 em { font-style: italic; color: var(--rose); }
+.hero-sub { font-size: 12px; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 300; }
+.hero-experience { font-family: var(--serif); font-size: 15px; font-weight: 300; font-style: italic; color: var(--text-muted); margin-bottom: 36px; }
+.btn-primary { display: inline-block; padding: 14px 40px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--blanc); background: var(--noir); text-decoration: none; transition: background 0.4s cubic-bezier(0.22,1,0.36,1); }
+.btn-primary:hover { background: var(--rose); }
+.hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-muted); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.hero-scroll .line { width: 1px; height: 36px; background: var(--rose); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:.3;transform:scaleY(.5)} 50%{opacity:1;transform:scaleY(1)} }
+
+/* ─── BANDEAU ─── */
+.bandeau { background: var(--rose); color: var(--blanc); text-align: center; padding: 13px 24px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 300; }
+
+/* ─── SECTIONS ─── */
+.section { padding: 100px 48px; }
+.section-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; font-weight: 400; }
+.section-title { font-family: var(--serif); font-size: clamp(26px,4vw,40px); font-weight: 300; line-height: 1.25; color: var(--noir); margin-bottom: 20px; }
+.section-text { font-size: 15px; line-height: 1.8; color: var(--text-body); font-weight: 300; max-width: 560px; }
+
+/* ─── À PROPOS ─── */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; max-width: 1200px; margin: 0 auto; }
+.about-image { aspect-ratio: 4/5; background: var(--creme); display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 2px; color: var(--rose); position: relative; overflow: hidden; }
+.about-highlight { margin-top: 32px; padding: 24px 0; border-top: 1px solid var(--creme-deep); display: flex; gap: 48px; }
+.about-stat { text-align: center; }
+.about-stat .num { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--rose); line-height: 1; }
+.about-stat .label { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
+
+/* ─── COLLECTION ─── */
+.collection { background: var(--blanc); text-align: center; overflow: hidden; }
+.disclaimer { font-size: 13px; font-style: italic; color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; padding: 20px 28px; border-left: 2px solid var(--rose); text-align: left; font-weight: 300; }
+.carousel-wrap { position: relative; width: 100%; overflow: hidden; margin: 0 -48px; padding: 0 48px; }
+.carousel { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 0 48px 20px; }
+.carousel::-webkit-scrollbar { display: none; }
+.carousel-item { flex: 0 0 280px; scroll-snap-align: start; }
+.carousel-img { width: 280px; height: 373px; background: var(--creme); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 2px; color: var(--rose); transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); overflow: hidden; }
+.carousel-item:hover .carousel-img { transform: scale(1.03); }
+.carousel-cta { margin-top: 40px; }
+.carousel-hint { font-size: 12px; color: var(--text-muted); font-weight: 300; margin-top: 16px; letter-spacing: 1px; }
+
+/* ─── MARQUES ─── */
+.marques { background: var(--creme); text-align: center; overflow: hidden; }
+.marques-track { display: flex; gap: 64px; align-items: center; animation: marquee 30s linear infinite; width: max-content; margin-top: 40px; }
+.marques-track:hover { animation-play-state: paused; }
+.marque-item { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--text-muted); white-space: nowrap; letter-spacing: 3px; opacity: 0.55; transition: opacity 0.3s; }
+.marque-item:hover { opacity: 1; }
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ─── TÉMOIGNAGES ─── */
+.testimonials { background: var(--blanc); text-align: center; }
+.testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; max-width: 1000px; margin: 48px auto 0; }
+.testimonial { text-align: left; padding: 28px; position: relative; }
+.testimonial::before { content: '\201C'; font-family: var(--serif); font-size: 56px; color: var(--rose); line-height: 1; display: block; margin-bottom: -6px; opacity: 0.5; }
+.testimonial blockquote { font-family: var(--serif); font-size: 16px; font-weight: 300; font-style: italic; line-height: 1.7; color: var(--text-body); margin-bottom: 14px; }
+.testimonial cite { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-style: normal; color: var(--rose); font-weight: 400; }
+.testimonial .source { font-size: 10px; color: var(--text-muted); font-weight: 300; margin-top: 2px; display: block; }
+
+/* ─── SOCIAL ─── */
+.social { background: var(--creme); text-align: center; }
+.social-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; padding: 14px 36px; border: 1px solid var(--rose); text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--noir); font-weight: 400; transition: all 0.3s; }
+.social-link:hover { background: var(--rose); color: var(--blanc); border-color: var(--rose); }
+.social-link svg { width: 18px; height: 18px; }
+
+/* ─── CONTACT ─── */
+.contact { background: var(--noir); color: var(--blanc); }
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; max-width: 1100px; margin: 0 auto; align-items: start; }
+.contact .section-label { color: var(--rose-light); }
+.contact .section-title { color: var(--blanc); }
+.contact-info { display: flex; flex-direction: column; gap: 24px; }
+.contact-block h4 { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--rose-light); margin-bottom: 8px; font-weight: 400; }
+.contact-block p, .contact-block a { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.8; text-decoration: none; font-weight: 300; }
+.contact-block a:hover { color: var(--blanc); }
+.contact-actions { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+.contact-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-weight: 400; transition: all 0.3s; }
+.contact-btn-primary { background: var(--rose); color: var(--blanc); }
+.contact-btn-primary:hover { background: var(--rose-light); }
+.contact-btn-secondary { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.75); }
+.contact-btn-secondary:hover { border-color: var(--blanc); color: var(--blanc); }
+.contact-map { aspect-ratio: 4/3; border-radius: 4px; overflow: hidden; }
+.contact-map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(0.3); }
+
+/* ─── FOOTER ─── */
+.footer { background: var(--noir); border-top: 1px solid rgba(255,255,255,0.06); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
+.footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+.footer a:hover { color: var(--blanc); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .nav { padding: 16px 24px; }
+  .nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-mobile-call { display: block; }
+  .section { padding: 72px 24px; }
+  .about { grid-template-columns: 1fr; gap: 40px; }
+  .about-highlight { gap: 32px; }
+  .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer { flex-direction: column; gap: 10px; text-align: center; }
+  .carousel-item { flex: 0 0 240px; }
+  .carousel-img { width: 240px; height: 320px; }
+}
+@media (max-width: 480px) {
+  .hero-content h1 { font-size: 26px; }
+  .about-highlight { flex-wrap: wrap; gap: 24px; }
+  .about-stat { flex: 1; min-width: 80px; }
+  .carousel-item { flex: 0 0 200px; }
+  .carousel-img { width: 200px; height: 267px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    MELINI
+    <span class="line"></span>
+    <small>shoes &amp; bags</small>
+  </a>
+  <div class="nav-links">
+    <a href="#histoire">Notre histoire</a>
+    <a href="#selection">Sélection</a>
+    <a href="#marques">Marques</a>
+    <a href="#contact" class="nav-cta">Nous trouver</a>
+  </div>
+  <a href="tel:023777880" class="nav-mobile-call">Appeler</a>
+  <div class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <button class="mobile-menu-close" onclick="this.parentElement.classList.remove('open')">&times;</button>
+  <a href="#histoire" onclick="this.parentElement.classList.remove('open')">Notre histoire</a>
+  <a href="#selection" onclick="this.parentElement.classList.remove('open')">Sélection</a>
+  <a href="#marques" onclick="this.parentElement.classList.remove('open')">Marques</a>
+  <a href="#contact" onclick="this.parentElement.classList.remove('open')">Nous trouver</a>
+  <a href="tel:023777880" style="color:var(--rose)">Appeler le 02 377 78 80</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-bg-text">MELINI</div>
+  <div class="hero-content">
+    <h1>Chaque cliente &amp; chaque pied<br>sont <em>uniques</em></h1>
+    <p class="hero-sub">Chaussures &amp; sacs femme &bull; Uccle, Bruxelles</p>
+    <p class="hero-experience">Plus de 40 ans de passion et d'expertise</p>
+    <a href="#contact" class="btn-primary">Nous rendre visite</a>
+  </div>
+  <div class="hero-scroll"><div class="line"></div><span>Explorer</span></div>
+</header>
+
+<!-- ─── BANDEAU ─── -->
+<div class="bandeau">Nouvelle collection printemps-été 2026 &mdash; Disponible en boutique</div>
+
+<!-- ─── NOTRE HISTOIRE ─── -->
+<section class="section" id="histoire">
+  <div class="about">
+    <div class="about-image reveal">PHOTO ANGÈLE OU BOUTIQUE</div>
+    <div>
+      <p class="section-label reveal">Notre histoire</p>
+      <h2 class="section-title reveal reveal-d1">Un rêve devenu<br>boutique</h2>
+      <p class="section-text reveal reveal-d2">
+        Angèle travaille dans le monde de la chaussure depuis 1988. Après une vingtaine d'années dans une première boutique, puis une dizaine d'années dans un magasin de chaussures de luxe où elle a perfectionné son savoir-faire, elle réalise en 2016 le rêve qu'elle porte depuis toujours : ouvrir sa propre boutique.
+      </p>
+      <p class="section-text reveal reveal-d2" style="margin-top:14px">
+        Melini est née de cette envie simple — créer un lieu qui lui ressemble, où chaque cliente est accueillie avec attention, où chaque paire est choisie avec soin. Installée sur la chaussée d'Alsemberg qu'elle adore, Angèle sélectionne elle-même chaque modèle auprès des meilleures maisons européennes. Après avoir vu des dizaines de milliers de pieds, elle sait exactement quoi vous conseiller.
+      </p>
+      <div class="about-highlight reveal reveal-d3">
+        <div class="about-stat">
+          <div class="num">40+</div>
+          <div class="label">Années d'expérience</div>
+        </div>
+        <div class="about-stat">
+          <div class="num">18</div>
+          <div class="label">Marques européennes</div>
+        </div>
+        <div class="about-stat">
+          <div class="num">2016</div>
+          <div class="label">Ouverture de Melini</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SÉLECTION ─── -->
+<section class="section collection" id="selection">
+  <p class="section-label reveal">Sélection</p>
+  <h2 class="section-title reveal reveal-d1">Un aperçu de nos collections</h2>
+  <div class="disclaimer reveal reveal-d2">
+    Cette sélection ne représente qu'une partie de nos articles en boutique. Venez nous rendre visite pour découvrir l'ensemble de la collection.
+  </div>
+  <div class="carousel-wrap">
+    <div class="carousel">
+      <div class="carousel-item"><div class="carousel-img">PHOTO 1</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 2</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 3</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 4</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 5</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 6</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 7</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 8</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 9</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 10</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 11</div></div>
+      <div class="carousel-item"><div class="carousel-img">PHOTO 12</div></div>
+    </div>
+  </div>
+  <div class="carousel-hint">Faites défiler pour découvrir &rarr;</div>
+  <div class="carousel-cta">
+    <a href="#contact" class="btn-primary">Découvrir toute la collection en boutique</a>
+  </div>
+</section>
+
+<!-- ─── MARQUES ─── -->
+<section class="section marques" id="marques">
+  <p class="section-label reveal">Nos marques</p>
+  <h2 class="section-title reveal reveal-d1">18 maisons européennes<br>sélectionnées avec exigence</h2>
+  <div class="marques-track">
+    <span class="marque-item">NEROGIARDINI</span>
+    <span class="marque-item">HISPANITAS</span>
+    <span class="marque-item">GABOR</span>
+    <span class="marque-item">UNISA</span>
+    <span class="marque-item">LIU JO</span>
+    <span class="marque-item">ETRIER</span>
+    <span class="marque-item">REGARDE LE CIEL</span>
+    <span class="marque-item">TAMARIS</span>
+    <span class="marque-item">ÁNGEL ALARCÓN</span>
+    <span class="marque-item">LES TROPÉZIENNES</span>
+    <span class="marque-item">PEDRO MIRALLES</span>
+    <span class="marque-item">SCAPA</span>
+    <span class="marque-item">NOA HARMON</span>
+    <span class="marque-item">SUN68</span>
+    <span class="marque-item">OH MY SANDALS</span>
+    <span class="marque-item">HEE</span>
+    <span class="marque-item">DLS</span>
+    <span class="marque-item">KAOTIKO</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marque-item">NEROGIARDINI</span>
+    <span class="marque-item">HISPANITAS</span>
+    <span class="marque-item">GABOR</span>
+    <span class="marque-item">UNISA</span>
+    <span class="marque-item">LIU JO</span>
+    <span class="marque-item">ETRIER</span>
+    <span class="marque-item">REGARDE LE CIEL</span>
+    <span class="marque-item">TAMARIS</span>
+    <span class="marque-item">ÁNGEL ALARCÓN</span>
+    <span class="marque-item">LES TROPÉZIENNES</span>
+    <span class="marque-item">PEDRO MIRALLES</span>
+    <span class="marque-item">SCAPA</span>
+    <span class="marque-item">NOA HARMON</span>
+    <span class="marque-item">SUN68</span>
+    <span class="marque-item">OH MY SANDALS</span>
+    <span class="marque-item">HEE</span>
+    <span class="marque-item">DLS</span>
+    <span class="marque-item">KAOTIKO</span>
+  </div>
+</section>
+
+<!-- ─── TÉMOIGNAGES ─── -->
+<section class="section testimonials">
+  <p class="section-label reveal">Ce qu'elles en disent</p>
+  <h2 class="section-title reveal reveal-d1">La parole à nos clientes</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial reveal">
+      <blockquote>Je recommande cette boutique les yeux fermés ! On y trouve un très beau choix de chaussures et d'articles de maroquinerie de qualité. L'accueil est chaleureux et les conseils toujours professionnels. C'est le genre de boutique où l'on revient avec plaisir.</blockquote>
+      <cite>Nadine V.</cite>
+      <span class="source">Avis Facebook</span>
+    </div>
+    <div class="testimonial reveal reveal-d1">
+      <blockquote>Il m'a été rare de vivre un accueil aussi chaleureux ! Je suis sortie de la boutique d'Angèle avec LE sac idéal. Merci pour vos précieux conseils.</blockquote>
+      <cite>Ada W.</cite>
+      <span class="source">Avis Google</span>
+    </div>
+    <div class="testimonial reveal reveal-d2">
+      <blockquote>J'y retourne car la dame est extrêmement soucieuse de la satisfaction du client. Ma fille qui habite très loin d'Uccle y vient pour la qualité des chaussures, des conseils et de la gentillesse. Un vrai plaisir.</blockquote>
+      <cite>G.H.</cite>
+      <span class="source">Avis Google</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RÉSEAUX ─── -->
+<section class="section social">
+  <p class="section-label reveal">Suivez-nous</p>
+  <h2 class="section-title reveal reveal-d1">Retrouvez-nous sur Facebook</h2>
+  <p class="section-text reveal reveal-d2" style="margin:0 auto">Nouveautés, coups de cœur et coulisses de la boutique.</p>
+  <a href="https://www.facebook.com" target="_blank" rel="noopener" class="social-link reveal reveal-d3">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    Melini sur Facebook
+  </a>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="section contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-label reveal">Nous trouver</p>
+      <h2 class="section-title reveal reveal-d1">Rendez-nous visite</h2>
+      <div class="contact-info reveal reveal-d2">
+        <div class="contact-block">
+          <h4>Adresse</h4>
+          <p><a href="https://maps.google.com/?q=Chaussée+d'Alsemberg+817+1180+Uccle" target="_blank" rel="noopener">Chaussée d'Alsemberg 817<br>1180 Uccle, Bruxelles</a></p>
+        </div>
+        <div class="contact-block">
+          <h4>Horaires</h4>
+          <p>Lundi : 14h — 18h30<br>Mardi — Samedi : 10h — 18h30<br>Dimanche : Fermé</p>
+        </div>
+        <div class="contact-block">
+          <h4>Téléphone</h4>
+          <a href="tel:023777880" style="font-size:18px;color:var(--blanc);font-family:var(--serif)">02 377 78 80</a>
+        </div>
+        <div class="contact-actions">
+          <a href="tel:023777880" class="contact-btn contact-btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Appeler
+          </a>
+          <a href="https://maps.google.com/?daddr=Chaussée+d'Alsemberg+817+1180+Uccle" target="_blank" rel="noopener" class="contact-btn contact-btn-secondary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Itinéraire
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-map reveal reveal-d3">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2521.5!2d4.337!3d50.798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDQ3JzUzLjAiTiA0wrAyMCcxNi4wIkU!5e0!3m2!1sfr!2sbe!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <span>&copy; 2026 Melini — Tous droits réservés</span>
+  <span>Chaussée d'Alsemberg 817, 1180 Uccle &middot; 02 377 78 80</span>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:0.12,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const bg=document.querySelector('.hero-bg-text');
+window.addEventListener('scroll',()=>{if(window.scrollY<window.innerHeight)bg.style.transform=`translateY(${window.scrollY*0.25}px)`});
+</script>
+
+</body>
+</html>
