@@ -121,16 +121,23 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
 .about-stat .label { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
 
 /* ─── COLLECTION ─── */
-.collection { background: var(--blanc); text-align: center; overflow: hidden; }
-.disclaimer { font-size: 13px; font-style: italic; color: var(--text-muted); max-width: 520px; margin: 0 auto 40px; line-height: 1.7; padding: 20px 28px; border-left: 2px solid var(--rose); text-align: left; font-weight: 300; }
-.carousel-wrap { position: relative; width: 100%; overflow: hidden; margin: 0 -48px; padding: 0 48px; }
-.carousel { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 0 48px 20px; }
-.carousel::-webkit-scrollbar { display: none; }
-.carousel-item { flex: 0 0 280px; scroll-snap-align: start; }
-.carousel-img { width: 280px; height: 373px; background: var(--creme); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 2px; color: var(--rose); transition: transform 0.6s cubic-bezier(0.22,1,0.36,1); overflow: hidden; }
-.carousel-item:hover .carousel-img { transform: scale(1.03); }
-.carousel-cta { margin-top: 40px; }
-.carousel-hint { font-size: 12px; color: var(--text-muted); font-weight: 300; margin-top: 16px; letter-spacing: 1px; }
+.collection { background: var(--blanc); text-align: center; overflow: hidden; padding-bottom: 80px; }
+.disclaimer { font-size: 13px; font-style: italic; color: var(--text-muted); max-width: 520px; margin: 0 auto 48px; line-height: 1.7; padding: 20px 28px; border-left: 2px solid var(--rose); text-align: left; font-weight: 300; }
+.carousel-wrap { position: relative; width: 100vw; left: 50%; transform: translateX(-50%); overflow: hidden; }
+.carousel-wrap::before, .carousel-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+.carousel-wrap::before { left: 0; background: linear-gradient(to right, var(--blanc), transparent); }
+.carousel-wrap::after { right: 0; background: linear-gradient(to left, var(--blanc), transparent); }
+.carousel { display: flex; gap: 24px; width: max-content; animation: carousel-scroll 40s linear infinite; padding: 20px 0; }
+.carousel:hover { animation-play-state: paused; }
+.carousel-item { flex: 0 0 300px; position: relative; overflow: hidden; }
+.carousel-img { width: 300px; height: 400px; background: var(--creme); overflow: hidden; position: relative; }
+.carousel-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+.carousel-item:hover .carousel-img img { transform: scale(1.06); }
+.carousel-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,0.08), transparent 40%); pointer-events: none; transition: opacity 0.4s; }
+.carousel-item:hover::after { opacity: 0; }
+@keyframes carousel-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.carousel-cta { margin-top: 48px; }
+.carousel-hint { display: none; }
 
 /* ─── MARQUES ─── */
 .marques { background: var(--creme); text-align: center; overflow: hidden; }
@@ -193,13 +200,15 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
   .footer { flex-direction: column; gap: 10px; text-align: center; }
   .carousel-item { flex: 0 0 240px; }
   .carousel-img { width: 240px; height: 320px; }
+  .carousel-wrap::before, .carousel-wrap::after { width: 40px; }
 }
 @media (max-width: 480px) {
   .hero-content h1 { font-size: 26px; }
   .about-highlight { flex-wrap: wrap; gap: 24px; }
   .about-stat { flex: 1; min-width: 80px; }
-  .carousel-item { flex: 0 0 200px; }
-  .carousel-img { width: 200px; height: 267px; }
+  .carousel-item { flex: 0 0 220px; }
+  .carousel-img { width: 220px; height: 293px; }
+  .carousel-wrap::before, .carousel-wrap::after { width: 24px; }
 }
 </style>
 </head>
@@ -255,32 +264,14 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
     <div>
       <p class="section-label reveal">Notre histoire</p>
       <h2 class="section-title reveal reveal-d1">Melini, c'est avant tout<br>l'histoire d'Anjel</h2>
-      <p class="section-text reveal reveal-d2" style="font-weight:500;color:var(--rose);margin-bottom:8px">
-        Près de 40 ans de passion pour l'élégance
-      </p>
       <p class="section-text reveal reveal-d2">
-        Derrière les vitrines de la boutique Melini se cache une véritable passionnée. Depuis 1988, Anjel consacre sa vie à l'art de bien chausser les femmes. Avec près de quatre décennies d'expérience, l'univers de la chaussure, des sacs et de leurs subtilités n'a plus aucun secret pour elle.
+        Depuis 1988, Anjel consacre sa vie à l'art de bien chausser les femmes. Formée au sein d'enseignes prestigieuses, elle a cultivé l'amour des belles matières, des coupes impeccables et du détail qui fait toute la différence.
       </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:18px;font-weight:500;color:var(--rose);margin-bottom:8px">
-        L'exigence comme fil conducteur
+      <p class="section-text reveal reveal-d2" style="margin-top:16px">
+        En 2016, elle ouvre Melini sur la Chaussée d'Alsemberg — un espace chaleureux pensé pour le contact humain, loin des codes froids de la vente traditionnelle. Chaque modèle et chaque accessoire a été méticuleusement sélectionné par ses soins.
       </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:0">
-        Avant d'ouvrir sa propre adresse, Anjel a forgé son expertise au sein d'enseignes prestigieuses. De ces années passées dans un environnement particulièrement exigeant, elle a cultivé l'amour des belles matières, des coupes impeccables et du détail qui fait toute la différence. Habituée à composer elle-même les collections saison après saison, elle possède aujourd'hui un instinct unique pour dénicher les pièces qui allient goût et qualité.
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:18px;font-weight:500;color:var(--rose);margin-bottom:8px">
-        Une adresse de cœur à Uccle
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:0">
-        En 2016, le désir de créer un lieu qui lui ressemble devient une évidence. C'est sur la Chaussée d'Alsemberg, un quartier d'Uccle qu'elle affectionne tout particulièrement, qu'Anjel décide de s'installer. Elle a pensé Melini non pas comme un simple magasin, mais comme un espace chaleureux dédié au contact humain. Loin des codes froids de la vente traditionnelle, elle y offre un accueil sincère et un accompagnement totalement personnalisé.
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:18px;font-weight:500;color:var(--rose);margin-bottom:8px">
-        L'expertise du conseil parfait
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:0">
-        Au fil de sa carrière, Anjel a conseillé et chaussé des dizaines de milliers de pieds. Cette expérience inestimable lui permet d'analyser vos besoins en un coup d'œil. Chaque modèle et chaque accessoire présent chez Melini a été méticuleusement sélectionné par ses soins.
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:18px;font-style:italic;color:var(--text-muted)">
-        Pousser la porte de la boutique, c'est s'en remettre au regard bienveillant et expert d'Anjel, avec la certitude de trouver la paire idéale qui respectera votre confort et sublimera votre allure.
+      <p class="section-text reveal reveal-d2" style="margin-top:16px;font-style:italic;color:var(--text-muted)">
+        Pousser la porte, c'est s'en remettre au regard bienveillant et expert d'Anjel, avec la certitude de trouver la paire idéale qui sublimera votre allure.
       </p>
       <div class="about-highlight reveal reveal-d3">
         <div class="about-stat">
@@ -309,18 +300,32 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
   </div>
   <div class="carousel-wrap">
     <div class="carousel">
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=280&h=373&fit=crop" alt="Chaussure femme élégante" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=280&h=373&fit=crop" alt="Sneaker femme premium" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=280&h=373&fit=crop" alt="Sac à main en cuir" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=280&h=373&fit=crop" alt="Escarpin femme" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=280&h=373&fit=crop" alt="Sandale femme été" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=280&h=373&fit=crop" alt="Sac femme élégant" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=280&h=373&fit=crop" alt="Bottine femme cuir" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=280&h=373&fit=crop" alt="Chaussure plate femme" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=280&h=373&fit=crop" alt="Sac à bandoulière cuir" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=280&h=373&fit=crop" alt="Mocassin femme" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=280&h=373&fit=crop" alt="Basket femme tendance" style="width:100%;height:100%;object-fit:cover;"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=280&h=373&fit=crop" alt="Espadrille femme" style="width:100%;height:100%;object-fit:cover;"></div></div>
+      <!-- Originaux -->
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=400&fit=crop" alt="Chaussure femme élégante"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=400&fit=crop" alt="Sneaker femme premium"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=400&fit=crop" alt="Sac à main en cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=300&h=400&fit=crop" alt="Escarpin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=300&h=400&fit=crop" alt="Sandale femme été"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop" alt="Sac femme élégant"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=300&h=400&fit=crop" alt="Bottine femme cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=300&h=400&fit=crop" alt="Chaussure plate femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=400&fit=crop" alt="Sac à bandoulière cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=300&h=400&fit=crop" alt="Mocassin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=400&fit=crop" alt="Basket femme tendance"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&h=400&fit=crop" alt="Espadrille femme"></div></div>
+      <!-- Duplicata pour boucle infinie -->
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=400&fit=crop" alt="Chaussure femme élégante"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=400&fit=crop" alt="Sneaker femme premium"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=400&fit=crop" alt="Sac à main en cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=300&h=400&fit=crop" alt="Escarpin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=300&h=400&fit=crop" alt="Sandale femme été"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop" alt="Sac femme élégant"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=300&h=400&fit=crop" alt="Bottine femme cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=300&h=400&fit=crop" alt="Chaussure plate femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=400&fit=crop" alt="Sac à bandoulière cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=300&h=400&fit=crop" alt="Mocassin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=400&fit=crop" alt="Basket femme tendance"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&h=400&fit=crop" alt="Espadrille femme"></div></div>
     </div>
   </div>
   <div class="carousel-hint">Faites défiler pour découvrir &rarr;</div>
