@@ -7,6 +7,9 @@ backend:
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
+media_library:
+  config:
+    multiple: true
 
 locale: "fr"
 
@@ -45,9 +48,10 @@ collections:
               - label: "Photos"
                 name: "photos"
                 widget: "list"
+                summary: "{{fields.alt}}"
                 fields:
-                  - { label: "Image", name: "image", widget: "image" }
-                  - { label: "Description courte", name: "alt", widget: "string" }
+                  - { label: "Image", name: "image", widget: "image", media_library: { config: { multiple: true } } }
+                  - { label: "Description courte", name: "alt", widget: "string", default: "Photo collection Melini" }
 
           - label: "Horaires"
             name: "horaires"
