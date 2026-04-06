@@ -45,4 +45,15 @@
   );
 
   reveals.forEach(function (el) { observer.observe(el); });
+
+  /* ─── CAROUSEL PAUSE/RESUME ─── */
+  var carousel = document.querySelector('.carousel');
+  if (carousel) {
+    carousel.addEventListener('mouseenter', function () {
+      carousel.classList.add('paused');
+    });
+    carousel.addEventListener('mouseleave', function () {
+      carousel.classList.remove('paused');
+    });
+  }
 })();

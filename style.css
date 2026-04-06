@@ -102,16 +102,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .nav-cta:hover { background: var(--rose) !important; }
 .nav-cta:active { transform: scale(0.97); }
-.nav-mobile-call {
-  display: none;
-  padding: 8px 16px;
-  background: var(--rose);
-  color: var(--blanc);
-  border-radius: 100px;
-  font-size: 11px;
-  letter-spacing: 1px;
-  font-weight: 400;
-}
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -400,7 +390,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   animation: carousel-scroll 50s linear infinite;
   padding: 24px 0;
 }
-.carousel:hover { animation-play-state: paused; }
+.carousel.paused { animation-play-state: paused; }
 .carousel-item {
   flex: 0 0 300px;
   position: relative;
@@ -610,7 +600,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .nav { top: 12px; padding: 12px 20px; width: calc(100% - 32px); }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
-  .nav-mobile-call { display: block; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-content { padding: 140px 24px 48px; }
   .hero-image { min-height: 50vh; height: 50vh; }
