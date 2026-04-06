@@ -605,10 +605,40 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .nav { top: 12px; padding: 12px 20px; width: calc(100% - 32px); }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
-  .hero { grid-template-columns: 1fr; min-height: auto; }
-  .hero-content { padding: 140px 24px 48px; }
-  .hero-image { min-height: 50vh; height: 50vh; }
-  .hero-image::after { background: linear-gradient(to bottom, var(--creme) 0%, transparent 40%); }
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 100dvh;
+    position: relative;
+  }
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 28px 60px;
+  }
+  .hero-content h1 { color: var(--blanc); text-shadow: 0 2px 20px rgba(26, 26, 26, 0.15); }
+  .hero-content h1 em { color: var(--rose-light); }
+  .hero-sub { color: rgba(255, 255, 255, 0.8); }
+  .hero-experience { color: rgba(255, 255, 255, 0.7); margin-bottom: 32px; }
+  .btn-primary.hero-btn { background: var(--blanc); color: var(--noir); }
+  .btn-primary.hero-btn:hover { background: var(--rose-light); color: var(--blanc); }
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+  .hero-image::after {
+    background: linear-gradient(
+      to top,
+      rgba(26, 26, 26, 0.55) 0%,
+      rgba(26, 26, 26, 0.15) 40%,
+      transparent 70%
+    );
+  }
   .hero-scroll { display: none; }
   .section { padding: 72px 24px; }
   .about { grid-template-columns: 1fr; gap: 40px; }
@@ -622,8 +652,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 @media (max-width: 480px) {
-  .hero-content h1 { font-size: 30px; }
-  .hero-content { padding: 120px 20px 40px; }
+  .hero-content h1 { font-size: 32px; }
+  .hero-content { padding: 0 20px 48px; }
   .about-highlight { flex-wrap: wrap; gap: 20px; }
   .about-stat { flex: 1; min-width: 80px; }
   .carousel-item { flex: 0 0 220px; }
