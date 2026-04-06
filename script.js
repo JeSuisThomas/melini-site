@@ -22,10 +22,10 @@
   var menuClose = document.getElementById('menu-close');
   var mobileLinks = document.querySelectorAll('.mobile-link');
 
-  function openMenu() { mobileMenu.classList.add('open'); }
+  function toggleMenu() { mobileMenu.classList.toggle('open'); }
   function closeMenu() { mobileMenu.classList.remove('open'); }
 
-  hamburger.addEventListener('click', openMenu);
+  hamburger.addEventListener('click', toggleMenu);
   menuClose.addEventListener('click', closeMenu);
   mobileLinks.forEach(function (link) {
     link.addEventListener('click', closeMenu);
@@ -61,35 +61,26 @@
   fetch('/content/site.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      // Hero
-      if (data.hero) {
+      if (data.hero && data.hero.image) {
         var heroImg = document.getElementById('cms-hero-img');
-        if (heroImg && data.hero.image) heroImg.src = data.hero.image;
+        if (heroImg) heroImg.src = data.hero.image;
       }
-
-      // Bandeau
       if (data.bandeau && data.bandeau.texte) {
         var bandeau = document.getElementById('cms-bandeau');
         if (bandeau) bandeau.textContent = data.bandeau.texte;
       }
-
-      // Notre histoire image
       if (data.histoire && data.histoire.image) {
         var histImg = document.getElementById('cms-histoire-img');
         if (histImg) histImg.src = data.histoire.image;
       }
-
-      // Horaires
       if (data.horaires) {
-        var hLundi = document.getElementById('cms-h-lundi');
-        var hMardi = document.getElementById('cms-h-mardi');
-        var hDim = document.getElementById('cms-h-dimanche');
-        if (hLundi && data.horaires.lundi) hLundi.textContent = data.horaires.lundi;
-        if (hMardi && data.horaires.mardi_samedi) hMardi.textContent = data.horaires.mardi_samedi;
-        if (hDim && data.horaires.dimanche) hDim.textContent = data.horaires.dimanche;
+        var hL = document.getElementById('cms-h-lundi');
+        var hM = document.getElementById('cms-h-mardi');
+        var hD = document.getElementById('cms-h-dimanche');
+        if (hL && data.horaires.lundi) hL.textContent = data.horaires.lundi;
+        if (hM && data.horaires.mardi_samedi) hM.textContent = data.horaires.mardi_samedi;
+        if (hD && data.horaires.dimanche) hD.textContent = data.horaires.dimanche;
       }
-
-      // Collection carousel
       if (data.collection && data.collection.photos && data.collection.photos.length > 0) {
         var carouselEl = document.getElementById('cms-carousel');
         if (carouselEl) {
@@ -97,11 +88,10 @@
           data.collection.photos.forEach(function (p) {
             html += '<div class="carousel-item"><div class="carousel-img"><img src="' + p.image + '" alt="' + (p.alt || '') + '"></div></div>';
           });
-          // Duplicate for infinite loop
           html += html;
           carouselEl.innerHTML = html;
         }
       }
     })
-    .catch(function () { /* Silently use fallback HTML content */ });
+    .catch(function () {});
 })();
