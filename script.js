@@ -22,10 +22,10 @@
   var menuClose = document.getElementById('menu-close');
   var mobileLinks = document.querySelectorAll('.mobile-link');
 
-  function openMenu() { mobileMenu.classList.add('open'); }
+  function toggleMenu() { mobileMenu.classList.toggle('open'); }
   function closeMenu() { mobileMenu.classList.remove('open'); }
 
-  hamburger.addEventListener('click', openMenu);
+  hamburger.addEventListener('click', toggleMenu);
   menuClose.addEventListener('click', closeMenu);
   mobileLinks.forEach(function (link) {
     link.addEventListener('click', closeMenu);
