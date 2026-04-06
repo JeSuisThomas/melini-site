@@ -582,6 +582,27 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   transition: color 0.4s var(--ease-premium);
 }
 .contact-block a:hover { color: var(--blanc); }
+.horaires-table {
+  border-collapse: collapse;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  line-height: 1;
+}
+.horaires-table td {
+  padding: 7px 0;
+}
+.horaires-table td:first-child {
+  padding-right: 24px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+.horaires-table td:last-child {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+}
 .contact-actions { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
 .contact-btn {
   display: inline-flex;
