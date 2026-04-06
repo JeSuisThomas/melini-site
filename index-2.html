@@ -81,13 +81,13 @@
     <a href="#contact" class="btn-primary reveal reveal-d3">Nous rendre visite</a>
   </div>
   <div class="hero-image">
-    <img src="images/plante_melini.jpg" alt="Boutique Melini - Chaussures et sacs femme à Uccle">
+    <img id="cms-hero-img" src="images/plante_melini.jpg" alt="Boutique Melini - Chaussures et sacs femme à Uccle">
   </div>
   <div class="hero-scroll reveal reveal-d4"><div class="line"></div><span>Explorer</span></div>
 </header>
 
 <!-- ─── BANDEAU ─── -->
-<div class="bandeau">Nouvelle collection printemps-été 2026 &mdash; Disponible en boutique</div>
+<div class="bandeau" id="cms-bandeau">Nouvelle collection printemps-été 2026 &middot; Disponible en boutique</div>
 
 <!-- ─── COLLECTION ─── -->
 <section class="section collection" id="selection">
@@ -97,7 +97,7 @@
     Cette sélection ne représente qu'une partie de nos articles en boutique. Venez nous rendre visite pour découvrir l'ensemble de la collection.
   </div>
   <div class="carousel-wrap">
-    <div class="carousel">
+    <div class="carousel" id="cms-carousel">
       <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/300/400" alt="Chaussure femme élégante"></div></div>
       <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/300/400" alt="Sneaker femme premium"></div></div>
       <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/300/400" alt="Sac à main en cuir"></div></div>
@@ -180,7 +180,7 @@
   <div class="about">
     <div class="about-image reveal">
       <div class="about-image-inner">
-        <img src="images/Anjel_chaussure.jpg" alt="Anjel, fondatrice de Melini, présentant une chaussure">
+        <img id="cms-histoire-img" src="images/Anjel_chaussure.jpg" alt="Anjel, fondatrice de Melini, présentant une chaussure">
       </div>
     </div>
     <div>
@@ -266,7 +266,11 @@
         </div>
         <div class="contact-block">
           <h4>Horaires</h4>
-          <p>Lundi : 14h — 18h30<br>Mardi — Samedi : 10h — 18h30<br>Dimanche : Fermé</p>
+          <table class="horaires-table" id="cms-horaires">
+            <tr><td>Lundi</td><td id="cms-h-lundi">14h00 &middot; 18h30</td></tr>
+            <tr><td>Mardi &agrave; Samedi</td><td id="cms-h-mardi">10h00 &middot; 18h30</td></tr>
+            <tr><td>Dimanche</td><td id="cms-h-dimanche">Ferm&eacute;</td></tr>
+          </table>
         </div>
         <div class="contact-block">
           <h4>Téléphone</h4>
