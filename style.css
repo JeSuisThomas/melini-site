@@ -417,29 +417,34 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .carousel-cta { margin-top: 52px; }
 
-/* ─── MARQUES ─── */
-.marques { background: var(--creme); text-align: center; overflow: hidden; }
-.marques-track {
+/* ─── MARQUES — Grille statique ─── */
+.marques { background: var(--creme); text-align: center; }
+.marques-grid {
   display: flex;
-  gap: 72px;
-  align-items: center;
-  animation: marquee 60s linear infinite;
-  width: max-content;
-  margin-top: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 16px;
+  max-width: 900px;
+  margin: 48px auto 0;
 }
-.marques-track:hover { animation-play-state: paused; }
 .marque-item {
   font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 300;
+  font-size: 15px;
+  font-weight: 400;
   color: var(--text-muted);
-  white-space: nowrap;
-  letter-spacing: 3px;
-  opacity: 0.45;
-  transition: opacity 0.5s var(--ease-premium);
+  letter-spacing: 1.5px;
+  padding: 10px 22px;
+  border: 1px solid rgba(212, 169, 154, 0.2);
+  border-radius: 100px;
+  transition: all 0.5s var(--ease-premium);
 }
-.marque-item:hover { opacity: 1; }
-@keyframes marquee {
+.marque-item:hover {
+  color: var(--noir);
+  border-color: var(--rose);
+  background: rgba(212, 169, 154, 0.08);
+}
+/* suppression ancien keyframe marquee */
+@keyframes marquee-unused {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
