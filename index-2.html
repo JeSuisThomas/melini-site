@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
 <script type="application/ld+json">
 {
@@ -45,213 +46,47 @@
   "sameAs": []
 }
 </script>
-
-<style>
-:root {
-  --noir: #1A1A1A;
-  --blanc: #FFFFFF;
-  --rose: #D4A99A;
-  --rose-light: #E8C4B8;
-  --creme: #F5EDE8;
-  --creme-deep: #EDE0D8;
-  --text-muted: #7A6B63;
-  --text-body: #4A3F3A;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'Outfit', -apple-system, sans-serif;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--sans); color: var(--noir); background: var(--blanc); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-
-/* ─── REVEAL ─── */
-.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-d1 { transition-delay: 0.1s; }
-.reveal-d2 { transition-delay: 0.2s; }
-.reveal-d3 { transition-delay: 0.3s; }
-
-/* ─── NAV ─── */
-.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); transition: padding 0.4s, box-shadow 0.4s; }
-.nav.scrolled { padding: 14px 48px; box-shadow: 0 1px 0 rgba(212,169,154,0.18); }
-.nav-logo { font-family: var(--serif); font-size: 24px; font-weight: 400; letter-spacing: 6px; color: var(--noir); text-decoration: none; line-height: 1; }
-.nav-logo small { display: block; font-family: var(--serif); font-size: 10px; letter-spacing: 3px; font-weight: 300; font-style: italic; color: var(--text-muted); margin-top: 2px; }
-.nav-logo .line { display: block; width: 32px; height: 1px; background: var(--rose); margin-top: 4px; }
-.nav-links { display: flex; align-items: center; gap: 32px; }
-.nav-links a { font-size: 11px; letter-spacing: 2px; font-weight: 300; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
-.nav-links a:hover { color: var(--noir); }
-.nav-cta { padding: 10px 22px !important; background: var(--rose) !important; color: var(--blanc) !important; transition: background 0.3s !important; }
-.nav-cta:hover { background: var(--noir) !important; }
-.nav-mobile-call { display: none; padding: 8px 16px; background: var(--rose); color: var(--blanc); text-decoration: none; font-size: 11px; letter-spacing: 1px; font-weight: 400; }
-.nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-.nav-hamburger span { display: block; width: 24px; height: 1.5px; background: var(--noir); transition: all 0.3s; }
-.mobile-menu { display: none; position: fixed; inset: 0; background: var(--blanc); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
-.mobile-menu.open { display: flex; }
-.mobile-menu a { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--noir); text-decoration: none; letter-spacing: 2px; }
-.mobile-menu-close { position: absolute; top: 24px; right: 24px; font-size: 28px; background: none; border: none; cursor: pointer; color: var(--noir); }
-
-/* ─── HERO ─── */
-.hero { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: center; justify-content: center; text-align: center; background: var(--creme); overflow: hidden; }
-.hero-bg-text { position: absolute; font-family: var(--serif); font-size: clamp(100px,16vw,240px); font-weight: 300; color: var(--creme-deep); letter-spacing: 16px; white-space: nowrap; user-select: none; pointer-events: none; opacity: 0.5; }
-.hero-content { position: relative; z-index: 1; max-width: 680px; padding: 0 24px; }
-.hero-content h1 { font-family: var(--serif); font-size: clamp(30px,5vw,50px); font-weight: 300; line-height: 1.2; color: var(--noir); margin-bottom: 16px; letter-spacing: 1px; }
-.hero-content h1 em { font-style: italic; color: var(--rose); }
-.hero-sub { font-size: 12px; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 300; }
-.hero-experience { font-family: var(--serif); font-size: 15px; font-weight: 300; font-style: italic; color: var(--text-muted); margin-bottom: 36px; }
-.btn-primary { display: inline-block; padding: 14px 40px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--blanc); background: var(--noir); text-decoration: none; transition: background 0.4s cubic-bezier(0.22,1,0.36,1); }
-.btn-primary:hover { background: var(--rose); }
-.hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-muted); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-.hero-scroll .line { width: 1px; height: 36px; background: var(--rose); animation: pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:.3;transform:scaleY(.5)} 50%{opacity:1;transform:scaleY(1)} }
-
-/* ─── BANDEAU ─── */
-.bandeau { background: var(--rose); color: var(--blanc); text-align: center; padding: 13px 24px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 300; }
-
-/* ─── SECTIONS ─── */
-.section { padding: 100px 48px; }
-.section-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--rose); margin-bottom: 16px; font-weight: 400; }
-.section-title { font-family: var(--serif); font-size: clamp(26px,4vw,40px); font-weight: 300; line-height: 1.25; color: var(--noir); margin-bottom: 20px; }
-.section-text { font-size: 15px; line-height: 1.8; color: var(--text-body); font-weight: 300; max-width: 560px; }
-
-/* ─── À PROPOS ─── */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; max-width: 1200px; margin: 0 auto; }
-.about-image { aspect-ratio: 4/5; background: var(--creme); display: flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 2px; color: var(--rose); position: relative; overflow: hidden; }
-.about-highlight { margin-top: 32px; padding: 24px 0; border-top: 1px solid var(--creme-deep); display: flex; gap: 48px; }
-.about-stat { text-align: center; }
-.about-stat .num { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--rose); line-height: 1; }
-.about-stat .label { font-size: 11px; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
-
-/* ─── COLLECTION ─── */
-.collection { background: var(--blanc); text-align: center; overflow: hidden; padding-bottom: 80px; }
-.disclaimer { font-size: 13px; font-style: italic; color: var(--text-muted); max-width: 520px; margin: 0 auto 48px; line-height: 1.7; padding: 20px 28px; border-left: 2px solid var(--rose); text-align: left; font-weight: 300; }
-.carousel-wrap { position: relative; width: 100vw; left: 50%; transform: translateX(-50%); overflow: hidden; }
-.carousel-wrap::before, .carousel-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
-.carousel-wrap::before { left: 0; background: linear-gradient(to right, var(--blanc), transparent); }
-.carousel-wrap::after { right: 0; background: linear-gradient(to left, var(--blanc), transparent); }
-.carousel { display: flex; gap: 24px; width: max-content; animation: carousel-scroll 40s linear infinite; padding: 20px 0; }
-.carousel:hover { animation-play-state: paused; }
-.carousel-item { flex: 0 0 300px; position: relative; overflow: hidden; }
-.carousel-img { width: 300px; height: 400px; background: var(--creme); overflow: hidden; position: relative; }
-.carousel-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.22,1,0.36,1); }
-.carousel-item:hover .carousel-img img { transform: scale(1.06); }
-.carousel-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,0.08), transparent 40%); pointer-events: none; transition: opacity 0.4s; }
-.carousel-item:hover::after { opacity: 0; }
-@keyframes carousel-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.carousel-cta { margin-top: 48px; }
-.carousel-hint { display: none; }
-
-/* ─── MARQUES ─── */
-.marques { background: var(--creme); text-align: center; overflow: hidden; }
-.marques-track { display: flex; gap: 64px; align-items: center; animation: marquee 60s linear infinite; width: max-content; margin-top: 40px; }
-.marques-track:hover { animation-play-state: paused; }
-.marque-item { font-family: var(--serif); font-size: 20px; font-weight: 300; color: var(--text-muted); white-space: nowrap; letter-spacing: 3px; opacity: 0.55; transition: opacity 0.3s; }
-.marque-item:hover { opacity: 1; }
-@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-/* ─── TÉMOIGNAGES ─── */
-.testimonials { background: var(--blanc); text-align: center; }
-.testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; max-width: 1000px; margin: 48px auto 0; }
-.testimonial { text-align: left; padding: 28px; position: relative; }
-.testimonial::before { content: '\201C'; font-family: var(--serif); font-size: 56px; color: var(--rose); line-height: 1; display: block; margin-bottom: -6px; opacity: 0.5; }
-.testimonial blockquote { font-family: var(--serif); font-size: 16px; font-weight: 300; font-style: italic; line-height: 1.7; color: var(--text-body); margin-bottom: 14px; }
-.testimonial cite { font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-style: normal; color: var(--rose); font-weight: 400; }
-.testimonial .source { font-size: 10px; color: var(--text-muted); font-weight: 300; margin-top: 2px; display: block; }
-
-/* ─── SOCIAL ─── */
-.social { background: var(--creme); text-align: center; }
-.social-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 28px; padding: 14px 36px; border: 1px solid var(--rose); text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--noir); font-weight: 400; transition: all 0.3s; }
-.social-link:hover { background: var(--rose); color: var(--blanc); border-color: var(--rose); }
-.social-link svg { width: 18px; height: 18px; }
-
-/* ─── CONTACT ─── */
-.contact { background: var(--noir); color: var(--blanc); }
-.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; max-width: 1100px; margin: 0 auto; align-items: start; }
-.contact .section-label { color: var(--rose-light); }
-.contact .section-title { color: var(--blanc); }
-.contact-info { display: flex; flex-direction: column; gap: 24px; }
-.contact-block h4 { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--rose-light); margin-bottom: 8px; font-weight: 400; }
-.contact-block p, .contact-block a { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.8; text-decoration: none; font-weight: 300; }
-.contact-block a:hover { color: var(--blanc); }
-.contact-actions { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
-.contact-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-weight: 400; transition: all 0.3s; }
-.contact-btn-primary { background: var(--rose); color: var(--blanc); }
-.contact-btn-primary:hover { background: var(--rose-light); }
-.contact-btn-secondary { border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.75); }
-.contact-btn-secondary:hover { border-color: var(--blanc); color: var(--blanc); }
-.contact-map { aspect-ratio: 4/3; border-radius: 4px; overflow: hidden; }
-.contact-map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(0.3); }
-
-/* ─── FOOTER ─── */
-.footer { background: var(--noir); border-top: 1px solid rgba(255,255,255,0.06); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 300; }
-.footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
-.footer a:hover { color: var(--blanc); }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 900px) {
-  .nav { padding: 16px 24px; }
-  .nav.scrolled { padding: 12px 24px; }
-  .nav-links { display: none; }
-  .nav-hamburger { display: flex; }
-  .nav-mobile-call { display: block; }
-  .section { padding: 72px 24px; }
-  .about { grid-template-columns: 1fr; gap: 40px; }
-  .about-highlight { gap: 32px; }
-  .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
-  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-  .footer { flex-direction: column; gap: 10px; text-align: center; }
-  .carousel-item { flex: 0 0 240px; }
-  .carousel-img { width: 240px; height: 320px; }
-  .carousel-wrap::before, .carousel-wrap::after { width: 40px; }
-}
-@media (max-width: 480px) {
-  .hero-content h1 { font-size: 26px; }
-  .about-highlight { flex-wrap: wrap; gap: 24px; }
-  .about-stat { flex: 1; min-width: 80px; }
-  .carousel-item { flex: 0 0 220px; }
-  .carousel-img { width: 220px; height: 293px; }
-  .carousel-wrap::before, .carousel-wrap::after { width: 24px; }
-}
-</style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
+<!-- ─── NAV — Floating Pill ─── -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-logo">
-    MELINI
-    <span class="line"></span>
-    <small>shoes &amp; bags</small>
-  </a>
+  <a href="#" class="nav-logo">MELINI</a>
   <div class="nav-links">
     <a href="#histoire">Notre histoire</a>
-    <a href="#selection">Sélection</a>
+    <a href="#selection">Collection</a>
     <a href="#marques">Marques</a>
     <a href="#contact" class="nav-cta">Nous trouver</a>
   </div>
   <a href="tel:023777880" class="nav-mobile-call">Appeler</a>
-  <div class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.add('open')">
+  <div class="nav-hamburger" id="hamburger">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
-<div class="mobile-menu">
-  <button class="mobile-menu-close" onclick="this.parentElement.classList.remove('open')">&times;</button>
-  <a href="#histoire" onclick="this.parentElement.classList.remove('open')">Notre histoire</a>
-  <a href="#selection" onclick="this.parentElement.classList.remove('open')">Sélection</a>
-  <a href="#marques" onclick="this.parentElement.classList.remove('open')">Marques</a>
-  <a href="#contact" onclick="this.parentElement.classList.remove('open')">Nous trouver</a>
-  <a href="tel:023777880" style="color:var(--rose)">Appeler le 02 377 78 80</a>
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="menu-close">&times;</button>
+  <a href="#histoire" class="mobile-link">Notre histoire</a>
+  <a href="#selection" class="mobile-link">Collection</a>
+  <a href="#marques" class="mobile-link">Marques</a>
+  <a href="#contact" class="mobile-link">Nous trouver</a>
+  <a href="tel:023777880" class="mobile-link" style="color:var(--rose)">Appeler le 02 377 78 80</a>
 </div>
 
-<!-- ─── HERO ─── -->
+<!-- ─── HERO — Asymmetric Split ─── -->
 <header class="hero">
-  <div class="hero-bg-text">MELINI</div>
   <div class="hero-content">
-    <h1>Chaque cliente &amp; chaque pied<br>sont <em>uniques</em></h1>
-    <p class="hero-sub">Chaussures &amp; sacs femme &bull; Uccle, Bruxelles</p>
-    <p class="hero-experience">40 ans de passion et d'expertise</p>
-    <a href="#contact" class="btn-primary">Nous rendre visite</a>
+    <span class="hero-eyebrow reveal">Uccle, Bruxelles</span>
+    <h1 class="reveal reveal-d1">Chaque cliente<br>& chaque pied<br>sont <em>uniques</em></h1>
+    <p class="hero-sub reveal reveal-d2">Chaussures & sacs femme</p>
+    <p class="hero-experience reveal reveal-d2">40 ans de passion et d'expertise</p>
+    <a href="#contact" class="btn-primary reveal reveal-d3">Nous rendre visite</a>
   </div>
-  <div class="hero-scroll"><div class="line"></div><span>Explorer</span></div>
+  <div class="hero-image">
+    <img src="https://picsum.photos/seed/melini-hero/800/1200" alt="Boutique Melini - Chaussures et sacs femme à Uccle">
+  </div>
+  <div class="hero-scroll reveal reveal-d4"><div class="line"></div><span>Explorer</span></div>
 </header>
 
 <!-- ─── BANDEAU ─── -->
@@ -260,7 +95,11 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
 <!-- ─── NOTRE HISTOIRE ─── -->
 <section class="section" id="histoire">
   <div class="about">
-    <div class="about-image reveal"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=750&fit=crop" alt="Intérieur de la boutique Melini à Uccle" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div class="about-image reveal">
+      <div class="about-image-inner">
+        <img src="https://picsum.photos/seed/melini-boutique/600/800" alt="Intérieur de la boutique Melini à Uccle">
+      </div>
+    </div>
     <div>
       <p class="section-label reveal">Notre histoire</p>
       <h2 class="section-title reveal reveal-d1">Melini, c'est avant tout<br>l'histoire d'Anjel</h2>
@@ -291,46 +130,44 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
   </div>
 </section>
 
-<!-- ─── SÉLECTION ─── -->
+<!-- ─── COLLECTION ─── -->
 <section class="section collection" id="selection">
-  <p class="section-label reveal">Sélection</p>
+  <p class="section-label reveal">Collection</p>
   <h2 class="section-title reveal reveal-d1">Un aperçu de nos collections</h2>
   <div class="disclaimer reveal reveal-d2">
     Cette sélection ne représente qu'une partie de nos articles en boutique. Venez nous rendre visite pour découvrir l'ensemble de la collection.
   </div>
   <div class="carousel-wrap">
     <div class="carousel">
-      <!-- Originaux -->
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=400&fit=crop" alt="Chaussure femme élégante"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=400&fit=crop" alt="Sneaker femme premium"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=400&fit=crop" alt="Sac à main en cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=300&h=400&fit=crop" alt="Escarpin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=300&h=400&fit=crop" alt="Sandale femme été"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop" alt="Sac femme élégant"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=300&h=400&fit=crop" alt="Bottine femme cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=300&h=400&fit=crop" alt="Chaussure plate femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=400&fit=crop" alt="Sac à bandoulière cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=300&h=400&fit=crop" alt="Mocassin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=400&fit=crop" alt="Basket femme tendance"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&h=400&fit=crop" alt="Espadrille femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/300/400" alt="Chaussure femme élégante"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/300/400" alt="Sneaker femme premium"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/300/400" alt="Sac à main en cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe3/300/400" alt="Escarpin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe4/300/400" alt="Sandale femme été"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag2/300/400" alt="Sac femme élégant"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe5/300/400" alt="Bottine femme cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe6/300/400" alt="Chaussure plate femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag3/300/400" alt="Sac à bandoulière cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe7/300/400" alt="Mocassin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe8/300/400" alt="Basket femme tendance"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe9/300/400" alt="Espadrille femme"></div></div>
       <!-- Duplicata pour boucle infinie -->
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300&h=400&fit=crop" alt="Chaussure femme élégante"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300&h=400&fit=crop" alt="Sneaker femme premium"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=400&fit=crop" alt="Sac à main en cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=300&h=400&fit=crop" alt="Escarpin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=300&h=400&fit=crop" alt="Sandale femme été"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop" alt="Sac femme élégant"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=300&h=400&fit=crop" alt="Bottine femme cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=300&h=400&fit=crop" alt="Chaussure plate femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=300&h=400&fit=crop" alt="Sac à bandoulière cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=300&h=400&fit=crop" alt="Mocassin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=400&fit=crop" alt="Basket femme tendance"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://images.unsplash.com/photo-1591561954557-26941169b49e?w=300&h=400&fit=crop" alt="Espadrille femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/300/400" alt="Chaussure femme élégante"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/300/400" alt="Sneaker femme premium"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/300/400" alt="Sac à main en cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe3/300/400" alt="Escarpin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe4/300/400" alt="Sandale femme été"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag2/300/400" alt="Sac femme élégant"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe5/300/400" alt="Bottine femme cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe6/300/400" alt="Chaussure plate femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag3/300/400" alt="Sac à bandoulière cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe7/300/400" alt="Mocassin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe8/300/400" alt="Basket femme tendance"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe9/300/400" alt="Espadrille femme"></div></div>
     </div>
   </div>
-  <div class="carousel-hint">Faites défiler pour découvrir &rarr;</div>
   <div class="carousel-cta">
-    <a href="#contact" class="btn-primary">Découvrir toute la collection en boutique</a>
+    <a href="#contact" class="btn-primary reveal">Découvrir toute la collection en boutique</a>
   </div>
 </section>
 
@@ -357,7 +194,7 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
     <span class="marque-item">HEE</span>
     <span class="marque-item">DLS</span>
     <span class="marque-item">KAOTIKO</span>
-    <!-- duplicate for seamless loop -->
+    <!-- Duplicata boucle -->
     <span class="marque-item">NEROGIARDINI</span>
     <span class="marque-item">HISPANITAS</span>
     <span class="marque-item">GABOR</span>
@@ -385,19 +222,25 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
   <h2 class="section-title reveal reveal-d1">La parole à nos clientes</h2>
   <div class="testimonial-grid">
     <div class="testimonial reveal">
-      <blockquote>Je recommande cette boutique les yeux fermés ! On y trouve un très beau choix de chaussures et d'articles de maroquinerie de qualité. L'accueil est chaleureux et les conseils toujours professionnels. C'est le genre de boutique où l'on revient avec plaisir.</blockquote>
-      <cite>Nadine V.</cite>
-      <span class="source">Avis Facebook</span>
+      <div class="testimonial-inner">
+        <blockquote>Je recommande cette boutique les yeux fermés ! On y trouve un très beau choix de chaussures et d'articles de maroquinerie de qualité. L'accueil est chaleureux et les conseils toujours professionnels. C'est le genre de boutique où l'on revient avec plaisir.</blockquote>
+        <cite>Nadine V.</cite>
+        <span class="source">Avis Facebook</span>
+      </div>
     </div>
     <div class="testimonial reveal reveal-d1">
-      <blockquote>Il m'a été rare de vivre un accueil aussi chaleureux ! Je suis sortie de la boutique d'Angèle avec LE sac idéal. Merci pour vos précieux conseils.</blockquote>
-      <cite>Ada W.</cite>
-      <span class="source">Avis Google</span>
+      <div class="testimonial-inner">
+        <blockquote>Il m'a été rare de vivre un accueil aussi chaleureux ! Je suis sortie de la boutique d'Anjel avec LE sac idéal. Merci pour vos précieux conseils.</blockquote>
+        <cite>Ada W.</cite>
+        <span class="source">Avis Google</span>
+      </div>
     </div>
     <div class="testimonial reveal reveal-d2">
-      <blockquote>J'y retourne car la dame est extrêmement soucieuse de la satisfaction du client. Ma fille qui habite très loin d'Uccle y vient pour la qualité des chaussures, des conseils et de la gentillesse. Un vrai plaisir.</blockquote>
-      <cite>G.H.</cite>
-      <span class="source">Avis Google</span>
+      <div class="testimonial-inner">
+        <blockquote>J'y retourne car la dame est extrêmement soucieuse de la satisfaction du client. Ma fille qui habite très loin d'Uccle y vient pour la qualité des chaussures, des conseils et de la gentillesse. Un vrai plaisir.</blockquote>
+        <cite>G.H.</cite>
+        <span class="source">Avis Google</span>
+      </div>
     </div>
   </div>
 </section>
@@ -406,7 +249,7 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
 <section class="section social">
   <p class="section-label reveal">Suivez-nous</p>
   <h2 class="section-title reveal reveal-d1">Retrouvez-nous sur Facebook</h2>
-  <p class="section-text reveal reveal-d2" style="margin:0 auto">Nouveautés, coups de cœur et coulisses de la boutique.</p>
+  <p class="section-text reveal reveal-d2">Nouveautés, coups de coeur et coulisses de la boutique.</p>
   <a href="https://www.facebook.com" target="_blank" rel="noopener" class="social-link reveal reveal-d3">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     Melini sur Facebook
@@ -456,14 +299,6 @@ body { font-family: var(--sans); color: var(--noir); background: var(--blanc); o
   <span>Chaussée d'Alsemberg 817, 1180 Uccle &middot; 02 377 78 80</span>
 </footer>
 
-<script>
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
-const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:0.12,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-const bg=document.querySelector('.hero-bg-text');
-window.addEventListener('scroll',()=>{if(window.scrollY<window.innerHeight)bg.style.transform=`translateY(${window.scrollY*0.25}px)`});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
