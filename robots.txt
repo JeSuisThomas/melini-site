@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 
-Sitemap: https://melini.be/sitemap.xml
+Sitemap: https://melini-shoes.com/sitemap.xml
