@@ -65,6 +65,10 @@
         var heroImg = document.getElementById('cms-hero-img');
         if (heroImg) heroImg.src = data.hero.image;
       }
+      if (data.hero && data.hero.sous_titre) {
+        var heroSub = document.getElementById('cms-hero-sub');
+        if (heroSub) heroSub.textContent = data.hero.sous_titre;
+      }
       if (data.bandeau && data.bandeau.texte) {
         var bandeau = document.getElementById('cms-bandeau');
         if (bandeau) bandeau.textContent = data.bandeau.texte;
