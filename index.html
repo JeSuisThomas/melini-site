@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Melini — Chaussures & Sacs Femme à Uccle, Bruxelles</title>
+<title>Melini — Chaussures &amp; Sacs Femme à Uccle, Bruxelles</title>
 <meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle. 40 ans d'expérience, marques européennes premium, conseil personnalisé. Chaussée d'Alsemberg 817.">
 <meta name="keywords" content="chaussures femme Uccle, boutique chaussures Bruxelles, sacs femme Uccle, Melini, chaussée Alsemberg">
 <meta property="og:title" content="Melini — Chaussures & Sacs Femme à Uccle">
@@ -32,11 +32,7 @@
     "addressRegion": "Bruxelles",
     "addressCountry": "BE"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 50.7985,
-    "longitude": 4.3401
-  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 50.7985, "longitude": 4.3401 },
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "14:00", "closes": "18:30" },
     { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "10:00", "closes": "18:30" }
@@ -49,23 +45,24 @@
 </head>
 <body>
 
-<!-- ─── NAV — Floating Pill ─── -->
+<!-- ─── NAV ─── -->
 <nav class="nav" id="nav">
-  <a href="#" class="nav-logo">MELINI</a>
+  <a href="#" class="nav-brand">
+    <span class="nav-mono">M</span>
+    <span class="nav-logo">MELINI</span>
+  </a>
   <div class="nav-links">
     <a href="#histoire">Notre histoire</a>
     <a href="#selection">Collection</a>
     <a href="#marques">Marques</a>
     <a href="#contact" class="nav-cta">Nous trouver</a>
   </div>
-  <div class="nav-hamburger" id="hamburger">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- ─── MOBILE MENU ─── -->
 <div class="mobile-menu" id="mobile-menu">
-  <button class="mobile-menu-close" id="menu-close">&times;</button>
+  <button class="mobile-menu-close" id="menu-close" aria-label="Fermer">&times;</button>
   <a href="#histoire" class="mobile-link">Notre histoire</a>
   <a href="#selection" class="mobile-link">Collection</a>
   <a href="#marques" class="mobile-link">Marques</a>
@@ -75,54 +72,52 @@
 <!-- ─── HERO ─── -->
 <header class="hero">
   <div class="hero-image">
-    <img id="cms-hero-img" src="images/plante_melini.jpg" alt="Melini Shoes and Bags">
+    <img id="cms-hero-img" src="images/plante_melini.jpg" alt="Boutique Melini, Uccle">
+  </div>
+  <div class="hero-edge right">
+    <div class="vline"></div>
+    <span class="text">Maisons européennes</span>
+    <div class="vline"></div>
   </div>
   <div class="hero-content">
-    <p class="hero-location reveal">Uccle, Bruxelles</p>
-    <h1 class="reveal reveal-d1">À chaque pas,<br>votre <em>signature</em></h1>
-    <div class="hero-line reveal reveal-d2"></div>
-    <p id="cms-hero-sub" class="hero-sub reveal reveal-d2">Melini &middot; Chaussures & sacs</p>
-    <a href="#contact" class="btn-primary hero-btn reveal reveal-d3">Nous rendre visite</a>
+    <div class="hero-main">
+      <p class="hero-meta reveal">Chaussures &amp; sacs femme · Uccle, Bruxelles</p>
+      <h1 class="reveal reveal-d1">À chaque pas,<br><em>votre signature.</em></h1>
+      <p id="cms-hero-sub" class="hero-sub reveal reveal-d2">Une sélection patiente de maisons européennes, chez Anjel, Chaussée d'Alsemberg.</p>
+      <div class="hero-actions reveal reveal-d3">
+        <a href="#contact" class="hero-btn">Nous rendre visite</a>
+        <a href="tel:023777880" class="hero-tel">Téléphone<span class="num">02 377 78 80</span></a>
+      </div>
+    </div>
+    <div class="hero-side reveal reveal-d4">
+      <div class="lab">Aujourd'hui</div>
+      <div class="val">10h00 — 18h30<br><span style="opacity:0.7">Mardi à samedi</span></div>
+    </div>
   </div>
-  <div class="hero-scroll reveal reveal-d4"><div class="line"></div><span>Explorer</span></div>
 </header>
 
 <!-- ─── BANDEAU ─── -->
 <div class="bandeau" id="cms-bandeau">Nouvelle collection printemps-été 2026 &middot; Disponible en boutique</div>
 
-<!-- ─── NOTRE HISTOIRE ─── -->
+<!-- ─── HISTOIRE ─── -->
 <section class="section" id="histoire">
   <div class="about">
-    <div class="about-image reveal">
-      <div class="about-image-inner">
-        <img id="cms-histoire-img" src="images/Anjel_chaussure.jpg" alt="Anjel, fondatrice de Melini, présentant une chaussure">
+    <div class="about-image-wrap reveal">
+      <div class="about-image">
+        <img id="cms-histoire-img" src="images/Anjel_chaussure.jpg" alt="Anjel, fondatrice de Melini">
       </div>
+      <div class="about-cite">Anjel, fondatrice</div>
     </div>
-    <div>
-      <p class="section-label reveal">Notre histoire</p>
-      <h2 class="section-title reveal reveal-d1">Melini, c'est avant tout<br>l'histoire d'Anjel</h2>
-      <p class="section-text reveal reveal-d2">
-        Passionnée depuis toujours, Anjel consacre sa vie à l'art de bien chausser les femmes. Formée au sein d'enseignes prestigieuses, elle a cultivé l'amour des belles matières, des coupes impeccables et du détail qui fait toute la différence.
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:16px">
-        En 2016, elle ouvre Melini sur la Chaussée d'Alsemberg, un espace chaleureux pensé pour le contact humain, loin des codes froids de la vente traditionnelle. Chaque modèle et chaque accessoire a été méticuleusement sélectionné par ses soins.
-      </p>
-      <p class="section-text reveal reveal-d2" style="margin-top:16px;font-style:italic;color:var(--text-muted)">
-        Pousser la porte, c'est prendre le temps de découvrir la sélection à votre rythme et pouvoir compter sur le regard bienveillant et expert d'Anjel.
-      </p>
-      <div class="about-highlight reveal reveal-d3">
-        <div class="about-stat">
-          <div class="num">40</div>
-          <div class="label">Années d'expérience</div>
-        </div>
-        <div class="about-stat">
-          <div class="num">20+</div>
-          <div class="label">Marques européennes</div>
-        </div>
-        <div class="about-stat">
-          <div class="num">2016</div>
-          <div class="label">Ouverture de Melini</div>
-        </div>
+    <div class="about-body">
+      <div class="chapter reveal"><span class="num">I</span><span class="lab">Notre histoire</span></div>
+      <h2 class="section-title reveal reveal-d1">Melini, c'est avant tout<br>l'histoire d'<em>Anjel</em>.</h2>
+      <p class="lead reveal reveal-d2">Passionnée depuis toujours, Anjel consacre sa vie à l'art de bien chausser les femmes.</p>
+      <p class="reveal reveal-d2">Formée au sein d'enseignes prestigieuses, elle a cultivé l'amour des belles matières, des coupes impeccables et du détail qui fait toute la différence.</p>
+      <p class="reveal reveal-d2">En 2016, elle ouvre Melini sur la Chaussée d'Alsemberg — un espace chaleureux pensé pour le contact humain, loin des codes froids de la vente traditionnelle. Chaque modèle, chaque accessoire a été méticuleusement sélectionné par ses soins.</p>
+      <div class="stats reveal reveal-d3">
+        <div class="stat"><div class="num"><em>40</em></div><div class="lab">Années d'expérience</div></div>
+        <div class="stat"><div class="num"><em>20</em>+</div><div class="lab">Maisons européennes</div></div>
+        <div class="stat"><div class="num"><em>2016</em></div><div class="lab">Ouverture à Uccle</div></div>
       </div>
     </div>
   </div>
@@ -130,86 +125,104 @@
 
 <!-- ─── COLLECTION ─── -->
 <section class="section collection" id="selection">
-  <p class="section-label reveal">Collection</p>
-  <h2 class="section-title reveal reveal-d1">Un aperçu de nos collections</h2>
-  <div class="disclaimer reveal reveal-d2">
+  <div class="collection-head">
+    <div class="chapter reveal"><span class="num">II</span><span class="lab">Collection</span></div>
+    <h2 class="section-title reveal reveal-d1">Un aperçu, et seulement un aperçu, <em>de nos collections.</em></h2>
+  </div>
+  <div class="collection-disclaimer reveal reveal-d2">
     Cette sélection ne représente qu'une partie de nos articles en boutique. Venez nous rendre visite pour découvrir l'ensemble de la collection.
   </div>
   <div class="carousel-wrap">
     <div class="carousel" id="cms-carousel">
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/300/400" alt="Chaussure femme élégante"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/300/400" alt="Sneaker femme premium"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/300/400" alt="Sac à main en cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe3/300/400" alt="Escarpin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe4/300/400" alt="Sandale femme été"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag2/300/400" alt="Sac femme élégant"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe5/300/400" alt="Bottine femme cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe6/300/400" alt="Chaussure plate femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag3/300/400" alt="Sac à bandoulière cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe7/300/400" alt="Mocassin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe8/300/400" alt="Basket femme tendance"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe9/300/400" alt="Espadrille femme"></div></div>
-      <!-- Duplicata pour boucle infinie -->
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/300/400" alt="Chaussure femme élégante"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/300/400" alt="Sneaker femme premium"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/300/400" alt="Sac à main en cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe3/300/400" alt="Escarpin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe4/300/400" alt="Sandale femme été"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag2/300/400" alt="Sac femme élégant"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe5/300/400" alt="Bottine femme cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe6/300/400" alt="Chaussure plate femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag3/300/400" alt="Sac à bandoulière cuir"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe7/300/400" alt="Mocassin femme"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe8/300/400" alt="Basket femme tendance"></div></div>
-      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe9/300/400" alt="Espadrille femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/280/380" alt="Chaussure femme élégante"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/280/380" alt="Sneaker femme premium"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/280/380" alt="Sac à main en cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe3/280/380" alt="Escarpin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe4/280/380" alt="Sandale femme été"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag2/280/380" alt="Sac femme élégant"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe5/280/380" alt="Bottine femme cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe6/280/380" alt="Chaussure plate femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag3/280/380" alt="Sac à bandoulière cuir"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe7/280/380" alt="Mocassin femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe8/280/380" alt="Basket femme tendance"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe9/280/380" alt="Espadrille femme"></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe1/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe2/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag1/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe3/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe4/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag2/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe5/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe6/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-bag3/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe7/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe8/280/380" alt=""></div></div>
+      <div class="carousel-item"><div class="carousel-img"><img src="https://picsum.photos/seed/melini-shoe9/280/380" alt=""></div></div>
     </div>
   </div>
-  <div class="carousel-cta">
-    <a href="#contact" class="btn-primary reveal">Découvrir toute la collection en boutique</a>
+  <div class="collection-cta reveal">
+    <p class="hint">Le reste vous attend Chaussée d'Alsemberg.</p>
+    <a href="#contact" class="cta-primary">Découvrir la collection en boutique</a>
   </div>
 </section>
 
-<!-- ─── MARQUES — Bandeau compact ─── -->
-<section class="section marques-compact" id="marques">
-  <p class="section-label reveal">Nos marques</p>
-  <p class="marques-line reveal reveal-d1">NeroGiardini &middot; Hispanitas &middot; Gabor &middot; Unisa &middot; Liu Jo &middot; Etrier &middot; Regarde le Ciel &middot; Tamaris &middot; Ángel Alarcón &middot; Les Tropéziennes &middot; Pedro Miralles &middot; Scapa &middot; Noa Harmon &middot; Sun68 &middot; Oh My Sandals &middot; Hee &middot; DLS &middot; Kaotiko &middot; Wirth &middot; Shepherd &middot; Victoria</p>
-  <p class="marques-count reveal reveal-d2">Plus de 20 maisons européennes sélectionnées avec exigence</p>
+<!-- ─── INTERLUDE ─── -->
+<div class="interlude">
+  <img src="images/plante_melini.jpg" alt="Intérieur de la boutique Melini">
+  <p class="caption">Pousser la porte, c'est prendre le temps.</p>
+</div>
+
+<!-- ─── MARQUES ─── -->
+<section class="section marques" id="marques">
+  <p class="marques-eyebrow reveal">Chapitre III · Nos marques</p>
+  <p class="marques-title reveal reveal-d1">Plus de vingt maisons européennes,<br>sélectionnées avec exigence.</p>
+  <p class="marques-line reveal reveal-d2">NeroGiardini <span class="sep">·</span> Hispanitas <span class="sep">·</span> Gabor <span class="sep">·</span> Unisa <span class="sep">·</span> Liu Jo <span class="sep">·</span> Etrier <span class="sep">·</span> Regarde le Ciel <span class="sep">·</span> Tamaris <span class="sep">·</span> Ángel Alarcón <span class="sep">·</span> Les Tropéziennes <span class="sep">·</span> Pedro Miralles <span class="sep">·</span> Scapa <span class="sep">·</span> Noa Harmon <span class="sep">·</span> Sun68 <span class="sep">·</span> Oh My Sandals <span class="sep">·</span> Hee <span class="sep">·</span> DLS <span class="sep">·</span> Kaotiko <span class="sep">·</span> Wirth <span class="sep">·</span> Shepherd <span class="sep">·</span> Victoria</p>
+  <p class="marques-count reveal reveal-d3">Premium · 100 — 200 €</p>
 </section>
 
 <!-- ─── TÉMOIGNAGES ─── -->
 <section class="section testimonials">
-  <p class="section-label reveal">Ce qu'elles en disent</p>
-  <h2 class="section-title reveal reveal-d1">La parole à nos clientes</h2>
-  <div class="testimonial-grid">
-    <div class="testimonial reveal">
-      <div class="testimonial-inner">
-        <blockquote>Je recommande cette boutique les yeux fermés ! On y trouve un très beau choix de chaussures et d'articles de maroquinerie de qualité. L'accueil est chaleureux et les conseils toujours professionnels. C'est le genre de boutique où l'on revient avec plaisir.</blockquote>
-        <cite>Nadine V.</cite>
-        <span class="source">Avis Facebook</span>
+  <div class="testi-head">
+    <div class="chapter reveal"><span class="num">IV</span><span class="lab">Ce qu'elles en disent</span></div>
+    <h2 class="section-title reveal reveal-d1">La parole à <em>nos clientes.</em></h2>
+    <p class="reveal reveal-d2">De vraies clientes, de vrais avis.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-inner">
+        <blockquote>Je recommande cette boutique les yeux fermés ! On y trouve un très beau choix de chaussures et d'articles de maroquinerie de qualité. L'accueil est chaleureux et les conseils toujours professionnels.</blockquote>
+        <div class="testi-foot">
+          <div class="testi-init">N</div>
+          <div class="testi-meta"><cite>Nadine V.</cite><span class="src">Avis Facebook</span></div>
+        </div>
       </div>
     </div>
-    <div class="testimonial reveal reveal-d1">
-      <div class="testimonial-inner">
+    <div class="testi-card reveal reveal-d1">
+      <div class="testi-inner">
         <blockquote>Il m'a été rare de vivre un accueil aussi chaleureux ! Je suis sortie de la boutique d'Anjel avec LE sac idéal. Merci pour vos précieux conseils.</blockquote>
-        <cite>Ada W.</cite>
-        <span class="source">Avis Google</span>
+        <div class="testi-foot">
+          <div class="testi-init">A</div>
+          <div class="testi-meta"><cite>Ada W.</cite><span class="src">Avis Google</span></div>
+        </div>
       </div>
     </div>
-    <div class="testimonial reveal reveal-d2">
-      <div class="testimonial-inner">
-        <blockquote>J'y retourne car la dame est extrêmement soucieuse de la satisfaction du client. Ma fille qui habite très loin d'Uccle y vient pour la qualité des chaussures, des conseils et de la gentillesse. Un vrai plaisir.</blockquote>
-        <cite>G.H.</cite>
-        <span class="source">Avis Google</span>
+    <div class="testi-card reveal reveal-d2">
+      <div class="testi-inner">
+        <blockquote>J'y retourne car la dame est extrêmement soucieuse de la satisfaction du client. Ma fille y vient pour la qualité des chaussures et les conseils.</blockquote>
+        <div class="testi-foot">
+          <div class="testi-init">G</div>
+          <div class="testi-meta"><cite>G.H.</cite><span class="src">Avis Google</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── RÉSEAUX ─── -->
+<!-- ─── SOCIAL ─── -->
 <section class="section social">
-  <p class="section-label reveal">Suivez-nous</p>
-  <h2 class="section-title reveal reveal-d1">Retrouvez-nous sur Facebook</h2>
-  <p class="section-text reveal reveal-d2">Nouveautés, coups de coeur et coulisses de la boutique.</p>
+  <div class="chapter reveal"><span class="num">V</span><span class="lab">Suivez-nous</span></div>
+  <h2 class="section-title reveal reveal-d1">Retrouvez Melini sur <em>Facebook</em>.</h2>
+  <p class="reveal reveal-d2">Nouveautés, coups de coeur et coulisses de la boutique.</p>
   <a href="https://www.facebook.com/melinishoes" target="_blank" rel="noopener" class="social-link reveal reveal-d3">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
     Melini sur Facebook
@@ -217,50 +230,52 @@
 </section>
 
 <!-- ─── CONTACT ─── -->
-<section class="section contact" id="contact">
+<section class="contact" id="contact">
   <div class="contact-inner">
     <div>
-      <p class="section-label reveal">Nous trouver</p>
-      <h2 class="section-title reveal reveal-d1">Rendez-nous visite</h2>
-      <div class="contact-info reveal reveal-d2">
+      <div class="chapter reveal"><span class="num">VI</span><span class="lab">Nous trouver</span></div>
+      <h2 class="section-title reveal reveal-d1">Rendez-nous <em>visite.</em></h2>
+      <p class="contact-lead reveal reveal-d2">Le mieux pour vous conseiller, c'est encore de pousser la porte.</p>
+      <div class="contact-info reveal reveal-d3">
         <div class="contact-block">
           <h4>Adresse</h4>
           <p><a href="https://maps.google.com/?q=Chaussée+d'Alsemberg+817+1180+Uccle" target="_blank" rel="noopener">Chaussée d'Alsemberg 817<br>1180 Uccle, Bruxelles</a></p>
         </div>
         <div class="contact-block">
+          <h4>Téléphone</h4>
+          <a href="tel:023777880" class="tel">02 377 78 80</a>
+        </div>
+        <div class="contact-block contact-block-full">
           <h4>Horaires</h4>
           <table class="horaires-table" id="cms-horaires">
             <tr><td>Lundi</td><td id="cms-h-lundi">14h00 &middot; 18h30</td></tr>
-            <tr><td>Mardi &agrave; Samedi</td><td id="cms-h-mardi">10h00 &middot; 18h30</td></tr>
-            <tr><td>Dimanche</td><td id="cms-h-dimanche">Ferm&eacute;</td></tr>
+            <tr><td>Mardi à samedi</td><td id="cms-h-mardi">10h00 &middot; 18h30</td></tr>
+            <tr><td>Dimanche</td><td id="cms-h-dimanche">Fermé</td></tr>
           </table>
         </div>
-        <div class="contact-block">
-          <h4>Téléphone</h4>
-          <a href="tel:023777880" style="font-size:18px;color:var(--blanc);font-family:var(--serif)">02 377 78 80</a>
-        </div>
-        <div class="contact-actions">
-          <a href="tel:023777880" class="contact-btn contact-btn-primary">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-            Appeler
-          </a>
-          <a href="https://maps.google.com/?daddr=Chaussée+d'Alsemberg+817+1180+Uccle" target="_blank" rel="noopener" class="contact-btn contact-btn-secondary">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Itinéraire
-          </a>
-        </div>
+      </div>
+      <div class="contact-actions reveal reveal-d3">
+        <a href="tel:023777880" class="cbtn cbtn-pri">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Appeler la boutique
+        </a>
+        <a href="https://maps.google.com/?daddr=Chaussée+d'Alsemberg+817+1180+Uccle" target="_blank" rel="noopener" class="cbtn cbtn-sec">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Itinéraire Google
+        </a>
       </div>
     </div>
     <div class="contact-map reveal reveal-d3">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1261.0!2d4.3395!3d50.7983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3c4e8e4c69e5d%3A0x9a2b0a3c5e8f7d1a!2sChauss%C3%A9e%20d&#39;Alsemberg%20817%2C%201180%20Uccle!5e0!3m2!1sfr!2sbe!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1261.0!2d4.3395!3d50.7983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3c4e8e4c69e5d%3A0x9a2b0a3c5e8f7d1a!2sChauss%C3%A9e%20d&#39;Alsemberg%20817%2C%201180%20Uccle!5e0!3m2!1sfr!2sbe!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte Melini"></iframe>
     </div>
   </div>
 </section>
 
 <!-- ─── FOOTER ─── -->
 <footer class="footer">
-  <span>&copy; 2026 Melini &middot; Tous droits réservés</span>
-  <span>Chaussée d'Alsemberg 817, 1180 Uccle &middot; 02 377 78 80</span>
+  <span class="left">© 2026 Melini · Tous droits réservés</span>
+  <span class="center">M</span>
+  <span class="right">Chaussée d'Alsemberg 817 · 1180 Uccle</span>
 </footer>
 
 <script src="script.js"></script>
