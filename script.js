@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
-   MELINI — Script (v2)
-   Nav scroll · mobile menu · scroll reveals · carousel · CMS loader
+   MELINI — Script
+   Nav, scroll reveals, mobile menu
    ═══════════════════════════════════════════ */
 
 (function () {
@@ -8,11 +8,13 @@
 
   /* ─── NAV SCROLL ─── */
   var nav = document.getElementById('nav');
-  if (nav) {
-    window.addEventListener('scroll', function () {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
-  }
+  var lastScroll = 0;
+
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 60);
+    lastScroll = y;
+  }, { passive: true });
 
   /* ─── MOBILE MENU ─── */
   var hamburger = document.getElementById('hamburger');
@@ -20,34 +22,39 @@
   var menuClose = document.getElementById('menu-close');
   var mobileLinks = document.querySelectorAll('.mobile-link');
 
-  function toggleMenu() { if (mobileMenu) mobileMenu.classList.toggle('open'); }
-  function closeMenu() { if (mobileMenu) mobileMenu.classList.remove('open'); }
+  function toggleMenu() { mobileMenu.classList.toggle('open'); }
+  function closeMenu() { mobileMenu.classList.remove('open'); }
 
-  if (hamburger) hamburger.addEventListener('click', toggleMenu);
-  if (menuClose) menuClose.addEventListener('click', closeMenu);
-  mobileLinks.forEach(function (link) { link.addEventListener('click', closeMenu); });
+  hamburger.addEventListener('click', toggleMenu);
+  menuClose.addEventListener('click', closeMenu);
+  mobileLinks.forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
 
-  /* ─── SCROLL REVEAL ─── */
+  /* ─── SCROLL REVEAL (IntersectionObserver) ─── */
   var reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
-    reveals.forEach(function (el) { observer.observe(el); });
-  } else {
-    reveals.forEach(function (el) { el.classList.add('visible'); });
-  }
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  reveals.forEach(function (el) { observer.observe(el); });
 
   /* ─── CAROUSEL PAUSE/RESUME ─── */
   var carousel = document.querySelector('.carousel');
   if (carousel) {
-    carousel.addEventListener('mouseenter', function () { carousel.classList.add('paused'); });
-    carousel.addEventListener('mouseleave', function () { carousel.classList.remove('paused'); });
+    carousel.addEventListener('mouseenter', function () {
+      carousel.classList.add('paused');
+    });
+    carousel.addEventListener('mouseleave', function () {
+      carousel.classList.remove('paused');
+    });
   }
 
   /* ─── CMS CONTENT LOADER ─── */
