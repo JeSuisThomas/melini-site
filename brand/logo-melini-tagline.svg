@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 180" width="480" height="180" role="img" aria-label="Melini — Shoes &amp; Bags">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&amp;family=Outfit:wght@300&amp;display=swap');
+      .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 64px; letter-spacing: 16px; fill: #1A1A1A; }
+      .tagline  { font-family: 'Outfit', -apple-system, sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 8px; fill: #7A6B63; text-transform: uppercase; }
+    </style>
+  </defs>
+  <text x="240" y="80" text-anchor="middle" class="wordmark">MELINI</text>
+  <line x1="200" y1="108" x2="280" y2="108" stroke="#D4A99A" stroke-width="1"/>
+  <text x="240" y="138" text-anchor="middle" class="tagline">SHOES &amp; BAGS</text>
+</svg>

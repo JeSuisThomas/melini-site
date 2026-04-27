@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" role="img" aria-label="Melini — À chaque pas, votre signature">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&amp;display=swap');
+      .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 56px; letter-spacing: 14px; fill: #1A1A1A; }
+      .signature { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 300; font-size: 18px; letter-spacing: 1px; fill: #7A6B63; }
+    </style>
+  </defs>
+  <text x="300" y="74" text-anchor="middle" class="wordmark">MELINI</text>
+  <line x1="252" y1="100" x2="348" y2="100" stroke="#D4A99A" stroke-width="1"/>
+  <text x="300" y="132" text-anchor="middle" class="signature">À chaque pas, votre signature</text>
+</svg>

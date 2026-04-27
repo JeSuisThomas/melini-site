@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Melini — Chaussures et sacs femme à Uccle">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&amp;family=Outfit:wght@300;400&amp;display=swap');
+      .brand   { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 110px; letter-spacing: 28px; fill: #1A1A1A; }
+      .signature { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 300; font-size: 38px; fill: #4A3F3A; }
+      .label { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 16px; letter-spacing: 6px; fill: #7A6B63; text-transform: uppercase; }
+      .place { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 14px; letter-spacing: 4px; fill: #D4A99A; text-transform: uppercase; }
+    </style>
+    <linearGradient id="bgFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#F5EDE8"/>
+      <stop offset="100%" stop-color="#EDE0D8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bgFade)"/>
+  <text x="600" y="232" text-anchor="middle" class="label">Uccle &#183; Bruxelles</text>
+  <text x="600" y="330" text-anchor="middle" class="brand">MELINI</text>
+  <line x1="540" y1="380" x2="660" y2="380" stroke="#D4A99A" stroke-width="1.5"/>
+  <text x="600" y="430" text-anchor="middle" class="signature">À chaque pas, votre signature</text>
+  <text x="600" y="500" text-anchor="middle" class="place">Chaussures &amp; sacs femme</text>
+</svg>

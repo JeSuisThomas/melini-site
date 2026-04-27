@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charte graphique — Melini</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #1A1A1A;
+    --blanc: #FFFFFF;
+    --rose: #D4A99A;
+    --rose-light: #E8C4B8;
+    --creme: #F5EDE8;
+    --creme-deep: #EDE0D8;
+    --text-muted: #7A6B63;
+    --text-body: #4A3F3A;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Outfit', -apple-system, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--noir);
+    background: var(--blanc);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  img { display: block; max-width: 100%; }
+
+  /* --- HEADER --- */
+  .brand-header {
+    background: var(--noir);
+    padding: 80px 48px 64px;
+    text-align: center;
+  }
+  .brand-header h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 48px;
+    color: var(--blanc);
+    letter-spacing: 12px;
+    margin-bottom: 16px;
+  }
+  .brand-header p {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose-light);
+    font-weight: 300;
+  }
+  .brand-header .version {
+    margin-top: 32px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* --- LAYOUT --- */
+  .brand-section {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--creme);
+  }
+  .brand-section:last-child { border-bottom: none; }
+  .brand-section h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 32px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .brand-section .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 48px;
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  /* --- LOGO GRID --- */
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .logo-card {
+    border: 1px solid var(--creme);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .logo-card:hover { transform: translateY(-3px); }
+  .logo-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    min-height: 200px;
+  }
+  .logo-preview.bg-blanc { background: var(--blanc); }
+  .logo-preview.bg-noir  { background: var(--noir); }
+  .logo-preview.bg-creme { background: var(--creme); }
+  .logo-preview.bg-rose  { background: var(--rose); }
+  .logo-preview img, .logo-preview object { max-width: 100%; max-height: 120px; }
+  .logo-preview.tall img, .logo-preview.tall object { max-height: 180px; }
+  .logo-info {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--creme);
+  }
+  .logo-name {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--text-body);
+  }
+  .logo-dl {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  .logo-dl:hover { color: var(--noir); }
+
+  /* --- COLOR PALETTE --- */
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+  }
+  .swatch {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .swatch-color {
+    height: 120px;
+    position: relative;
+  }
+  .swatch-info {
+    padding: 14px 16px;
+    background: var(--blanc);
+  }
+  .swatch-name {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 4px;
+  }
+  .swatch-hex {
+    font-size: 11px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .swatch-hex:hover { color: var(--noir); }
+  .swatch-use {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .copied {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--noir);
+    color: var(--blanc);
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .copied.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* --- TYPOGRAPHY --- */
+  .type-specimens {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .type-card {
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid var(--creme);
+  }
+  .type-sample {
+    font-size: 64px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--noir);
+  }
+  .type-name {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .type-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .type-weights {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .type-weight {
+    font-size: 11px;
+    padding: 4px 12px;
+    border: 1px solid var(--creme);
+    border-radius: 100px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* --- USAGE RULES --- */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+  .rule-card {
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--creme);
+  }
+  .rule-card.do  { border-left: 3px solid #6B8F71; }
+  .rule-card.dont { border-left: 3px solid #C0706B; }
+  .rule-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .rule-card.do .rule-label { color: #6B8F71; }
+  .rule-card.dont .rule-label { color: #C0706B; }
+  .rule-text {
+    font-size: 13px;
+    color: var(--text-body);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* --- VOICE --- */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .voice-card {
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--creme);
+    text-align: center;
+  }
+  .voice-card h4 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 12px;
+    color: var(--noir);
+  }
+  .voice-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* --- SOCIAL SIZES --- */
+  .sizes-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .sizes-table th {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 400;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--creme);
+  }
+  .sizes-table td {
+    font-size: 14px;
+    color: var(--text-body);
+    font-weight: 300;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--creme);
+  }
+  .sizes-table td:first-child { font-weight: 400; }
+  .sizes-table tr:last-child td { border-bottom: none; }
+
+  /* --- FOOTER --- */
+  .brand-footer {
+    text-align: center;
+    padding: 48px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 300;
+  }
+  .brand-footer a {
+    color: var(--rose);
+    text-decoration: none;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .brand-header { padding: 60px 24px 48px; }
+    .brand-header h1 { font-size: 32px; letter-spacing: 8px; }
+    .brand-section { padding: 60px 24px; }
+    .type-specimens { grid-template-columns: 1fr; }
+    .voice-grid { grid-template-columns: 1fr; }
+    .type-sample { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="brand-header">
+  <h1>MELINI</h1>
+  <p>Charte graphique</p>
+  <div class="version">Version 1.0 &middot; Avril 2026</div>
+</header>
+
+<!-- ═══ LOGOS ═══ -->
+<section class="brand-section">
+  <h2>Identit&eacute; visuelle</h2>
+  <p class="subtitle">Le logo Melini est typographique. Sa force r&eacute;side dans sa simplicit&eacute;. Cormorant Garamond, light, majuscules espac&eacute;es. Le trait rose sous le monogramme est la signature discr&egrave;te de la marque.</p>
+
+  <div class="logo-grid">
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini.svg" alt="Wordmark noir">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Wordmark &middot; Noir</span>
+        <a href="logo-melini.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-noir">
+        <img src="logo-melini-blanc.svg" alt="Wordmark blanc">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Wordmark &middot; Blanc</span>
+        <a href="logo-melini-blanc.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-creme">
+        <img src="logo-melini-rose.svg" alt="Wordmark rosé">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Wordmark &middot; Ros&eacute;</span>
+        <a href="logo-melini-rose.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini-tagline.svg" alt="Lockup avec tagline">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Lockup &middot; Shoes &amp; Bags</span>
+        <a href="logo-melini-tagline.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini-signature.svg" alt="Lockup avec signature">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Lockup &middot; Signature</span>
+        <a href="logo-melini-signature.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-creme tall">
+        <img src="logo-melini-stack.svg" alt="Version empilée">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Version empil&eacute;e</span>
+        <a href="logo-melini-stack.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini-monogram.svg" alt="Monogramme">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Monogramme &middot; Blanc</span>
+        <a href="logo-melini-monogram.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini-monogram-noir.svg" alt="Monogramme noir">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Monogramme &middot; Noir</span>
+        <a href="logo-melini-monogram-noir.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini-monogram-cercle.svg" alt="Monogramme cercle">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Monogramme &middot; Cercle</span>
+        <a href="logo-melini-monogram-cercle.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="logo-melini-monogram-rose.svg" alt="Monogramme rosé">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Monogramme &middot; Ros&eacute;</span>
+        <a href="logo-melini-monogram-rose.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-blanc">
+        <img src="favicon.svg" alt="Favicon" style="max-height:64px">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Favicon</span>
+        <a href="favicon.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOCIAL ═══ -->
+<section class="brand-section">
+  <h2>R&eacute;seaux sociaux</h2>
+  <p class="subtitle">Fichiers pr&ecirc;ts &agrave; l'emploi pour Facebook et le partage. Ouvrez le SVG dans un navigateur et faites une capture d'&eacute;cran pour obtenir un PNG, ou utilisez un outil comme <em>svgtopng.com</em>.</p>
+
+  <div class="logo-grid" style="margin-bottom:48px">
+    <div class="logo-card">
+      <div class="logo-preview bg-creme tall">
+        <img src="og-image.svg" alt="Image Open Graph">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Open Graph &middot; 1200&times;630</span>
+        <a href="og-image.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+
+    <div class="logo-card">
+      <div class="logo-preview bg-creme tall">
+        <img src="facebook-cover.svg" alt="Couverture Facebook">
+      </div>
+      <div class="logo-info">
+        <span class="logo-name">Facebook Cover &middot; 1640&times;624</span>
+        <a href="facebook-cover.svg" download class="logo-dl">SVG</a>
+      </div>
+    </div>
+  </div>
+
+  <table class="sizes-table">
+    <thead>
+      <tr>
+        <th>Support</th>
+        <th>Dimensions</th>
+        <th>Fichier recommand&eacute;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Photo de profil Facebook</td>
+        <td>500 &times; 500 px</td>
+        <td>Monogramme noir ou ros&eacute;</td>
+      </tr>
+      <tr>
+        <td>Couverture Facebook</td>
+        <td>1640 &times; 624 px</td>
+        <td>facebook-cover.svg</td>
+      </tr>
+      <tr>
+        <td>Partage lien (Open Graph)</td>
+        <td>1200 &times; 630 px</td>
+        <td>og-image.svg</td>
+      </tr>
+      <tr>
+        <td>Favicon navigateur</td>
+        <td>32 &times; 32 px</td>
+        <td>favicon.svg</td>
+      </tr>
+      <tr>
+        <td>Ic&ocirc;ne iPhone/iPad</td>
+        <td>180 &times; 180 px</td>
+        <td>apple-touch-icon.svg</td>
+      </tr>
+      <tr>
+        <td>Signature email</td>
+        <td>320 px largeur</td>
+        <td>Wordmark noir ou lockup</td>
+      </tr>
+      <tr>
+        <td>Carte de visite</td>
+        <td>Vectoriel</td>
+        <td>Lockup signature + adresse</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ COULEURS ═══ -->
+<section class="brand-section">
+  <h2>Palette de couleurs</h2>
+  <p class="subtitle">Six couleurs. Pas plus. Le noir est l'ancre, le ros&eacute; est l'accent, la cr&egrave;me est le repos. Cliquez sur un code pour le copier.</p>
+
+  <div class="palette">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1A1A1A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Noir</div>
+        <div class="swatch-hex" data-hex="#1A1A1A">#1A1A1A</div>
+        <div class="swatch-use">Texte principal, fonds sombres, boutons</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FFFFFF; border-bottom: 1px solid #eee"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Blanc</div>
+        <div class="swatch-hex" data-hex="#FFFFFF">#FFFFFF</div>
+        <div class="swatch-use">Fond principal, texte sur sombre</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#D4A99A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Ros&eacute;</div>
+        <div class="swatch-hex" data-hex="#D4A99A">#D4A99A</div>
+        <div class="swatch-use">Accent principal, CTA, d&eacute;tails</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#E8C4B8"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Ros&eacute; clair</div>
+        <div class="swatch-hex" data-hex="#E8C4B8">#E8C4B8</div>
+        <div class="swatch-use">Highlights, hover, h&eacute;ro italic</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F5EDE8"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cr&egrave;me</div>
+        <div class="swatch-hex" data-hex="#F5EDE8">#F5EDE8</div>
+        <div class="swatch-use">Fonds de section, repos visuel</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#EDE0D8"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cr&egrave;me profond</div>
+        <div class="swatch-hex" data-hex="#EDE0D8">#EDE0D8</div>
+        <div class="swatch-use">Bordures, d&eacute;limiteurs</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#7A6B63"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Texte att&eacute;nu&eacute;</div>
+        <div class="swatch-hex" data-hex="#7A6B63">#7A6B63</div>
+        <div class="swatch-use">Labels, sous-titres, texte secondaire</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#4A3F3A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Texte corps</div>
+        <div class="swatch-hex" data-hex="#4A3F3A">#4A3F3A</div>
+        <div class="swatch-use">Paragraphes, texte de lecture</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TYPOGRAPHIE ═══ -->
+<section class="brand-section">
+  <h2>Typographie</h2>
+  <p class="subtitle">Deux familles compl&eacute;mentaires. La serif pour l'&eacute;l&eacute;gance (titres, citations), la sans-serif pour la clart&eacute; (corps, labels, boutons). Les deux sont des Google Fonts gratuites.</p>
+
+  <div class="type-specimens">
+    <div class="type-card">
+      <div class="type-sample" style="font-family:var(--serif);font-weight:300">Aa</div>
+      <div class="type-name">Cormorant Garamond</div>
+      <div class="type-desc">
+        Serif &eacute;l&eacute;gante utilis&eacute;e pour les titres, le logo, les citations et les chiffres cl&eacute;s. Toujours en Light (300) ou Regular (400). Jamais en Bold.
+      </div>
+      <div class="type-weights">
+        <span class="type-weight" style="font-family:var(--serif);font-weight:300">Light 300</span>
+        <span class="type-weight" style="font-family:var(--serif);font-weight:400">Regular 400</span>
+        <span class="type-weight" style="font-family:var(--serif);font-weight:300;font-style:italic">Italic 300</span>
+      </div>
+    </div>
+
+    <div class="type-card">
+      <div class="type-sample" style="font-family:var(--sans);font-weight:200">Aa</div>
+      <div class="type-name">Outfit</div>
+      <div class="type-desc">
+        Sans-serif g&eacute;om&eacute;trique pour le corps de texte, les labels, les boutons et la navigation. Privil&eacute;gier les graisses l&eacute;g&egrave;res (200&ndash;400).
+      </div>
+      <div class="type-weights">
+        <span class="type-weight" style="font-family:var(--sans);font-weight:200">ExtraLight 200</span>
+        <span class="type-weight" style="font-family:var(--sans);font-weight:300">Light 300</span>
+        <span class="type-weight" style="font-family:var(--sans);font-weight:400">Regular 400</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VOIX ═══ -->
+<section class="brand-section">
+  <h2>Voix &amp; ton</h2>
+  <p class="subtitle">Melini parle comme une amie bienveillante qui vous guide, jamais comme une marque qui vend.</p>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <h4>Chaleureux</h4>
+      <p>Vouvoiement &eacute;l&eacute;gant. On s'adresse &agrave; chaque femme personnellement, avec sinc&eacute;rit&eacute;.</p>
+    </div>
+    <div class="voice-card">
+      <h4>Sobre</h4>
+      <p>Pas de jargon marketing, pas de superlatifs. Laisser le produit et l'exp&eacute;rience parler.</p>
+    </div>
+    <div class="voice-card">
+      <h4>Authentique</h4>
+      <p>Toujours ancr&eacute; dans la r&eacute;alit&eacute; de la boutique. Pas de promesses vides.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REGLES ═══ -->
+<section class="brand-section">
+  <h2>R&egrave;gles d'usage</h2>
+  <p class="subtitle">Quelques r&egrave;gles simples pour garder la coh&eacute;rence visuelle sur tous les supports.</p>
+
+  <div class="rules-grid">
+    <div class="rule-card do">
+      <div class="rule-label">Faire</div>
+      <div class="rule-text">Utiliser le logo sur fond clair (blanc, cr&egrave;me) ou sur fond noir uni.</div>
+    </div>
+    <div class="rule-card do">
+      <div class="rule-label">Faire</div>
+      <div class="rule-text">Laisser un espace vide autour du logo &eacute;gal &agrave; la hauteur de la lettre M.</div>
+    </div>
+    <div class="rule-card do">
+      <div class="rule-label">Faire</div>
+      <div class="rule-text">Utiliser le monogramme pour les espaces carr&eacute;s (avatars, favicons).</div>
+    </div>
+    <div class="rule-card do">
+      <div class="rule-label">Faire</div>
+      <div class="rule-text">Utiliser le middle dot (&middot;) comme s&eacute;parateur, jamais le tiret long.</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="rule-label">Ne pas faire</div>
+      <div class="rule-text">Placer le logo sur une photo charg&eacute;e sans overlay sombre.</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="rule-label">Ne pas faire</div>
+      <div class="rule-text">D&eacute;former, pivoter ou modifier les proportions du logo.</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="rule-label">Ne pas faire</div>
+      <div class="rule-text">Utiliser des couleurs hors palette (pas de rouge, bleu, vert vif).</div>
+    </div>
+    <div class="rule-card dont">
+      <div class="rule-label">Ne pas faire</div>
+      <div class="rule-text">Afficher des prix sur le site ou les r&eacute;seaux sociaux.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="brand-footer">
+  <p>Melini &middot; Chauss&eacute;e d'Alsemberg 817, 1180 Uccle</p>
+  <p style="margin-top:8px"><a href="/">Retour au site</a></p>
+</footer>
+
+<div class="copied" id="copied">Copi&eacute;</div>
+
+<script>
+document.querySelectorAll('.swatch-hex').forEach(function(el) {
+  el.addEventListener('click', function() {
+    var hex = el.getAttribute('data-hex');
+    navigator.clipboard.writeText(hex).then(function() {
+      var toast = document.getElementById('copied');
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 1500);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
