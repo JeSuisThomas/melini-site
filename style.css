@@ -677,7 +677,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .carousel-item { flex: 0 0 240px; padding: 8px; }
   .carousel-img { border-radius: calc(1.25rem - 8px); }
   .carousel-wrap::before, .carousel-wrap::after { width: 48px; }
-  .carousel { animation-duration: 40s; }
+  .carousel { animation-duration: 55s; }
 }
 
 @media (max-width: 480px) {
