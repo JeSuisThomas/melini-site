@@ -486,7 +486,14 @@ function githubAPI(method, path, body) {
     opts.body = JSON.stringify(body);
   }
   return fetch('https://api.github.com' + path, opts).then(function (r) {
-    if (!r.ok) throw new Error(r.status);
+    if (!r.ok) {
+      var msg = r.status;
+      if (r.status === 404 && method !== 'GET') msg = '404 — Votre token GitHub n\'a pas les permissions d\'écriture. Allez dans GitHub → Settings → Developer settings → Personal access tokens et vérifiez que le scope "repo" est coché.';
+      else if (r.status === 409) msg = '409 — Conflit : le contenu a été modifié par quelqu\'un d\'autre. Rechargez la page et réessayez.';
+      else if (r.status === 401) msg = '401 — Token expiré ou invalide. Reconnectez-vous.';
+      else if (r.status === 422) msg = '422 — Fichier trop volumineux ou données invalides.';
+      throw new Error(msg);
+    }
     return r.json();
   });
 }
