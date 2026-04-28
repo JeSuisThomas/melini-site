@@ -2,33 +2,69 @@
   "hero": {
     "image": "/images/plante_melini.jpg",
     "titre": "Chaque pied est unique",
-    "sous_titre": "Melini \u00b7 Chaussures & sacs femme"
+    "sous_titre": "Melini · Chaussures & sacs femme"
   },
   "bandeau": {
-    "texte": "Nouvelle collection printemps-\u00e9t\u00e9 2026 \u00b7 Disponible en boutique"
+    "texte": "Nouvelle collection printemps-été 2026 · Disponible en boutique"
   },
   "histoire": {
-    "image": "/images/Anjel_chaussure.jpg"
+    "image": "/images/uploads/histoire.jpg"
   },
   "collection": {
     "photos": [
-      { "image": "https://picsum.photos/seed/melini-shoe1/300/400", "alt": "Chaussure femme \u00e9l\u00e9gante" },
-      { "image": "https://picsum.photos/seed/melini-shoe2/300/400", "alt": "Sneaker femme premium" },
-      { "image": "https://picsum.photos/seed/melini-bag1/300/400", "alt": "Sac \u00e0 main en cuir" },
-      { "image": "https://picsum.photos/seed/melini-shoe3/300/400", "alt": "Escarpin femme" },
-      { "image": "https://picsum.photos/seed/melini-shoe4/300/400", "alt": "Sandale femme \u00e9t\u00e9" },
-      { "image": "https://picsum.photos/seed/melini-bag2/300/400", "alt": "Sac femme \u00e9l\u00e9gant" },
-      { "image": "https://picsum.photos/seed/melini-shoe5/300/400", "alt": "Bottine femme cuir" },
-      { "image": "https://picsum.photos/seed/melini-shoe6/300/400", "alt": "Chaussure plate femme" },
-      { "image": "https://picsum.photos/seed/melini-bag3/300/400", "alt": "Sac \u00e0 bandouli\u00e8re cuir" },
-      { "image": "https://picsum.photos/seed/melini-shoe7/300/400", "alt": "Mocassin femme" },
-      { "image": "https://picsum.photos/seed/melini-shoe8/300/400", "alt": "Basket femme tendance" },
-      { "image": "https://picsum.photos/seed/melini-shoe9/300/400", "alt": "Espadrille femme" }
+      {
+        "image": "https://picsum.photos/seed/melini-shoe1/300/400",
+        "alt": "Chaussure femme élégante"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe2/300/400",
+        "alt": "Sneaker femme premium"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-bag1/300/400",
+        "alt": "Sac à main en cuir"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe3/300/400",
+        "alt": "Escarpin femme"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe4/300/400",
+        "alt": "Sandale femme été"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-bag2/300/400",
+        "alt": "Sac femme élégant"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe5/300/400",
+        "alt": "Bottine femme cuir"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe6/300/400",
+        "alt": "Chaussure plate femme"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-bag3/300/400",
+        "alt": "Sac à bandoulière cuir"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe7/300/400",
+        "alt": "Mocassin femme"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe8/300/400",
+        "alt": "Basket femme tendance"
+      },
+      {
+        "image": "https://picsum.photos/seed/melini-shoe9/300/400",
+        "alt": "Espadrille femme"
+      }
     ]
   },
   "horaires": {
-    "lundi": "14h00 \u00b7 18h30",
-    "mardi_samedi": "10h00 \u00b7 18h30",
-    "dimanche": "Ferm\u00e9"
+    "lundi": "14h00 · 18h30",
+    "mardi_samedi": "10h00 · 18h30",
+    "dimanche": "Fermé"
   }
 }
