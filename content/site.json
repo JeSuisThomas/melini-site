@@ -2,10 +2,10 @@
   "hero": {
     "image": "/images/plante_melini.jpg",
     "titre": "Chaque pied est unique",
-    "sous_titre": "Melini · Chaussures & sacs femme"
+    "sous_titre": "Melini Â· Chaussures & sacs femme"
   },
   "bandeau": {
-    "texte": "Nouvelle collection printemps-été 2026 · Disponible en boutique"
+    "texte": "Nouvelle collection printemps-Ã©tÃ© 2026 Â· Disponible en boutique"
   },
   "histoire": {
     "image": "/images/uploads/histoire.jpg"
@@ -13,58 +13,78 @@
   "collection": {
     "photos": [
       {
-        "image": "https://picsum.photos/seed/melini-shoe1/300/400",
-        "alt": "Chaussure femme élégante"
+        "image": "/images/uploads/col_1777397790312_0.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe2/300/400",
-        "alt": "Sneaker femme premium"
+        "image": "/images/uploads/col_1777397790312_1.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-bag1/300/400",
-        "alt": "Sac à main en cuir"
+        "image": "/images/uploads/col_1777397790312_2.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe3/300/400",
-        "alt": "Escarpin femme"
+        "image": "/images/uploads/col_1777397790312_3.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe4/300/400",
-        "alt": "Sandale femme été"
+        "image": "/images/uploads/col_1777397790312_4.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-bag2/300/400",
-        "alt": "Sac femme élégant"
+        "image": "/images/uploads/col_1777397790312_5.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe5/300/400",
-        "alt": "Bottine femme cuir"
+        "image": "/images/uploads/col_1777397790312_6.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe6/300/400",
-        "alt": "Chaussure plate femme"
+        "image": "/images/uploads/col_1777397790312_7.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-bag3/300/400",
-        "alt": "Sac à bandoulière cuir"
+        "image": "/images/uploads/col_1777397790312_8.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe7/300/400",
-        "alt": "Mocassin femme"
+        "image": "/images/uploads/col_1777397790312_9.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe8/300/400",
-        "alt": "Basket femme tendance"
+        "image": "/images/uploads/col_1777397790312_10.jpg",
+        "alt": "Photo collection Melini"
       },
       {
-        "image": "https://picsum.photos/seed/melini-shoe9/300/400",
-        "alt": "Espadrille femme"
+        "image": "/images/uploads/col_1777397790312_11.jpg",
+        "alt": "Photo collection Melini"
+      },
+      {
+        "image": "/images/uploads/col_1777397790312_12.jpg",
+        "alt": "Photo collection Melini"
+      },
+      {
+        "image": "/images/uploads/col_1777397790312_13.jpg",
+        "alt": "Photo collection Melini"
+      },
+      {
+        "image": "/images/uploads/col_1777397790312_14.jpg",
+        "alt": "Photo collection Melini"
+      },
+      {
+        "image": "/images/uploads/col_1777397790312_15.jpg",
+        "alt": "Photo collection Melini"
+      },
+      {
+        "image": "/images/uploads/col_1777397790312_16.jpg",
+        "alt": "Photo collection Melini"
       }
     ]
   },
   "horaires": {
-    "lundi": "14h00 · 18h30",
-    "mardi_samedi": "10h00 · 18h30",
-    "dimanche": "Fermé"
+    "lundi": "14h00 Â· 18h30",
+    "mardi_samedi": "10h00 Â· 18h30",
+    "dimanche": "FermÃ©"
   }
 }
