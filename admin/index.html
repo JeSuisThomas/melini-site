@@ -538,6 +538,22 @@ function populateForm() {
 function handleImageChange(event, key) {
   var file = event.target.files[0];
   if (!file) return;
+  var ext = file.name.split('.').pop().toLowerCase();
+  if (ext === 'heic' || ext === 'heif') {
+    setStatus('Format HEIC non supporté. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible" et reprenez la photo.', 'error');
+    event.target.value = '';
+    return;
+  }
+  if (!file.type.startsWith('image/')) {
+    setStatus('Ce fichier n\'est pas une image.', 'error');
+    event.target.value = '';
+    return;
+  }
+  if (file.size > 15 * 1024 * 1024) {
+    setStatus('Image trop volumineuse (max 15 MB).', 'error');
+    event.target.value = '';
+    return;
+  }
   var reader = new FileReader();
   reader.onload = function (e) {
     pendingUploads[key] = { file: file, dataUrl: e.target.result };
@@ -572,25 +588,55 @@ function removeCollectionItem(index) {
 function handleCollectionAdd(event) {
   var files = event.target.files;
   if (!files.length) return;
-  var loaded = 0;
+
+  // Validate files first
+  var rejected = [];
+  var accepted = [];
   for (var i = 0; i < files.length; i++) {
-    (function (file) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        var idx = siteData.collection.photos.length;
-        var entry = {
-          image: '', // Will be set after upload
-          alt: 'Photo collection Melini',
-          _file: file,
-          _dataUrl: e.target.result
-        };
-        siteData.collection.photos.push(entry);
-        loaded++;
-        if (loaded === files.length) renderCollection();
-      };
-      reader.readAsDataURL(file);
-    })(files[i]);
+    var f = files[i];
+    var ext = f.name.split('.').pop().toLowerCase();
+    if (ext === 'heic' || ext === 'heif') {
+      rejected.push(f.name + ' (format HEIC non supporté)');
+    } else if (!f.type.startsWith('image/')) {
+      rejected.push(f.name + ' (pas une image)');
+    } else if (f.size > 15 * 1024 * 1024) {
+      rejected.push(f.name + ' (fichier > 15 MB)');
+    } else {
+      accepted.push(f);
+    }
   }
+
+  if (rejected.length) {
+    setStatus('Fichiers ignorés : ' + rejected.join(', ') + '. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible".', 'error');
+  }
+
+  if (!accepted.length) {
+    event.target.value = '';
+    return;
+  }
+
+  var loaded = 0;
+  accepted.forEach(function (file) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      siteData.collection.photos.push({
+        image: '',
+        alt: 'Photo collection Melini',
+        _file: file,
+        _dataUrl: e.target.result
+      });
+      loaded++;
+      if (loaded === accepted.length) {
+        renderCollection();
+        if (!rejected.length) setStatus(accepted.length + ' photo(s) ajoutée(s). Cliquez "Enregistrer" pour les publier.', 'success');
+      }
+    };
+    reader.onerror = function () {
+      loaded++;
+      if (loaded === accepted.length) renderCollection();
+    };
+    reader.readAsDataURL(file);
+  });
   event.target.value = '';
 }
 
@@ -598,42 +644,75 @@ function handleCollectionAdd(event) {
 async function saveAll() {
   var btn = document.getElementById('save-btn');
   btn.disabled = true;
-  btn.textContent = 'Enregistrement en cours...';
-  setStatus('Enregistrement en cours...', 'saving');
+  btn.textContent = 'Enregistrement...';
+
+  // Count work to do
+  var newCollectionCount = 0;
+  for (var i = 0; i < siteData.collection.photos.length; i++) {
+    if (siteData.collection.photos[i]._file) newCollectionCount++;
+  }
+  var totalImages = (pendingUploads.hero ? 1 : 0) + (pendingUploads.histoire ? 1 : 0) + newCollectionCount;
+  var done = 0;
+  var failed = [];
+
+  function progress(label) {
+    done++;
+    setStatus('Upload ' + done + '/' + totalImages + ' — ' + label + '...', 'saving');
+  }
 
   try {
-    // 1. Upload pending hero/histoire images
+    // 1. Hero
     if (pendingUploads.hero) {
-      var heroPath = await uploadImage(pendingUploads.hero.file, 'hero');
-      siteData.hero.image = '/' + heroPath;
-      delete pendingUploads.hero;
-    }
-    if (pendingUploads.histoire) {
-      var histPath = await uploadImage(pendingUploads.histoire.file, 'histoire');
-      siteData.histoire.image = '/' + histPath;
-      delete pendingUploads.histoire;
+      try {
+        var heroPath = await uploadImage(pendingUploads.hero.file, 'hero');
+        siteData.hero.image = '/' + heroPath;
+        delete pendingUploads.hero;
+        progress('photo accueil');
+      } catch (e) { failed.push('photo accueil (' + e.message + ')'); done++; }
     }
 
-    // 2. Upload new collection images
+    // 2. Histoire
+    if (pendingUploads.histoire) {
+      try {
+        var histPath = await uploadImage(pendingUploads.histoire.file, 'histoire');
+        siteData.histoire.image = '/' + histPath;
+        delete pendingUploads.histoire;
+        progress('photo histoire');
+      } catch (e) { failed.push('photo histoire (' + e.message + ')'); done++; }
+    }
+
+    // 3. Collection — process each independently
+    var stamp = Date.now();
     for (var i = 0; i < siteData.collection.photos.length; i++) {
       var photo = siteData.collection.photos[i];
       if (photo._file) {
-        var colPath = await uploadImage(photo._file, 'collection_' + Date.now() + '_' + i);
-        photo.image = '/' + colPath;
-        delete photo._file;
-        delete photo._dataUrl;
+        try {
+          var colPath = await uploadImage(photo._file, 'col_' + stamp + '_' + i);
+          photo.image = '/' + colPath;
+          delete photo._file;
+          delete photo._dataUrl;
+          progress('photo collection ' + (i + 1));
+        } catch (e) {
+          failed.push('photo collection ' + (i + 1) + ' (' + e.message + ')');
+          done++;
+        }
       }
     }
 
-    // 3. Update bandeau text
-    siteData.bandeau.texte = document.getElementById('bandeau-text').value;
+    // Remove failed collection items (those still with _file)
+    siteData.collection.photos = siteData.collection.photos.filter(function (p) {
+      return !p._file;
+    });
 
-    // 4. Update horaires
+    if (totalImages > 0) setStatus('Sauvegarde du contenu...', 'saving');
+
+    // 4. Update text fields
+    siteData.bandeau.texte = document.getElementById('bandeau-text').value;
     siteData.horaires.lundi = document.getElementById('horaire-lundi').value;
     siteData.horaires.mardi_samedi = document.getElementById('horaire-mardi').value;
     siteData.horaires.dimanche = document.getElementById('horaire-dimanche').value;
 
-    // 5. Save site.json (remove internal fields)
+    // 5. Save site.json
     var cleanData = JSON.parse(JSON.stringify(siteData));
     delete cleanData._sha;
     cleanData.collection.photos.forEach(function (p) {
@@ -651,9 +730,15 @@ async function saveAll() {
     });
 
     siteData._sha = result.content.sha;
-    setStatus('Modifications enregistrées ! Le site sera mis à jour dans 1-2 minutes.', 'success');
+    renderCollection();
+
+    if (failed.length) {
+      setStatus('Enregistré, mais ' + failed.length + ' fichier(s) en échec : ' + failed.join(', '), 'error');
+    } else {
+      setStatus('Modifications enregistrées ! Le site sera mis à jour dans 1-2 minutes.', 'success');
+    }
   } catch (err) {
-    setStatus('Erreur : ' + err.message + '. Réessayez.', 'error');
+    setStatus('Erreur : ' + err.message, 'error');
   }
 
   btn.disabled = false;
