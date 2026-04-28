@@ -662,7 +662,9 @@ async function saveAll() {
 
 async function uploadImage(file, name) {
   var ext = file.name.split('.').pop().toLowerCase();
-  var path = 'images/uploads/' + name + '.' + ext;
+  // Large files get compressed to JPEG, so extension becomes jpg
+  var finalExt = (file.size > 800 * 1024) ? 'jpg' : ext;
+  var path = 'images/uploads/' + name + '.' + finalExt;
   var base64 = await fileToBase64(file);
 
   // Check if file already exists
@@ -684,12 +686,39 @@ async function uploadImage(file, name) {
 }
 
 function fileToBase64(file) {
-  return new Promise(function (resolve) {
-    var reader = new FileReader();
-    reader.onload = function () {
-      resolve(reader.result.split(',')[1]);
-    };
-    reader.readAsDataURL(file);
+  return new Promise(function (resolve, reject) {
+    var ext = file.name.split('.').pop().toLowerCase();
+    // HEIC/HEIF from iPhone — convert to JPEG via canvas
+    if (ext === 'heic' || ext === 'heif') {
+      reject(new Error('Format HEIC non supporté par les navigateurs. Sur iPhone, allez dans Réglages → Appareil photo → Formats et choisissez "Le plus compatible" (JPEG) avant de prendre vos photos.'));
+      return;
+    }
+    // Compress large images via canvas before upload
+    if (file.size > 800 * 1024) {
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function () {
+        var maxW = 1200, maxH = 1600;
+        var w = img.width, h = img.height;
+        if (w > maxW || h > maxH) {
+          var ratio = Math.min(maxW / w, maxH / h);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        resolve(canvas.toDataURL('image/jpeg', 0.85).split(',')[1]);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Image illisible')); };
+      img.src = url;
+    } else {
+      var reader = new FileReader();
+      reader.onload = function () { resolve(reader.result.split(',')[1]); };
+      reader.onerror = function () { reject(new Error('Lecture fichier impossible')); };
+      reader.readAsDataURL(file);
+    }
   });
 }
 

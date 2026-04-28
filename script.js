@@ -58,7 +58,7 @@
   }
 
   /* ─── CMS CONTENT LOADER ─── */
-  fetch('/content/site.json')
+  fetch('/content/site.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (data) {
       if (data.hero && data.hero.image) {
