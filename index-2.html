@@ -6,14 +6,23 @@
 <title>Melini — Chaussures & Sacs Femme à Uccle, Bruxelles</title>
 <meta name="description" content="Melini, boutique indépendante de chaussures et sacs femme à Uccle. 40 ans d'expérience, marques européennes premium, conseil personnalisé. Chaussée d'Alsemberg 817.">
 <meta name="keywords" content="chaussures femme Uccle, boutique chaussures Bruxelles, sacs femme Uccle, Melini, chaussée Alsemberg">
+<meta name="author" content="Melini">
+<meta name="theme-color" content="#1A1A1A">
+<meta property="og:site_name" content="Melini">
 <meta property="og:title" content="Melini — Chaussures & Sacs Femme à Uccle">
 <meta property="og:description" content="Boutique indépendante de chaussures et sacs femme. 40 ans d'expérience, marques européennes premium, conseil personnalisé.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_BE">
 <meta property="og:url" content="https://melini.be">
-<meta property="og:image" content="https://melini.be/brand/og-image.svg">
+<meta property="og:image" content="https://melini.be/brand/og-image.png">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Melini — À chaque pas, votre signature">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Melini — Chaussures & Sacs Femme à Uccle">
+<meta name="twitter:description" content="Boutique indépendante de chaussures et sacs femme à Uccle, Bruxelles.">
+<meta name="twitter:image" content="https://melini.be/brand/og-image.png">
 <link rel="canonical" href="https://melini.be">
 <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/brand/favicon-16.png">
@@ -58,22 +67,22 @@
 <body>
 
 <!-- ─── NAV — Floating Pill ─── -->
-<nav class="nav" id="nav">
-  <a href="#" class="nav-logo">MELINI</a>
+<nav class="nav" id="nav" aria-label="Navigation principale">
+  <a href="#" class="nav-logo" aria-label="Melini — Retour en haut">MELINI</a>
   <div class="nav-links">
     <a href="#histoire">Notre histoire</a>
     <a href="#selection">Collection</a>
     <a href="#marques">Marques</a>
     <a href="#contact" class="nav-cta">Nous trouver</a>
   </div>
-  <div class="nav-hamburger" id="hamburger">
+  <button class="nav-hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
 <!-- ─── MOBILE MENU ─── -->
-<div class="mobile-menu" id="mobile-menu">
-  <button class="mobile-menu-close" id="menu-close">&times;</button>
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navigation">
+  <button class="mobile-menu-close" id="menu-close" type="button" aria-label="Fermer le menu">&times;</button>
   <a href="#histoire" class="mobile-link">Notre histoire</a>
   <a href="#selection" class="mobile-link">Collection</a>
   <a href="#marques" class="mobile-link">Marques</a>

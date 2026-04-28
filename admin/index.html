@@ -87,6 +87,7 @@ body {
   color: #c44;
   font-size: 13px;
   margin-top: 12px;
+  line-height: 1.5;
   display: none;
 }
 
@@ -326,9 +327,9 @@ body {
   <div class="login-box">
     <h1>MELINI</h1>
     <p>Administration du site</p>
-    <input type="password" id="admin-password" placeholder="Mot de passe" autocomplete="current-password">
+    <input type="password" id="admin-password" placeholder="Token GitHub" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
     <button onclick="doLogin()">Se connecter</button>
-    <div class="login-error" id="login-error">Mot de passe incorrect</div>
+    <div class="login-error" id="login-error"></div>
   </div>
 </div>
 
@@ -428,40 +429,97 @@ body {
 var REPO = 'JeSuisThomas/melini-site';
 var BRANCH = 'main';
 var CONTENT_PATH = 'content/site.json';
+var SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes inactivity
+var MIN_LOGIN_INTERVAL_MS = 1500; // anti-bruteforce: throttle login attempts
 var token = '';
 var siteData = null;
 var pendingUploads = {}; // { key: { file, dataUrl } }
+var lastActivity = Date.now();
+var lastLoginAttempt = 0;
+var sessionTimer = null;
+
+/* ─── TOKEN VALIDATION ─── */
+function looksLikeGithubToken(t) {
+  if (!t || t.length < 20 || t.length > 200) return false;
+  // Classic PAT: ghp_*, fine-grained: github_pat_*, OAuth: gho_*
+  return /^(ghp_|github_pat_|gho_|ghs_|ghu_)/.test(t);
+}
 
 /* ─── AUTH ─── */
 function doLogin() {
-  var pw = document.getElementById('admin-password').value;
-  // Use GitHub token as password — simple and secure
+  var now = Date.now();
+  if (now - lastLoginAttempt < MIN_LOGIN_INTERVAL_MS) {
+    showLoginError('Trop de tentatives. Patientez quelques secondes.');
+    return;
+  }
+  lastLoginAttempt = now;
+
+  var pw = document.getElementById('admin-password').value.trim();
+  if (!looksLikeGithubToken(pw)) {
+    showLoginError('Format de token invalide. Utilisez un Personal Access Token GitHub (ghp_… ou github_pat_…).');
+    return;
+  }
   token = pw;
-  // Verify token by fetching repo
   githubAPI('GET', '/repos/' + REPO)
     .then(function () {
       sessionStorage.setItem('melini_token', token);
+      sessionStorage.setItem('melini_session_start', String(Date.now()));
+      startSessionTimer();
       showAdmin();
     })
     .catch(function () {
-      document.getElementById('login-error').style.display = 'block';
+      token = '';
+      showLoginError('Authentification refusée. Vérifiez votre token et ses permissions (scope "repo").');
     });
+}
+
+function showLoginError(msg) {
+  var el = document.getElementById('login-error');
+  el.textContent = msg;
+  el.style.display = 'block';
 }
 
 function doLogout() {
   sessionStorage.removeItem('melini_token');
+  sessionStorage.removeItem('melini_session_start');
   token = '';
+  if (sessionTimer) { clearInterval(sessionTimer); sessionTimer = null; }
   location.reload();
+}
+
+function startSessionTimer() {
+  lastActivity = Date.now();
+  if (sessionTimer) clearInterval(sessionTimer);
+  sessionTimer = setInterval(function () {
+    if (Date.now() - lastActivity > SESSION_TIMEOUT_MS) {
+      setStatus('Session expirée par inactivité. Reconnectez-vous.', 'error');
+      doLogout();
+    }
+  }, 30000);
+  ['click', 'keydown', 'mousemove', 'touchstart'].forEach(function (evt) {
+    document.addEventListener(evt, function () { lastActivity = Date.now(); }, { passive: true });
+  });
 }
 
 function checkSession() {
   var saved = sessionStorage.getItem('melini_token');
-  if (saved) {
+  var sessionStart = parseInt(sessionStorage.getItem('melini_session_start') || '0', 10);
+  // Force re-login if session is older than 12 hours
+  if (sessionStart && (Date.now() - sessionStart > 12 * 60 * 60 * 1000)) {
+    sessionStorage.removeItem('melini_token');
+    sessionStorage.removeItem('melini_session_start');
+    return;
+  }
+  if (saved && looksLikeGithubToken(saved)) {
     token = saved;
     githubAPI('GET', '/repos/' + REPO)
-      .then(function () { showAdmin(); })
+      .then(function () {
+        startSessionTimer();
+        showAdmin();
+      })
       .catch(function () {
         sessionStorage.removeItem('melini_token');
+        sessionStorage.removeItem('melini_session_start');
       });
   }
 }
@@ -499,10 +557,18 @@ function githubAPI(method, path, body) {
 }
 
 /* ─── LOAD CONTENT ─── */
+// UTF-8 safe base64 decode (atob alone interprets bytes as Latin-1, breaking accents)
+function b64ToUtf8(b64) {
+  var binary = atob(b64.replace(/\s/g, ''));
+  var bytes = new Uint8Array(binary.length);
+  for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
 function loadContent() {
   githubAPI('GET', '/repos/' + REPO + '/contents/' + CONTENT_PATH + '?ref=' + BRANCH)
     .then(function (file) {
-      siteData = JSON.parse(atob(file.content));
+      siteData = JSON.parse(b64ToUtf8(file.content));
       siteData._sha = file.sha;
       populateForm();
     })

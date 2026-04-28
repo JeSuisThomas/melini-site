@@ -33,6 +33,20 @@ img { display: block; max-width: 100%; }
 a { text-decoration: none; color: inherit; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
 
+/* ─── FOCUS RINGS — accessibilité clavier ─── */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--rose);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.btn-primary:focus-visible,
+.nav-cta:focus-visible,
+.contact-btn:focus-visible,
+.social-link:focus-visible {
+  outline-offset: 4px;
+}
+
 /* ─── SCROLL REVEAL ─── */
 .reveal {
   opacity: 0;
@@ -187,7 +201,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-premium);
 }
+.hero-image img.loaded { opacity: 1; }
 .hero-image::after {
   content: '';
   position: absolute;
@@ -345,8 +362,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.2s var(--ease-premium);
+  opacity: 0;
+  transition: transform 1.2s var(--ease-premium), opacity 0.7s var(--ease-premium);
 }
+.about-image-inner img.loaded { opacity: 1; }
 .about-image:hover .about-image-inner img { transform: scale(1.04); }
 .about-highlight {
   margin-top: 36px;
@@ -406,9 +425,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .carousel-wrap::after { right: 0; background: linear-gradient(to left, var(--blanc) 0%, transparent 100%); }
 .carousel {
   display: flex;
-  gap: 32px;
   width: max-content;
-  animation: carousel-scroll 60s linear infinite;
+  animation: carousel-scroll 90s linear infinite;
   padding: 32px 0;
   will-change: transform;
 }
@@ -417,6 +435,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   flex: 0 0 300px;
   position: relative;
   padding: 10px;
+  margin-right: 32px;
   background: var(--creme);
   border-radius: 1.5rem;
   box-shadow: 0 2px 16px rgba(26, 26, 26, 0.04), 0 1px 3px rgba(26, 26, 26, 0.03);
@@ -444,13 +463,26 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   aspect-ratio: 3/4;
   overflow: hidden;
   border-radius: calc(1.5rem - 10px);
-  background: var(--creme-deep);
+  background:
+    linear-gradient(110deg, var(--creme-deep) 30%, var(--creme) 50%, var(--creme-deep) 70%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s linear infinite;
 }
 .carousel-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s var(--ease-premium);
+  opacity: 0;
+  transition: transform 0.8s var(--ease-premium), opacity 0.6s var(--ease-premium);
+}
+.carousel-img img.loaded { opacity: 1; }
+.carousel-img:has(img.loaded) {
+  background: var(--creme-deep);
+  animation: none;
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 .carousel-item:hover .carousel-img img { transform: scale(1.05); }
 @keyframes carousel-scroll {
@@ -674,10 +706,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
   .contact-inner { grid-template-columns: 1fr; gap: 40px; }
   .footer { flex-direction: column; gap: 10px; text-align: center; }
-  .carousel-item { flex: 0 0 240px; padding: 8px; }
+  .carousel-item { flex: 0 0 240px; padding: 8px; margin-right: 24px; }
   .carousel-img { border-radius: calc(1.25rem - 8px); }
   .carousel-wrap::before, .carousel-wrap::after { width: 48px; }
-  .carousel { animation-duration: 55s; }
+  .carousel { animation-duration: 75s; }
 }
 
 @media (max-width: 480px) {
@@ -685,7 +717,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .hero-content { padding: 0 20px 44px; }
   .about-highlight { flex-wrap: wrap; gap: 20px; }
   .about-stat { flex: 1; min-width: 80px; }
-  .carousel-item { flex: 0 0 220px; padding: 7px; }
+  .carousel-item { flex: 0 0 220px; padding: 7px; margin-right: 20px; }
   .carousel-img { border-radius: calc(1rem - 7px); }
   .carousel-wrap::before, .carousel-wrap::after { width: 24px; }
   .section { padding: 60px 20px; }
@@ -695,4 +727,30 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
+  .carousel { animation: none; }
+  .carousel-img { animation: none; background: var(--creme-deep); }
+  .hero-image img, .about-image-inner img, .carousel-img img { opacity: 1; }
+}
+
+/* ─── PRINT — fiche imprimable ─── */
+@media print {
+  .nav, .mobile-menu, .hero-scroll, .bandeau,
+  .collection, .marques-compact, .testimonials, .social,
+  .contact-map, .contact-actions, .hero-btn, .carousel-cta { display: none !important; }
+  body { background: white; color: black; font-size: 12pt; }
+  .hero { min-height: auto; background: white; padding: 24pt; page-break-after: avoid; }
+  .hero-image { display: none; }
+  .hero-image::after { display: none; }
+  .hero-content { padding: 0; max-width: 100%; }
+  .hero-content h1, .hero-content h1 em { color: black; font-size: 24pt; }
+  .hero-line { background: #888; }
+  .hero-sub, .hero-location { color: #555; }
+  .section { padding: 16pt 24pt; }
+  .section-title, .about-stat .num { color: black; }
+  .contact { background: white; color: black; }
+  .contact .section-label, .contact .section-title { color: black; }
+  .contact-block h4 { color: #555; }
+  .contact-block p, .contact-block a, .horaires-table { color: black; }
+  a { color: black; text-decoration: underline; }
+  .reveal { opacity: 1 !important; transform: none !important; }
 }

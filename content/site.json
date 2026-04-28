@@ -2,10 +2,10 @@
   "hero": {
     "image": "/images/plante_melini.jpg",
     "titre": "Chaque pied est unique",
-    "sous_titre": "Melini Â· Chaussures & sacs femme"
+    "sous_titre": "Melini · Chaussures & sacs femme"
   },
   "bandeau": {
-    "texte": "Nouvelle collection printemps-Ã©tÃ© 2026 Â· Disponible en boutique"
+    "texte": "Nouvelle collection printemps-été 2026 · Disponible en boutique"
   },
   "histoire": {
     "image": "/images/uploads/histoire.jpg"
@@ -83,8 +83,8 @@
     ]
   },
   "horaires": {
-    "lundi": "14h00 Â· 18h30",
-    "mardi_samedi": "10h00 Â· 18h30",
-    "dimanche": "FermÃ©"
+    "lundi": "14h00 · 18h30",
+    "mardi_samedi": "10h00 · 18h30",
+    "dimanche": "Fermé"
   }
 }
