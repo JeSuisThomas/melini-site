@@ -46,9 +46,9 @@
 
   reveals.forEach(function (el) { observer.observe(el); });
 
-  /* ─── CAROUSEL PAUSE/RESUME ─── */
+  /* ─── CAROUSEL PAUSE/RESUME (desktop only) ─── */
   var carousel = document.querySelector('.carousel');
-  if (carousel) {
+  if (carousel && window.matchMedia('(hover: hover)').matches) {
     carousel.addEventListener('mouseenter', function () {
       carousel.classList.add('paused');
     });
