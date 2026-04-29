@@ -158,8 +158,11 @@
             var el = makeItem(p);
             if (el) frag.appendChild(el);
           });
+          carouselEl.style.animation = 'none';
           carouselEl.innerHTML = '';
           carouselEl.appendChild(frag);
+          void carouselEl.offsetHeight;
+          carouselEl.style.animation = '';
         }
       }
     })
