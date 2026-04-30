@@ -730,7 +730,7 @@ async function saveAll() {
     // 1. Hero
     if (pendingUploads.hero) {
       try {
-        var heroPath = await uploadImage(pendingUploads.hero.file, 'hero');
+        var heroPath = await uploadImage(pendingUploads.hero.file, 'hero_' + Date.now(), 'hero');
         siteData.hero.image = '/' + heroPath;
         delete pendingUploads.hero;
         progress('photo accueil');
@@ -740,7 +740,7 @@ async function saveAll() {
     // 2. Histoire
     if (pendingUploads.histoire) {
       try {
-        var histPath = await uploadImage(pendingUploads.histoire.file, 'histoire');
+        var histPath = await uploadImage(pendingUploads.histoire.file, 'histoire_' + Date.now(), 'histoire');
         siteData.histoire.image = '/' + histPath;
         delete pendingUploads.histoire;
         progress('photo histoire');
@@ -753,7 +753,7 @@ async function saveAll() {
       var photo = siteData.collection.photos[i];
       if (photo._file) {
         try {
-          var colPath = await uploadImage(photo._file, 'col_' + stamp + '_' + i);
+          var colPath = await uploadImage(photo._file, 'col_' + stamp + '_' + i, 'collection');
           photo.image = '/' + colPath;
           delete photo._file;
           delete photo._dataUrl;
@@ -811,12 +811,11 @@ async function saveAll() {
   btn.textContent = 'Enregistrer les modifications';
 }
 
-async function uploadImage(file, name) {
+async function uploadImage(file, name, type) {
   var ext = file.name.split('.').pop().toLowerCase();
-  // Large files get compressed to JPEG, so extension becomes jpg
-  var finalExt = (file.size > 800 * 1024) ? 'jpg' : ext;
+  var finalExt = (file.size > 2 * 1024 * 1024) ? 'jpg' : ext;
   var path = 'images/uploads/' + name + '.' + finalExt;
-  var base64 = await fileToBase64(file);
+  var base64 = await fileToBase64(file, type || 'collection');
 
   // Check if file already exists
   var sha = null;
@@ -836,23 +835,28 @@ async function uploadImage(file, name) {
   return path;
 }
 
-function fileToBase64(file) {
+function fileToBase64(file, type) {
+  // Max dimensions by usage context (retina-safe)
+  var dims = {
+    hero:       { maxW: 2400, maxH: 3200 },
+    histoire:   { maxW: 2000, maxH: 2667 },
+    collection: { maxW: 1400, maxH: 1867 }
+  };
+  var limit = dims[type] || dims.collection;
+
   return new Promise(function (resolve, reject) {
     var ext = file.name.split('.').pop().toLowerCase();
-    // HEIC/HEIF from iPhone — convert to JPEG via canvas
     if (ext === 'heic' || ext === 'heif') {
-      reject(new Error('Format HEIC non supporté par les navigateurs. Sur iPhone, allez dans Réglages → Appareil photo → Formats et choisissez "Le plus compatible" (JPEG) avant de prendre vos photos.'));
+      reject(new Error('Format HEIC non supporté. Sur iPhone : Réglages → Appareil photo → Formats → "Le plus compatible".'));
       return;
     }
-    // Compress large images via canvas before upload
-    if (file.size > 800 * 1024) {
+    if (file.size > 2 * 1024 * 1024) {
       var img = new Image();
       var url = URL.createObjectURL(file);
       img.onload = function () {
-        var maxW = 1200, maxH = 1600;
         var w = img.width, h = img.height;
-        if (w > maxW || h > maxH) {
-          var ratio = Math.min(maxW / w, maxH / h);
+        if (w > limit.maxW || h > limit.maxH) {
+          var ratio = Math.min(limit.maxW / w, limit.maxH / h);
           w = Math.round(w * ratio);
           h = Math.round(h * ratio);
         }
@@ -860,7 +864,7 @@ function fileToBase64(file) {
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
         URL.revokeObjectURL(url);
-        resolve(canvas.toDataURL('image/jpeg', 0.85).split(',')[1]);
+        resolve(canvas.toDataURL('image/jpeg', 0.92).split(',')[1]);
       };
       img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Image illisible')); };
       img.src = url;
