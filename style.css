@@ -410,6 +410,19 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   left: 50%;
   transform: translateX(-50%);
   overflow: hidden;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) {
+  .carousel-wrap { cursor: grab; }
+  .carousel-wrap.dragging { cursor: grabbing; }
+}
+.carousel-wrap img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
 }
 .carousel-wrap::before,
 .carousel-wrap::after {

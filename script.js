@@ -65,10 +65,12 @@
   var histImg = document.getElementById('cms-histoire-img');
   if (histImg) bindImageFade(histImg);
 
-  /* ─── CAROUSEL — JS-driven ───
-     Animation pilotée par requestAnimationFrame pour fluidité maximale,
-     particulièrement sur mobile. Vitesse constante en px/s, indépendante
-     du nombre d'items, sans saut au remplacement par le CMS. */
+  /* ─── CAROUSEL — JS-driven avec drag manuel ───
+     Animation par requestAnimationFrame + pointer events unifiés (souris/touch/stylet).
+     - Auto-scroll constant en px/s
+     - Drag manuel avec momentum à l'inertie au relâchement
+     - Pause hover réservée à la souris (pas de faux-tap sur Android)
+     - touch-action: pan-y → le scroll vertical de la page reste fluide */
   var carouselEl = document.querySelector('.carousel');
   var carouselWrap = document.querySelector('.carousel-wrap');
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -76,26 +78,43 @@
   var carouselState = {
     pos: 0,
     halfWidth: 0,
-    paused: false,
     visible: true,
+    hoverPaused: false,
     lastTime: 0,
     rafId: null
+  };
+
+  var dragState = {
+    active: false,
+    pointerId: null,
+    startX: 0,
+    startY: 0,
+    lastX: 0,
+    lastTime: 0,
+    startPos: 0,
+    velocity: 0,
+    direction: null,
+    momentum: 0
   };
 
   function carouselSpeed() {
     return window.matchMedia('(max-width: 900px)').matches ? 22 : 28;
   }
 
+  function wrapPosition() {
+    if (carouselState.halfWidth <= 0) return;
+    while (carouselState.pos <= -carouselState.halfWidth) carouselState.pos += carouselState.halfWidth;
+    while (carouselState.pos > 0) carouselState.pos -= carouselState.halfWidth;
+  }
+
+  function applyTransform() {
+    carouselEl.style.transform = 'translate3d(' + carouselState.pos.toFixed(2) + 'px, 0, 0)';
+  }
+
   function carouselRecalc() {
     if (!carouselEl) return;
-    var total = carouselEl.scrollWidth;
-    carouselState.halfWidth = total / 2;
-    if (carouselState.halfWidth > 0) {
-      while (carouselState.pos <= -carouselState.halfWidth) {
-        carouselState.pos += carouselState.halfWidth;
-      }
-      if (carouselState.pos > 0) carouselState.pos = 0;
-    }
+    carouselState.halfWidth = carouselEl.scrollWidth / 2;
+    wrapPosition();
   }
 
   function carouselTick(time) {
@@ -104,14 +123,94 @@
     if (dt > 0.1) dt = 0.1;
     carouselState.lastTime = time;
 
-    if (!carouselState.paused && carouselState.visible && carouselState.halfWidth > 0) {
-      carouselState.pos -= carouselSpeed() * dt;
-      if (carouselState.pos <= -carouselState.halfWidth) {
-        carouselState.pos += carouselState.halfWidth;
+    if (carouselState.visible && carouselState.halfWidth > 0) {
+      if (dragState.active) {
+        // position contrôlée par les pointer events
+      } else if (Math.abs(dragState.momentum) > 5) {
+        carouselState.pos += dragState.momentum * dt;
+        dragState.momentum *= 0.92;
+        if (Math.abs(dragState.momentum) < 5) dragState.momentum = 0;
+        wrapPosition();
+        applyTransform();
+      } else if (!carouselState.hoverPaused) {
+        carouselState.pos -= carouselSpeed() * dt;
+        wrapPosition();
+        applyTransform();
       }
-      carouselEl.style.transform = 'translate3d(' + carouselState.pos.toFixed(2) + 'px, 0, 0)';
     }
     carouselState.rafId = requestAnimationFrame(carouselTick);
+  }
+
+  function onPointerDown(e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    dragState.pointerId = e.pointerId;
+    dragState.startX = e.clientX;
+    dragState.startY = e.clientY;
+    dragState.lastX = e.clientX;
+    dragState.lastTime = performance.now();
+    dragState.direction = null;
+    dragState.active = false;
+    dragState.velocity = 0;
+  }
+
+  function onPointerMove(e) {
+    if (dragState.pointerId === null || e.pointerId !== dragState.pointerId) return;
+
+    if (dragState.direction === null) {
+      var dx0 = e.clientX - dragState.startX;
+      var dy0 = e.clientY - dragState.startY;
+      if (Math.abs(dx0) > 6 || Math.abs(dy0) > 6) {
+        dragState.direction = Math.abs(dx0) > Math.abs(dy0) ? 'horizontal' : 'vertical';
+        if (dragState.direction === 'horizontal') {
+          dragState.active = true;
+          dragState.startPos = carouselState.pos;
+          dragState.momentum = 0;
+          try { carouselWrap.setPointerCapture(e.pointerId); } catch (_) {}
+          carouselWrap.classList.add('dragging');
+        }
+      }
+    }
+
+    if (dragState.active) {
+      if (e.cancelable) e.preventDefault();
+      var dx = e.clientX - dragState.startX;
+      carouselState.pos = dragState.startPos + dx;
+      wrapPosition();
+      applyTransform();
+
+      var now = performance.now();
+      var ddt = (now - dragState.lastTime) / 1000;
+      if (ddt > 0) {
+        dragState.velocity = (e.clientX - dragState.lastX) / ddt;
+      }
+      dragState.lastX = e.clientX;
+      dragState.lastTime = now;
+    }
+  }
+
+  function onPointerEnd(e) {
+    if (dragState.pointerId === null || e.pointerId !== dragState.pointerId) return;
+    if (dragState.active) {
+      var timeSinceMove = performance.now() - dragState.lastTime;
+      if (timeSinceMove > 80) {
+        dragState.momentum = 0;
+      } else {
+        dragState.momentum = Math.max(-2500, Math.min(2500, dragState.velocity));
+      }
+      try { carouselWrap.releasePointerCapture(e.pointerId); } catch (_) {}
+      carouselWrap.classList.remove('dragging');
+    }
+    dragState.active = false;
+    dragState.pointerId = null;
+    dragState.direction = null;
+  }
+
+  function onPointerEnter(e) {
+    if (e.pointerType === 'mouse') carouselState.hoverPaused = true;
+  }
+
+  function onPointerLeave(e) {
+    if (e.pointerType === 'mouse') carouselState.hoverPaused = false;
   }
 
   function carouselStart() {
@@ -123,10 +222,13 @@
   }
 
   if (carouselEl && carouselWrap && !prefersReduced) {
-    if (window.matchMedia('(hover: hover)').matches) {
-      carouselWrap.addEventListener('mouseenter', function () { carouselState.paused = true; });
-      carouselWrap.addEventListener('mouseleave', function () { carouselState.paused = false; });
-    }
+    carouselWrap.addEventListener('pointerdown', onPointerDown);
+    carouselWrap.addEventListener('pointermove', onPointerMove);
+    carouselWrap.addEventListener('pointerup', onPointerEnd);
+    carouselWrap.addEventListener('pointercancel', onPointerEnd);
+    carouselWrap.addEventListener('pointerenter', onPointerEnter);
+    carouselWrap.addEventListener('pointerleave', onPointerLeave);
+    carouselWrap.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     var visObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -137,12 +239,7 @@
     visObs.observe(carouselWrap);
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        carouselState.paused = true;
-      } else {
-        carouselState.paused = false;
-        carouselState.lastTime = 0;
-      }
+      if (!document.hidden) carouselState.lastTime = 0;
     });
 
     var resizeT = null;
