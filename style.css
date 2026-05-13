@@ -220,14 +220,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   padding: 0 clamp(28px, 6vw, 120px) clamp(60px, 8vh, 100px);
   max-width: 700px;
 }
-.hero-location {
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  font-weight: 300;
-  margin-bottom: 16px;
-}
 .hero-content h1 {
   font-family: var(--serif);
   font-size: clamp(40px, 6vw, 72px);
@@ -759,7 +751,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .hero-content { padding: 0; max-width: 100%; }
   .hero-content h1, .hero-content h1 em { color: black; font-size: 24pt; }
   .hero-line { background: #888; }
-  .hero-sub, .hero-location { color: #555; }
+  .hero-sub { color: #555; }
   .section { padding: 16pt 24pt; }
   .section-title, .about-stat .num { color: black; }
   .contact { background: white; color: black; }

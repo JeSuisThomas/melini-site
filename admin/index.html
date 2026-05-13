@@ -198,6 +198,84 @@ body {
 .hero-picker { height: 240px; }
 .histoire-picker { height: 300px; }
 
+/* ─── HERO PREVIEW ─── */
+.hero-preview-section { display: none; margin-top: 20px; }
+.hero-preview-section.active { display: block; }
+.preview-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.preview-toggle button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--creme);
+  border: 1px solid var(--creme-deep);
+  border-radius: 6px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+  color: var(--noir);
+}
+.preview-toggle button:hover { border-color: var(--rose); }
+.preview-toggle button.active { background: var(--noir); color: var(--blanc); border-color: var(--noir); }
+.preview-toggle button svg { flex-shrink: 0; }
+.hero-preview-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--noir);
+  margin: 0 auto;
+  transition: width 0.4s ease, height 0.4s ease;
+}
+.hero-preview-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+.hero-preview-frame .preview-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(26,26,26,0.7) 0%, rgba(26,26,26,0.2) 35%, transparent 60%);
+  pointer-events: none;
+}
+.hero-preview-frame .preview-text {
+  position: absolute;
+  bottom: 12%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  pointer-events: none;
+}
+.hero-preview-frame .preview-text h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.hero-preview-frame .preview-text span {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.preview-label {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
 /* ─── TEXT INPUT ─── */
 .field { margin-bottom: 20px; }
 .field label {
@@ -357,6 +435,27 @@ body {
         </div>
         <input type="file" accept="image/*" onchange="handleImageChange(event, 'hero')">
       </div>
+      <div class="hero-preview-section" id="hero-preview-section">
+        <div class="preview-toggle">
+          <button class="active" onclick="setHeroPreviewMode('phone')" id="preview-btn-phone">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01" stroke-linecap="round"/></svg>
+            Téléphone
+          </button>
+          <button onclick="setHeroPreviewMode('desktop')" id="preview-btn-desktop">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Ordinateur
+          </button>
+        </div>
+        <div class="hero-preview-frame" id="hero-preview-frame" style="width:200px;height:356px;">
+          <img id="hero-preview-img" src="" alt="Aperçu">
+          <div class="preview-overlay"></div>
+          <div class="preview-text">
+            <h3>À chaque pas, votre <em>signature</em></h3>
+            <span>Melini &middot; Chaussures & sacs</span>
+          </div>
+        </div>
+        <p class="preview-label" id="hero-preview-label">Vue téléphone (9:16)</p>
+      </div>
     </div>
 
     <!-- BANDEAU -->
@@ -469,7 +568,7 @@ function doLogin() {
     })
     .catch(function () {
       token = '';
-      showLoginError('Authentification refusée. Vérifiez votre token et ses permissions (scope "repo").');
+      showLoginError('Authentification refusée. Vérifiez votre token et ses permissions (scope \"repo\").');
     });
 }
 
@@ -546,7 +645,7 @@ function githubAPI(method, path, body) {
   return fetch('https://api.github.com' + path, opts).then(function (r) {
     if (!r.ok) {
       var msg = r.status;
-      if (r.status === 404 && method !== 'GET') msg = '404 — Votre token GitHub n\'a pas les permissions d\'écriture. Allez dans GitHub → Settings → Developer settings → Personal access tokens et vérifiez que le scope "repo" est coché.';
+      if (r.status === 404 && method !== 'GET') msg = '404 — Votre token GitHub n\'a pas les permissions d\'écriture. Allez dans GitHub → Settings → Developer settings → Personal access tokens et vérifiez que le scope \"repo\" est coché.';
       else if (r.status === 409) msg = '409 — Conflit : le contenu a été modifié par quelqu\'un d\'autre. Rechargez la page et réessayez.';
       else if (r.status === 401) msg = '401 — Token expiré ou invalide. Reconnectez-vous.';
       else if (r.status === 422) msg = '422 — Fichier trop volumineux ou données invalides.';
@@ -582,6 +681,7 @@ function populateForm() {
   var heroSrc = siteData.hero.image;
   if (heroSrc && !heroSrc.startsWith('http')) heroSrc = window.location.origin + heroSrc;
   document.getElementById('hero-preview').src = heroSrc || '';
+  if (heroSrc) showHeroPreview(heroSrc);
 
   // Bandeau
   document.getElementById('bandeau-text').value = siteData.bandeau.texte || '';
@@ -606,7 +706,7 @@ function handleImageChange(event, key) {
   if (!file) return;
   var ext = file.name.split('.').pop().toLowerCase();
   if (ext === 'heic' || ext === 'heif') {
-    setStatus('Format HEIC non supporté. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible" et reprenez la photo.', 'error');
+    setStatus('Format HEIC non supporté. Sur iPhone, réglez Appareil photo → Formats sur \"Le plus compatible\" et reprenez la photo.', 'error');
     event.target.value = '';
     return;
   }
@@ -624,8 +724,46 @@ function handleImageChange(event, key) {
   reader.onload = function (e) {
     pendingUploads[key] = { file: file, dataUrl: e.target.result };
     document.getElementById(key + '-preview').src = e.target.result;
+    if (key === 'hero') showHeroPreview(e.target.result);
   };
   reader.readAsDataURL(file);
+}
+
+/* ─── HERO PREVIEW ─── */
+var heroPreviewMode = 'phone';
+
+function showHeroPreview(src) {
+  var section = document.getElementById('hero-preview-section');
+  var img = document.getElementById('hero-preview-img');
+  img.src = src;
+  section.classList.add('active');
+  setHeroPreviewMode(heroPreviewMode);
+}
+
+function setHeroPreviewMode(mode) {
+  heroPreviewMode = mode;
+  var frame = document.getElementById('hero-preview-frame');
+  var label = document.getElementById('hero-preview-label');
+  var btnPhone = document.getElementById('preview-btn-phone');
+  var btnDesktop = document.getElementById('preview-btn-desktop');
+  var containerWidth = frame.parentElement.offsetWidth;
+  if (mode === 'phone') {
+    var phoneH = Math.min(400, containerWidth * 16 / 9);
+    var phoneW = phoneH * 9 / 16;
+    frame.style.width = Math.round(phoneW) + 'px';
+    frame.style.height = Math.round(phoneH) + 'px';
+    label.textContent = 'Vue téléphone (9:16)';
+    btnPhone.classList.add('active');
+    btnDesktop.classList.remove('active');
+  } else {
+    var desktopW = Math.min(containerWidth, 600);
+    var desktopH = desktopW * 9 / 16;
+    frame.style.width = Math.round(desktopW) + 'px';
+    frame.style.height = Math.round(desktopH) + 'px';
+    label.textContent = 'Vue ordinateur (16:9)';
+    btnDesktop.classList.add('active');
+    btnPhone.classList.remove('active');
+  }
 }
 
 /* ─── COLLECTION ─── */
@@ -673,7 +811,7 @@ function handleCollectionAdd(event) {
   }
 
   if (rejected.length) {
-    setStatus('Fichiers ignorés : ' + rejected.join(', ') + '. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible".', 'error');
+    setStatus('Fichiers ignorés : ' + rejected.join(', ') + '. Sur iPhone, réglez Appareil photo → Formats sur \"Le plus compatible\".', 'error');
   }
 
   if (!accepted.length) {
@@ -694,7 +832,7 @@ function handleCollectionAdd(event) {
       loaded++;
       if (loaded === accepted.length) {
         renderCollection();
-        if (!rejected.length) setStatus(accepted.length + ' photo(s) ajoutée(s). Cliquez "Enregistrer" pour les publier.', 'success');
+        if (!rejected.length) setStatus(accepted.length + ' photo(s) ajoutée(s). Cliquez \"Enregistrer\" pour les publier.', 'success');
       }
     };
     reader.onerror = function () {
@@ -847,7 +985,7 @@ function fileToBase64(file, type) {
   return new Promise(function (resolve, reject) {
     var ext = file.name.split('.').pop().toLowerCase();
     if (ext === 'heic' || ext === 'heif') {
-      reject(new Error('Format HEIC non supporté. Sur iPhone : Réglages → Appareil photo → Formats → "Le plus compatible".'));
+      reject(new Error('Format HEIC non supporté. Sur iPhone : Réglages → Appareil photo → Formats → \"Le plus compatible\".'));
       return;
     }
     if (file.size > 2 * 1024 * 1024) {
