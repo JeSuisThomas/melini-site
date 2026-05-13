@@ -231,13 +231,45 @@ body {
   background: var(--noir);
   margin: 0 auto;
   transition: width 0.4s ease, height 0.4s ease;
+  cursor: crosshair;
 }
 .hero-preview-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: 50% 30%;
   display: block;
+  pointer-events: none;
+}
+.focal-indicator {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border: 2px solid white;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.4);
+  transition: left 0.25s ease, top 0.25s ease;
+  z-index: 3;
+}
+.focal-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: white;
+  border-radius: 50%;
+}
+.preview-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--rose);
+  margin-bottom: 12px;
+  font-style: italic;
 }
 .hero-preview-frame .preview-overlay {
   position: absolute;
@@ -446,8 +478,10 @@ body {
             Ordinateur
           </button>
         </div>
-        <div class="hero-preview-frame" id="hero-preview-frame" style="width:200px;height:356px;">
+        <p class="preview-hint">Cliquez sur l'aperçu pour choisir la zone à garder visible</p>
+        <div class="hero-preview-frame" id="hero-preview-frame" style="width:200px;height:356px;" onclick="setFocalPoint(event)">
           <img id="hero-preview-img" src="" alt="Aperçu">
+          <div class="focal-indicator" id="focal-indicator" style="left:50%;top:30%;"></div>
           <div class="preview-overlay"></div>
           <div class="preview-text">
             <h3>À chaque pas, votre <em>signature</em></h3>
@@ -568,7 +602,7 @@ function doLogin() {
     })
     .catch(function () {
       token = '';
-      showLoginError('Authentification refusée. Vérifiez votre token et ses permissions (scope \"repo\").');
+      showLoginError('Authentification refusée. Vérifiez votre token et ses permissions (scope "repo").');
     });
 }
 
@@ -645,7 +679,7 @@ function githubAPI(method, path, body) {
   return fetch('https://api.github.com' + path, opts).then(function (r) {
     if (!r.ok) {
       var msg = r.status;
-      if (r.status === 404 && method !== 'GET') msg = '404 — Votre token GitHub n\'a pas les permissions d\'écriture. Allez dans GitHub → Settings → Developer settings → Personal access tokens et vérifiez que le scope \"repo\" est coché.';
+      if (r.status === 404 && method !== 'GET') msg = '404 — Votre token GitHub n\'a pas les permissions d\'écriture. Allez dans GitHub → Settings → Developer settings → Personal access tokens et vérifiez que le scope "repo" est coché.';
       else if (r.status === 409) msg = '409 — Conflit : le contenu a été modifié par quelqu\'un d\'autre. Rechargez la page et réessayez.';
       else if (r.status === 401) msg = '401 — Token expiré ou invalide. Reconnectez-vous.';
       else if (r.status === 422) msg = '422 — Fichier trop volumineux ou données invalides.';
@@ -706,7 +740,7 @@ function handleImageChange(event, key) {
   if (!file) return;
   var ext = file.name.split('.').pop().toLowerCase();
   if (ext === 'heic' || ext === 'heif') {
-    setStatus('Format HEIC non supporté. Sur iPhone, réglez Appareil photo → Formats sur \"Le plus compatible\" et reprenez la photo.', 'error');
+    setStatus('Format HEIC non supporté. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible" et reprenez la photo.', 'error');
     event.target.value = '';
     return;
   }
@@ -740,6 +774,35 @@ function showHeroPreview(src) {
   setHeroPreviewMode(heroPreviewMode);
 }
 
+function getStoredPosition(mode) {
+  if (!siteData || !siteData.hero) return '50% 30%';
+  var key = mode === 'phone' ? 'position_mobile' : 'position_desktop';
+  return siteData.hero[key] || '50% 30%';
+}
+
+function parsePosition(pos) {
+  var s = String(pos || '50% 30%')
+    .replace(/center/gi, '50%')
+    .replace(/left/gi, '0%').replace(/right/gi, '100%')
+    .replace(/top/gi, '0%').replace(/bottom/gi, '100%')
+    .trim();
+  var parts = s.split(/\s+/);
+  var x = parseInt(parts[0], 10);
+  var y = parseInt(parts[1] != null ? parts[1] : '50', 10);
+  if (isNaN(x)) x = 50;
+  if (isNaN(y)) y = 50;
+  return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
+}
+
+function applyPreviewPosition(pos) {
+  var img = document.getElementById('hero-preview-img');
+  var ind = document.getElementById('focal-indicator');
+  img.style.objectPosition = pos;
+  var p = parsePosition(pos);
+  ind.style.left = p.x + '%';
+  ind.style.top = p.y + '%';
+}
+
 function setHeroPreviewMode(mode) {
   heroPreviewMode = mode;
   var frame = document.getElementById('hero-preview-frame');
@@ -764,6 +827,25 @@ function setHeroPreviewMode(mode) {
     btnDesktop.classList.add('active');
     btnPhone.classList.remove('active');
   }
+  applyPreviewPosition(getStoredPosition(mode));
+}
+
+function setFocalPoint(evt) {
+  var frame = document.getElementById('hero-preview-frame');
+  var rect = frame.getBoundingClientRect();
+  var x = Math.round(((evt.clientX - rect.left) / rect.width) * 100);
+  var y = Math.round(((evt.clientY - rect.top) / rect.height) * 100);
+  x = Math.max(0, Math.min(100, x));
+  y = Math.max(0, Math.min(100, y));
+  var pos = x + '% ' + y + '%';
+  if (!siteData.hero.position_desktop) siteData.hero.position_desktop = '50% 30%';
+  if (!siteData.hero.position_mobile) siteData.hero.position_mobile = '50% 30%';
+  if (heroPreviewMode === 'phone') {
+    siteData.hero.position_mobile = pos;
+  } else {
+    siteData.hero.position_desktop = pos;
+  }
+  applyPreviewPosition(pos);
 }
 
 /* ─── COLLECTION ─── */
@@ -811,7 +893,7 @@ function handleCollectionAdd(event) {
   }
 
   if (rejected.length) {
-    setStatus('Fichiers ignorés : ' + rejected.join(', ') + '. Sur iPhone, réglez Appareil photo → Formats sur \"Le plus compatible\".', 'error');
+    setStatus('Fichiers ignorés : ' + rejected.join(', ') + '. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible".', 'error');
   }
 
   if (!accepted.length) {
@@ -832,7 +914,7 @@ function handleCollectionAdd(event) {
       loaded++;
       if (loaded === accepted.length) {
         renderCollection();
-        if (!rejected.length) setStatus(accepted.length + ' photo(s) ajoutée(s). Cliquez \"Enregistrer\" pour les publier.', 'success');
+        if (!rejected.length) setStatus(accepted.length + ' photo(s) ajoutée(s). Cliquez "Enregistrer" pour les publier.', 'success');
       }
     };
     reader.onerror = function () {
@@ -985,7 +1067,7 @@ function fileToBase64(file, type) {
   return new Promise(function (resolve, reject) {
     var ext = file.name.split('.').pop().toLowerCase();
     if (ext === 'heic' || ext === 'heif') {
-      reject(new Error('Format HEIC non supporté. Sur iPhone : Réglages → Appareil photo → Formats → \"Le plus compatible\".'));
+      reject(new Error('Format HEIC non supporté. Sur iPhone : Réglages → Appareil photo → Formats → "Le plus compatible".'));
       return;
     }
     if (file.size > 2 * 1024 * 1024) {
