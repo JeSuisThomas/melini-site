@@ -261,14 +261,32 @@
     return '';
   }
 
+  function safePosition(value) {
+    if (typeof value !== 'string') return '';
+    var s = value.trim();
+    // Accept "X% Y%" with X,Y ∈ 0..100, or keyword combos (center/top/bottom/left/right)
+    if (/^(\d{1,3}%|center|left|right|top|bottom)(\s+(\d{1,3}%|center|left|right|top|bottom))?$/.test(s)) return s;
+    return '';
+  }
+
   fetch('/content/site.json?v=' + Date.now())
     .then(function (r) { return r.json(); })
     .then(function (data) {
-      if (data.hero && data.hero.image) {
-        var hi = document.getElementById('cms-hero-img');
-        if (hi) {
-          var safeHero = safeURL(data.hero.image);
-          if (safeHero) hi.src = safeHero;
+      if (data.hero) {
+        if (data.hero.image) {
+          var hi = document.getElementById('cms-hero-img');
+          if (hi) {
+            var safeHero = safeURL(data.hero.image);
+            if (safeHero) hi.src = safeHero;
+          }
+        }
+        if (data.hero.position_desktop) {
+          var pd = safePosition(data.hero.position_desktop);
+          if (pd) document.documentElement.style.setProperty('--hero-pos-desktop', pd);
+        }
+        if (data.hero.position_mobile) {
+          var pm = safePosition(data.hero.position_mobile);
+          if (pm) document.documentElement.style.setProperty('--hero-pos-mobile', pm);
         }
       }
       if (data.hero && data.hero.sous_titre) {

@@ -2,7 +2,9 @@
   "hero": {
     "image": "/images/uploads/hero_1778698601630.jpg",
     "titre": "Chaque pied est unique",
-    "sous_titre": "Melini · Chaussures & sacs"
+    "sous_titre": "Melini · Chaussures & sacs",
+    "position_desktop": "50% 30%",
+    "position_mobile": "50% 30%"
   },
   "bandeau": {
     "texte": "Nouvelle collection printemps-été 2026 · Disponible en boutique"
