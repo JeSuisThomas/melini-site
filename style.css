@@ -408,6 +408,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   transform: translateX(-50%);
   overflow: hidden;
   touch-action: pan-y;
+  overscroll-behavior-x: contain;
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;

@@ -113,7 +113,17 @@
 
   function carouselRecalc() {
     if (!carouselEl) return;
-    carouselState.halfWidth = carouselEl.scrollWidth / 2;
+    // Mesure exacte de la période : offsetLeft du 1er item de la 2e copie.
+    // Plus fiable que scrollWidth/2 (qui peut ignorer la marge du dernier item
+    // et créer un décalage sous-pixel qui se cumule au wrap → flash blanc).
+    var children = carouselEl.children;
+    var total = children.length;
+    var period = 0;
+    if (total >= 2 && total % 2 === 0) {
+      period = children[total / 2].offsetLeft;
+    }
+    if (period <= 0) period = carouselEl.scrollWidth / 2;
+    carouselState.halfWidth = period;
     wrapPosition();
   }
 
@@ -174,8 +184,15 @@
     if (dragState.active) {
       if (e.cancelable) e.preventDefault();
       var dx = e.clientX - dragState.startX;
-      carouselState.pos = dragState.startPos + dx;
+      var rawPos = dragState.startPos + dx;
+      carouselState.pos = rawPos;
       wrapPosition();
+      // Si le wrap a déplacé pos, on recale la référence de drag pour que
+      // le doigt continue de tracker le contenu sans saut au franchissement.
+      var wrapShift = rawPos - carouselState.pos;
+      if (wrapShift !== 0) {
+        dragState.startPos -= wrapShift;
+      }
       applyTransform();
 
       var now = performance.now();
