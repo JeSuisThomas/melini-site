@@ -940,6 +940,7 @@ async function saveAll() {
   var totalImages = (pendingUploads.hero ? 1 : 0) + (pendingUploads.histoire ? 1 : 0) + newCollectionCount;
   var done = 0;
   var failed = [];
+  var heroChanged = false;
 
   function progress(label) {
     done++;
@@ -952,6 +953,7 @@ async function saveAll() {
       try {
         var heroPath = await uploadImage(pendingUploads.hero.file, 'hero_' + Date.now(), 'hero');
         siteData.hero.image = '/' + heroPath;
+        heroChanged = true;
         delete pendingUploads.hero;
         progress('photo accueil');
       } catch (e) { failed.push('photo accueil (' + e.message + ')'); done++; }
@@ -1016,6 +1018,14 @@ async function saveAll() {
     });
 
     siteData._sha = result.content.sha;
+
+    // 6. Sync the static hero <img> src in index.html so it never lags behind
+    //    site.json (évite le flash de l'ancienne photo au chargement du site)
+    if (heroChanged) {
+      try { await syncHeroSrcInHtml(siteData.hero.image); }
+      catch (e) { /* non bloquant : site.json est déjà sauvegardé */ }
+    }
+
     renderCollection();
 
     if (failed.length) {
@@ -1029,6 +1039,24 @@ async function saveAll() {
 
   btn.disabled = false;
   btn.textContent = 'Enregistrer les modifications';
+}
+
+async function syncHeroSrcInHtml(newSrc) {
+  // Rewrite the hero <img> src in index.html to match site.json.
+  // No-op if already in sync. Non-blocking: failures don't affect the save.
+  var file = await githubAPI('GET', '/repos/' + REPO + '/contents/index.html?ref=' + BRANCH);
+  var html = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
+  var re = /(id="cms-hero-img"\s+src=")[^"]*(")/;
+  if (!re.test(html)) return;
+  var updated = html.replace(re, '$1' + newSrc + '$2');
+  if (updated === html) return; // déjà synchronisé
+  var encoded = btoa(unescape(encodeURIComponent(updated)));
+  await githubAPI('PUT', '/repos/' + REPO + '/contents/index.html', {
+    message: 'Sync hero src via admin (' + newSrc + ')',
+    content: encoded,
+    sha: file.sha,
+    branch: BRANCH
+  });
 }
 
 async function uploadImage(file, name, type) {
