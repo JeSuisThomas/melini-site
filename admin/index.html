@@ -121,6 +121,9 @@ body {
 
 /* ─── STATUS BAR ─── */
 .status-bar {
+  position: sticky;
+  top: 0;
+  z-index: 101;
   padding: 12px 32px;
   font-size: 13px;
   text-align: center;
@@ -566,7 +569,7 @@ var SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes inactivity
 var MIN_LOGIN_INTERVAL_MS = 1500; // anti-bruteforce: throttle login attempts
 var token = '';
 var siteData = null;
-var pendingUploads = {}; // { key: { file, dataUrl } }
+var pendingUploads = {}; // { key: { blob, previewUrl } }
 var lastActivity = Date.now();
 var lastLoginAttempt = 0;
 var sessionTimer = null;
@@ -735,32 +738,86 @@ function populateForm() {
 }
 
 /* ─── IMAGE HANDLING ─── */
+// Chaque photo est décodée, redimensionnée et recompressée en JPEG dès l'ajout
+// (quelques centaines de Ko au lieu de plusieurs Mo). Sans ça, Safari manque de
+// mémoire quand on ajoute des dizaines de photos d'un coup et recharge la page.
+var IMAGE_DIMS = {
+  hero:       { maxW: 2400, maxH: 3200 },
+  histoire:   { maxW: 2000, maxH: 2667 },
+  collection: { maxW: 1400, maxH: 1867 }
+};
+var hasUnsavedChanges = false;
+var collectionBusy = false;
+
+function markDirty() { hasUnsavedChanges = true; }
+
+document.addEventListener('input', function (e) {
+  if (e.target.matches('.admin-section input[type="text"]')) markDirty();
+});
+
+window.addEventListener('beforeunload', function (e) {
+  if (!hasUnsavedChanges) return;
+  e.preventDefault();
+  e.returnValue = '';
+});
+
+function checkFile(file) {
+  var isImage = (file.type && file.type.indexOf('image/') === 0) ||
+    /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(file.name);
+  if (!isImage) return 'pas une image';
+  if (file.size > 40 * 1024 * 1024) return 'fichier > 40 Mo';
+  return '';
+}
+
+// Résout { blob, previewUrl }. Lit aussi le HEIC quand le navigateur sait le
+// décoder (Safari sur iPhone et Mac).
+function prepareImage(file, type) {
+  var limit = IMAGE_DIMS[type] || IMAGE_DIMS.collection;
+  return new Promise(function (resolve, reject) {
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function () {
+      var ratio = Math.min(1, limit.maxW / img.naturalWidth, limit.maxH / img.naturalHeight);
+      var canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.naturalWidth * ratio);
+      canvas.height = Math.round(img.naturalHeight * ratio);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      canvas.toBlob(function (blob) {
+        canvas.width = canvas.height = 0; // libère la mémoire du canvas (Safari)
+        if (!blob) { reject(new Error('conversion impossible')); return; }
+        resolve({ blob: blob, previewUrl: URL.createObjectURL(blob) });
+      }, 'image/jpeg', 0.85);
+    };
+    img.onerror = function () {
+      URL.revokeObjectURL(url);
+      reject(new Error(/\.(heic|heif)$/i.test(file.name)
+        ? 'format HEIC illisible dans ce navigateur, utilisez Safari ou exportez la photo en JPEG'
+        : 'image illisible'));
+    };
+    img.src = url;
+  });
+}
+
 function handleImageChange(event, key) {
   var file = event.target.files[0];
+  event.target.value = '';
   if (!file) return;
-  var ext = file.name.split('.').pop().toLowerCase();
-  if (ext === 'heic' || ext === 'heif') {
-    setStatus('Format HEIC non supporté. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible" et reprenez la photo.', 'error');
-    event.target.value = '';
+  var problem = checkFile(file);
+  if (problem) {
+    setStatus(file.name + ' : ' + problem + '.', 'error');
     return;
   }
-  if (!file.type.startsWith('image/')) {
-    setStatus('Ce fichier n\'est pas une image.', 'error');
-    event.target.value = '';
-    return;
-  }
-  if (file.size > 15 * 1024 * 1024) {
-    setStatus('Image trop volumineuse (max 15 MB).', 'error');
-    event.target.value = '';
-    return;
-  }
-  var reader = new FileReader();
-  reader.onload = function (e) {
-    pendingUploads[key] = { file: file, dataUrl: e.target.result };
-    document.getElementById(key + '-preview').src = e.target.result;
-    if (key === 'hero') showHeroPreview(e.target.result);
-  };
-  reader.readAsDataURL(file);
+  setStatus('Préparation de la photo...', 'saving');
+  prepareImage(file, key).then(function (res) {
+    pendingUploads[key] = res;
+    markDirty();
+    document.getElementById(key + '-preview').src = res.previewUrl;
+    if (key === 'hero') showHeroPreview(res.previewUrl);
+    setStatus('Photo prête. Cliquez "Enregistrer" pour la publier.', 'success');
+  }).catch(function (err) {
+    setStatus(file.name + ' : ' + err.message + '.', 'error');
+  });
 }
 
 /* ─── HERO PREVIEW ─── */
@@ -845,6 +902,7 @@ function setFocalPoint(evt) {
   } else {
     siteData.hero.position_desktop = pos;
   }
+  markDirty();
   applyPreviewPosition(pos);
 }
 
@@ -854,8 +912,8 @@ function renderCollection() {
   var html = '';
   var photos = siteData.collection.photos;
   for (var i = 0; i < photos.length; i++) {
-    var src = photos[i]._dataUrl || photos[i].image;
-    if (src && !src.startsWith('http') && !src.startsWith('data:')) src = window.location.origin + src;
+    var src = photos[i]._previewUrl || photos[i].image;
+    if (src && !/^(https?:|blob:|data:)/.test(src)) src = window.location.origin + src;
     html += '<div class="collection-item">' +
       '<img src="' + src + '" alt="' + (photos[i].alt || '') + '">' +
       '<button class="remove-btn" onclick="removeCollectionItem(' + i + ')">&times;</button>' +
@@ -865,264 +923,197 @@ function renderCollection() {
 }
 
 function removeCollectionItem(index) {
-  siteData.collection.photos.splice(index, 1);
-  // Also remove from pending if it was a new upload
-  delete pendingUploads['collection_' + index];
+  var removed = siteData.collection.photos.splice(index, 1)[0];
+  if (removed && removed._previewUrl) URL.revokeObjectURL(removed._previewUrl);
+  markDirty();
   renderCollection();
 }
 
-function handleCollectionAdd(event) {
-  var files = event.target.files;
+async function handleCollectionAdd(event) {
+  var files = Array.prototype.slice.call(event.target.files || []);
+  event.target.value = '';
   if (!files.length) return;
-
-  // Validate files first
-  var rejected = [];
-  var accepted = [];
-  for (var i = 0; i < files.length; i++) {
-    var f = files[i];
-    var ext = f.name.split('.').pop().toLowerCase();
-    if (ext === 'heic' || ext === 'heif') {
-      rejected.push(f.name + ' (format HEIC non supporté)');
-    } else if (!f.type.startsWith('image/')) {
-      rejected.push(f.name + ' (pas une image)');
-    } else if (f.size > 15 * 1024 * 1024) {
-      rejected.push(f.name + ' (fichier > 15 MB)');
-    } else {
-      accepted.push(f);
-    }
-  }
-
-  if (rejected.length) {
-    setStatus('Fichiers ignorés : ' + rejected.join(', ') + '. Sur iPhone, réglez Appareil photo → Formats sur "Le plus compatible".', 'error');
-  }
-
-  if (!accepted.length) {
-    event.target.value = '';
+  if (collectionBusy) {
+    setStatus('Patientez, des photos sont encore en préparation...', 'saving');
     return;
   }
+  collectionBusy = true;
 
-  var loaded = 0;
-  accepted.forEach(function (file) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
+  var rejected = [];
+  var added = 0;
+  // Une photo à la fois : la mémoire reste basse même avec 40 photos
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i];
+    setStatus('Préparation des photos ' + (i + 1) + '/' + files.length + '...', 'saving');
+    var problem = checkFile(f);
+    if (problem) { rejected.push(f.name + ' (' + problem + ')'); continue; }
+    try {
+      var res = await prepareImage(f, 'collection');
       siteData.collection.photos.push({
         image: '',
         alt: 'Photo collection Melini',
-        _file: file,
-        _dataUrl: e.target.result
+        _blob: res.blob,
+        _previewUrl: res.previewUrl
       });
-      loaded++;
-      if (loaded === accepted.length) {
-        renderCollection();
-        if (!rejected.length) setStatus(accepted.length + ' photo(s) ajoutée(s). Cliquez "Enregistrer" pour les publier.', 'success');
-      }
-    };
-    reader.onerror = function () {
-      loaded++;
-      if (loaded === accepted.length) renderCollection();
-    };
-    reader.readAsDataURL(file);
-  });
-  event.target.value = '';
+      added++;
+      renderCollection();
+    } catch (err) {
+      rejected.push(f.name + ' (' + err.message + ')');
+    }
+  }
+  collectionBusy = false;
+  if (added) markDirty();
+
+  if (rejected.length) {
+    setStatus(added + ' photo(s) ajoutée(s), ' + rejected.length + ' ignorée(s) : ' + rejected.join(', '), 'error');
+  } else {
+    setStatus(added + ' photo(s) ajoutée(s). Cliquez "Enregistrer" pour les publier.', 'success');
+  }
 }
 
 /* ─── SAVE ─── */
+// Tout est publié en UN SEUL commit via l'API Git de GitHub : photos, site.json
+// et, si la photo d'accueil change, index.html. Soit tout passe, soit rien n'est
+// modifié, et Vercel ne redéploie qu'une fois.
+function blobToBase64(blob) {
+  return new Promise(function (resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function () { resolve(reader.result.split(',')[1]); };
+    reader.onerror = function () { reject(new Error('lecture de la photo impossible')); };
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function runLimited(items, limit, worker) {
+  var next = 0;
+  async function lane() {
+    while (next < items.length) {
+      var i = next++;
+      await worker(items[i], i);
+    }
+  }
+  var lanes = [];
+  for (var k = 0; k < Math.min(limit, items.length); k++) lanes.push(lane());
+  await Promise.all(lanes);
+}
+
+function createGitBlob(content, encoding) {
+  return githubAPI('POST', '/repos/' + REPO + '/git/blobs', { content: content, encoding: encoding });
+}
+
 async function saveAll() {
+  if (collectionBusy) {
+    setStatus('Patientez, des photos sont encore en préparation...', 'saving');
+    return;
+  }
   var btn = document.getElementById('save-btn');
   btn.disabled = true;
   btn.textContent = 'Enregistrement...';
 
-  // Count work to do
-  var newCollectionCount = 0;
-  for (var i = 0; i < siteData.collection.photos.length; i++) {
-    if (siteData.collection.photos[i]._file) newCollectionCount++;
-  }
-  var totalImages = (pendingUploads.hero ? 1 : 0) + (pendingUploads.histoire ? 1 : 0) + newCollectionCount;
-  var done = 0;
-  var failed = [];
-  var heroChanged = false;
-
-  function progress(label) {
-    done++;
-    setStatus('Upload ' + done + '/' + totalImages + ' — ' + label + '...', 'saving');
-  }
-
   try {
-    // 1. Hero
-    if (pendingUploads.hero) {
-      try {
-        var heroPath = await uploadImage(pendingUploads.hero.file, 'hero_' + Date.now(), 'hero');
-        siteData.hero.image = '/' + heroPath;
-        heroChanged = true;
-        delete pendingUploads.hero;
-        progress('photo accueil');
-      } catch (e) { failed.push('photo accueil (' + e.message + ')'); done++; }
-    }
+    // 1. Build the new content (siteData stays untouched until the commit succeeds)
+    var data = JSON.parse(JSON.stringify(siteData, function (k, v) {
+      return k.charAt(0) === '_' ? undefined : v;
+    }));
+    data.bandeau.texte = document.getElementById('bandeau-text').value;
+    data.horaires.lundi = document.getElementById('horaire-lundi').value;
+    data.horaires.mardi_samedi = document.getElementById('horaire-mardi').value;
+    data.horaires.dimanche = document.getElementById('horaire-dimanche').value;
 
-    // 2. Histoire
-    if (pendingUploads.histoire) {
-      try {
-        var histPath = await uploadImage(pendingUploads.histoire.file, 'histoire_' + Date.now(), 'histoire');
-        siteData.histoire.image = '/' + histPath;
-        delete pendingUploads.histoire;
-        progress('photo histoire');
-      } catch (e) { failed.push('photo histoire (' + e.message + ')'); done++; }
-    }
-
-    // 3. Collection — process each independently
     var stamp = Date.now();
-    for (var i = 0; i < siteData.collection.photos.length; i++) {
-      var photo = siteData.collection.photos[i];
-      if (photo._file) {
-        try {
-          var colPath = await uploadImage(photo._file, 'col_' + stamp + '_' + i, 'collection');
-          photo.image = '/' + colPath;
-          delete photo._file;
-          delete photo._dataUrl;
-          progress('photo collection ' + (i + 1));
-        } catch (e) {
-          failed.push('photo collection ' + (i + 1) + ' (' + e.message + ')');
-          done++;
+    var uploads = []; // { path, blob }
+    if (pendingUploads.hero) {
+      data.hero.image = '/images/uploads/hero_' + stamp + '.jpg';
+      uploads.push({ path: data.hero.image.slice(1), blob: pendingUploads.hero.blob });
+    }
+    if (pendingUploads.histoire) {
+      data.histoire.image = '/images/uploads/histoire_' + stamp + '.jpg';
+      uploads.push({ path: data.histoire.image.slice(1), blob: pendingUploads.histoire.blob });
+    }
+    siteData.collection.photos.forEach(function (p, i) {
+      if (!p._blob) return;
+      data.collection.photos[i].image = '/images/uploads/col_' + stamp + '_' + i + '.jpg';
+      uploads.push({ path: data.collection.photos[i].image.slice(1), blob: p._blob });
+    });
+
+    // 2. Send the photos (3 at a time)
+    var entries = [];
+    var sent = 0;
+    if (uploads.length) setStatus('Envoi des photos 0/' + uploads.length + '...', 'saving');
+    await runLimited(uploads, 3, async function (u) {
+      var gitBlob = await createGitBlob(await blobToBase64(u.blob), 'base64');
+      entries.push({ path: u.path, mode: '100644', type: 'blob', sha: gitBlob.sha });
+      sent++;
+      setStatus('Envoi des photos ' + sent + '/' + uploads.length + '...', 'saving');
+    });
+
+    setStatus('Publication...', 'saving');
+    var jsonBlob = await createGitBlob(JSON.stringify(data, null, 2), 'utf-8');
+    entries.push({ path: CONTENT_PATH, mode: '100644', type: 'blob', sha: jsonBlob.sha });
+
+    // 3. Commit on top of the branch (one retry if it moved in the meantime)
+    for (var attempt = 1; ; attempt++) {
+      try {
+        var ref = await githubAPI('GET', '/repos/' + REPO + '/git/ref/heads/' + BRANCH);
+        var baseSha = ref.object.sha;
+
+        var current = await githubAPI('GET', '/repos/' + REPO + '/contents/' + CONTENT_PATH + '?ref=' + baseSha);
+        if (current.sha !== siteData._sha) {
+          throw new Error('Le contenu a été modifié ailleurs entre-temps. Rechargez la page puis refaites vos modifications.');
         }
+
+        var treeEntries = entries.slice();
+        // Keep the static hero src in index.html in sync with site.json
+        // (évite le flash de l'ancienne photo au chargement du site)
+        if (pendingUploads.hero) {
+          var page = await githubAPI('GET', '/repos/' + REPO + '/contents/index.html?ref=' + baseSha);
+          var html = b64ToUtf8(page.content);
+          var re = /(id="cms-hero-img"\s+src=")[^"]*(")/;
+          if (re.test(html)) {
+            var htmlBlob = await createGitBlob(html.replace(re, '$1' + data.hero.image + '$2'), 'utf-8');
+            treeEntries.push({ path: 'index.html', mode: '100644', type: 'blob', sha: htmlBlob.sha });
+          }
+        }
+
+        var baseCommit = await githubAPI('GET', '/repos/' + REPO + '/git/commits/' + baseSha);
+        var tree = await githubAPI('POST', '/repos/' + REPO + '/git/trees', {
+          base_tree: baseCommit.tree.sha,
+          tree: treeEntries
+        });
+        var commit = await githubAPI('POST', '/repos/' + REPO + '/git/commits', {
+          message: 'Mise à jour du contenu via admin' + (uploads.length ? ' (' + uploads.length + ' photo(s))' : ''),
+          tree: tree.sha,
+          parents: [baseSha]
+        });
+        await githubAPI('PATCH', '/repos/' + REPO + '/git/refs/heads/' + BRANCH, { sha: commit.sha });
+        break;
+      } catch (err) {
+        if (attempt >= 2 || /modifié ailleurs/.test(err.message)) throw err;
       }
     }
 
-    // Remove failed collection items (those still with _file)
-    siteData.collection.photos = siteData.collection.photos.filter(function (p) {
-      return !p._file;
+    // 4. Success: apply to the page state. Previews stay on the local copies
+    //    until Vercel has deployed the new files.
+    siteData.bandeau = data.bandeau;
+    siteData.horaires = data.horaires;
+    siteData.hero.image = data.hero.image;
+    siteData.histoire.image = data.histoire.image;
+    siteData.collection.photos.forEach(function (p, i) {
+      p.image = data.collection.photos[i].image;
+      delete p._blob;
     });
-
-    if (totalImages > 0) setStatus('Sauvegarde du contenu...', 'saving');
-
-    // 4. Update text fields
-    siteData.bandeau.texte = document.getElementById('bandeau-text').value;
-    siteData.horaires.lundi = document.getElementById('horaire-lundi').value;
-    siteData.horaires.mardi_samedi = document.getElementById('horaire-mardi').value;
-    siteData.horaires.dimanche = document.getElementById('horaire-dimanche').value;
-
-    // 5. Save site.json
-    var cleanData = JSON.parse(JSON.stringify(siteData));
-    delete cleanData._sha;
-    cleanData.collection.photos.forEach(function (p) {
-      delete p._file;
-      delete p._dataUrl;
-    });
-
-    var jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(cleanData, null, 2))));
-
-    var result = await githubAPI('PUT', '/repos/' + REPO + '/contents/' + CONTENT_PATH, {
-      message: 'Mise à jour du contenu via admin',
-      content: jsonContent,
-      sha: siteData._sha,
-      branch: BRANCH
-    });
-
-    siteData._sha = result.content.sha;
-
-    // 6. Sync the static hero <img> src in index.html so it never lags behind
-    //    site.json (évite le flash de l'ancienne photo au chargement du site)
-    if (heroChanged) {
-      try { await syncHeroSrcInHtml(siteData.hero.image); }
-      catch (e) { /* non bloquant : site.json est déjà sauvegardé */ }
-    }
-
+    siteData._sha = jsonBlob.sha;
+    pendingUploads = {};
+    hasUnsavedChanges = false;
     renderCollection();
 
-    if (failed.length) {
-      setStatus('Enregistré, mais ' + failed.length + ' fichier(s) en échec : ' + failed.join(', '), 'error');
-    } else {
-      setStatus('Modifications enregistrées ! Le site sera mis à jour dans 1-2 minutes.', 'success');
-    }
+    setStatus('Modifications enregistrées ! Le site sera mis à jour dans 1-2 minutes.', 'success');
   } catch (err) {
-    setStatus('Erreur : ' + err.message, 'error');
+    setStatus('Erreur, rien n\'a été publié : ' + err.message, 'error');
   }
 
   btn.disabled = false;
   btn.textContent = 'Enregistrer les modifications';
-}
-
-async function syncHeroSrcInHtml(newSrc) {
-  // Rewrite the hero <img> src in index.html to match site.json.
-  // No-op if already in sync. Non-blocking: failures don't affect the save.
-  var file = await githubAPI('GET', '/repos/' + REPO + '/contents/index.html?ref=' + BRANCH);
-  var html = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))));
-  var re = /(id="cms-hero-img"\s+src=")[^"]*(")/;
-  if (!re.test(html)) return;
-  var updated = html.replace(re, '$1' + newSrc + '$2');
-  if (updated === html) return; // déjà synchronisé
-  var encoded = btoa(unescape(encodeURIComponent(updated)));
-  await githubAPI('PUT', '/repos/' + REPO + '/contents/index.html', {
-    message: 'Sync hero src via admin (' + newSrc + ')',
-    content: encoded,
-    sha: file.sha,
-    branch: BRANCH
-  });
-}
-
-async function uploadImage(file, name, type) {
-  var ext = file.name.split('.').pop().toLowerCase();
-  var finalExt = (file.size > 2 * 1024 * 1024) ? 'jpg' : ext;
-  var path = 'images/uploads/' + name + '.' + finalExt;
-  var base64 = await fileToBase64(file, type || 'collection');
-
-  // Check if file already exists
-  var sha = null;
-  try {
-    var existing = await githubAPI('GET', '/repos/' + REPO + '/contents/' + path + '?ref=' + BRANCH);
-    sha = existing.sha;
-  } catch (e) { /* file doesn't exist yet */ }
-
-  var body = {
-    message: 'Upload image: ' + name,
-    content: base64,
-    branch: BRANCH
-  };
-  if (sha) body.sha = sha;
-
-  await githubAPI('PUT', '/repos/' + REPO + '/contents/' + path, body);
-  return path;
-}
-
-function fileToBase64(file, type) {
-  // Max dimensions by usage context (retina-safe)
-  var dims = {
-    hero:       { maxW: 2400, maxH: 3200 },
-    histoire:   { maxW: 2000, maxH: 2667 },
-    collection: { maxW: 1400, maxH: 1867 }
-  };
-  var limit = dims[type] || dims.collection;
-
-  return new Promise(function (resolve, reject) {
-    var ext = file.name.split('.').pop().toLowerCase();
-    if (ext === 'heic' || ext === 'heif') {
-      reject(new Error('Format HEIC non supporté. Sur iPhone : Réglages → Appareil photo → Formats → "Le plus compatible".'));
-      return;
-    }
-    if (file.size > 2 * 1024 * 1024) {
-      var img = new Image();
-      var url = URL.createObjectURL(file);
-      img.onload = function () {
-        var w = img.width, h = img.height;
-        if (w > limit.maxW || h > limit.maxH) {
-          var ratio = Math.min(limit.maxW / w, limit.maxH / h);
-          w = Math.round(w * ratio);
-          h = Math.round(h * ratio);
-        }
-        var canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        URL.revokeObjectURL(url);
-        resolve(canvas.toDataURL('image/jpeg', 0.92).split(',')[1]);
-      };
-      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Image illisible')); };
-      img.src = url;
-    } else {
-      var reader = new FileReader();
-      reader.onload = function () { resolve(reader.result.split(',')[1]); };
-      reader.onerror = function () { reject(new Error('Lecture fichier impossible')); };
-      reader.readAsDataURL(file);
-    }
-  });
 }
 
 /* ─── STATUS ─── */
