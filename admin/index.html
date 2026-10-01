@@ -1063,14 +1063,21 @@ async function saveAll() {
         }
 
         var treeEntries = entries.slice();
-        // Keep the static hero src in index.html in sync with site.json
+        // Keep the static <img> src in index.html in sync with site.json
         // (évite le flash de l'ancienne photo au chargement du site)
-        if (pendingUploads.hero) {
+        var htmlSync = [];
+        if (pendingUploads.hero) htmlSync.push({ id: 'cms-hero-img', src: data.hero.image });
+        if (pendingUploads.histoire) htmlSync.push({ id: 'cms-histoire-img', src: data.histoire.image });
+        if (htmlSync.length) {
           var page = await githubAPI('GET', '/repos/' + REPO + '/contents/index.html?ref=' + baseSha);
           var html = b64ToUtf8(page.content);
-          var re = /(id="cms-hero-img"\s+src=")[^"]*(")/;
-          if (re.test(html)) {
-            var htmlBlob = await createGitBlob(html.replace(re, '$1' + data.hero.image + '$2'), 'utf-8');
+          var updated = html;
+          htmlSync.forEach(function (s) {
+            var re = new RegExp('(id="' + s.id + '"\\s+src=")[^"]*(")');
+            updated = updated.replace(re, '$1' + s.src + '$2');
+          });
+          if (updated !== html) {
+            var htmlBlob = await createGitBlob(updated, 'utf-8');
             treeEntries.push({ path: 'index.html', mode: '100644', type: 'blob', sha: htmlBlob.sha });
           }
         }
